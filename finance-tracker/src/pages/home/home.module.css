@@ -1,0 +1,90 @@
+.home > * {
+    padding: 0 40px;
+}
+
+.home header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+.home header div {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.home h1 {
+    font-size: 2rem;
+}
+
+.home button:active {
+    box-shadow: black 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+.home button, .hero button {
+    align-self: flex-start;
+    background-color: #6C63FF;
+    border: none;
+    border: 2px solid black;
+    color: white;
+    border-radius: 30px;
+    padding: 5px 20px;
+    box-shadow: black 4px 4px 0 0;
+    cursor: pointer;
+}
+
+.home section, 
+.home footer {
+    margin-top: 40px;
+}
+
+.hero button {
+    padding: 10px 50px;
+}
+
+.hero {
+    display: grid;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hero img {
+    width: 100%;
+}
+
+.features {
+    background-color: #ECECEC;
+}
+
+@media only screen and (min-width: 600px) {}
+
+@media only screen and (min-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .home h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .home h1 {
+        font-size: 3rem;
+    }
+
+    .hero div {
+        gap: 40px;
+    }
+}
