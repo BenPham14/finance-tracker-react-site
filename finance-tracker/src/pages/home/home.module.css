@@ -1,5 +1,7 @@
 .home > * {
-    padding: 0 40px;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1360px;
 }
 
 .home header {
@@ -9,10 +11,32 @@
     padding-top: 20px;
 }
 
-.home header div {
+.home nav > * {
+    cursor: pointer;
+}
+
+.rightLinks {
+    display: none;
+}
+
+.menuIcon {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+}
+
+.dropDown {
     display: flex;
-    align-items: center;
-    gap: 30px;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    top: 55px;
+    right: 40px;
+    text-align: center;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 .home h1 {
@@ -65,7 +89,18 @@
     background-color: #ECECEC;
 }
 
-@media only screen and (min-width: 600px) {}
+@media only screen and (min-width: 600px) {
+    .rightLinks {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .menuIcon,
+    .dropDown {
+        display: none;
+    }
+}
 
 @media only screen and (min-width: 768px) {
     .hero {
