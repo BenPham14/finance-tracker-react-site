@@ -29,6 +29,9 @@
 }
 
 .mobile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     position: relative;
 }
 
@@ -43,8 +46,8 @@
     flex-direction: column;
     gap: 10px;
     position: absolute;
-    top: 30px;
-    right: 0;
+    top: 35px;
+    right: 96px;
     text-align: center;
     background-color: white;
     border: 2px solid black;
@@ -76,6 +79,7 @@
 
 .hero button {
     padding: 10px 50px;
+    display: none;
 }
 
 .hero {
@@ -96,7 +100,7 @@
 
 .features,
 .home footer {
-    background-color: #ECECEC;
+    background-color: whitesmoke;
 }
 
 .features {
@@ -120,7 +124,6 @@
     background-color: white;
     border: 2px solid black;
     border-radius: 20px;
-    /* box-shadow: black 4px 4px 0 0; */
 }
 
 .featuresContent img {
@@ -143,19 +146,16 @@
     border: 1px solid black;
 }
 
-.faqContent {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 .faqContent div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 10px 20px;
+    border-top: 2px solid black;
+    padding: 20px;
+}
+
+.faqContent div:last-of-type {
+    border-bottom: 2px solid black;
 }
 
 .faqContent div > *:last-child {
@@ -164,6 +164,10 @@
 }
 
 @media only screen and (min-width: 600px) {
+    .mobile button {
+        display: none;
+    }
+
     .rightLinks {
         display: flex;
         align-items: center;
@@ -179,10 +183,20 @@
 @media only screen and (min-width: 768px) {
     .hero {
         grid-template-columns: 1fr 1fr;
+        /* height: 80vh; */
+    }
+
+    .hero button {
+        display: block;
     }
 
     .featuresContent {
         grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .home section, 
+    .home footer {
+        padding: 80px 0;
     }
 }
 
