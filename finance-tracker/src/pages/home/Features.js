@@ -1,9 +1,9 @@
 import { TbPigMoney } from 'react-icons/tb';
 import homeCSS from './home.module.css';
 
-const Features = () => {
+const Features = ({featuresScroll}) => {
     return (
-        <section className={homeCSS.features}>
+        <section className={homeCSS.features} ref={featuresScroll}>
             <h2>What We Offer</h2>
             <div className={homeCSS.featuresContent}>
                 <div>

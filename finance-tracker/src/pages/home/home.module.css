@@ -143,6 +143,26 @@
     border: 1px solid black;
 }
 
+.faqContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faqContent div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.faqContent div > *:last-child {
+    width: 25px;
+    height: auto;
+}
+
 @media only screen and (min-width: 600px) {
     .rightLinks {
         display: flex;
