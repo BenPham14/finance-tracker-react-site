@@ -10,7 +10,7 @@ const Hero = () => {
                     Track your expenses effortlessly and save more money with FinTracker, 
                     the smart and simple app that helps you manage your finances.
                 </p>
-                <button>Login</button>
+                <button id={homeCSS.login}>Login</button>
             </div>
             <img src={hero} alt="hero"/>
         </section>

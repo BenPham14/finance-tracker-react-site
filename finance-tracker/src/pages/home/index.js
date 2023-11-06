@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import homeCSS from './home.module.css';
 import { HiMenuAlt3 } from 'react-icons/hi';
-import { AiFillGithub } from 'react-icons/ai';
 import Hero from './Hero';
 import Features from './Features';
 import FAQ from './FAQ';
@@ -10,8 +9,8 @@ const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
     if (!toggle) return;
     return (
         <nav className={homeCSS.dropDown}>
-            <a onClick={scrollIntoFeatures}>Features</a>
-            <a onClick={scrollIntoFAQ}>FAQ</a>
+            <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
+            <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
         </nav>
     );
 };
@@ -42,12 +41,12 @@ const Home = () => {
                         scrollIntoFeatures={scrollIntoFeatures}
                         scrollIntoFAQ={scrollIntoFAQ}
                     />
-                    <button>Login</button>
+                    <button id={homeCSS.login}>Login</button>
                 </div>
                 <nav className={homeCSS.rightLinks}>
-                    <a onClick={scrollIntoFeatures}>Features</a>
-                    <a onClick={scrollIntoFAQ}>FAQ</a>
-                    <button>Login</button>
+                    <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
+                    <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
+                    <button id={homeCSS.login}>Login</button>
                 </nav>
             </header>
             <Hero/>

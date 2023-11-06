@@ -28,6 +28,13 @@
     display: none;
 }
 
+#link {
+    padding: 0;
+    border: none;
+    font-size: 1rem;
+    background-color: white;
+}
+
 .mobile {
     display: flex;
     align-items: center;
@@ -59,13 +66,7 @@
     font-size: 2rem;
 }
 
-.home button:active {
-    box-shadow: black 2px 2px 0 0;
-    transform: translate(2px, 2px);
-}
-
-.home button, 
-.hero button {
+#login {
     align-self: flex-start;
     background-color: #6C63FF;
     border: none;
@@ -77,7 +78,12 @@
     cursor: pointer;
 }
 
-.hero button {
+#login:active {
+    box-shadow: black 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+.hero #login {
     padding: 10px 50px;
     display: none;
 }
@@ -146,25 +152,27 @@
     border: 1px solid black;
 }
 
-.faqContent div {
+.faqQuestion {
+    border-top: 2px solid black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.faqQuestion div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-top: 2px solid black;
-    padding: 20px;
 }
 
-.faqContent div:last-of-type {
+.faqQuestion:last-of-type {
     border-bottom: 2px solid black;
 }
 
-.faqContent div > *:last-child {
-    width: 25px;
-    height: auto;
-}
-
 @media only screen and (min-width: 600px) {
-    .mobile button {
+    .mobile #login {
         display: none;
     }
 
@@ -186,8 +194,16 @@
         /* height: 80vh; */
     }
 
-    .hero button {
+    .hero #login {
         display: block;
+    }
+
+    .features {
+        gap: 40px;
+    }
+
+    .features h2 {
+        font-size: 1.7rem;
     }
 
     .featuresContent {
