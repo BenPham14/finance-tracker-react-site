@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import homeCSS from './home.module.css';
 import { HiMenuAlt3 } from 'react-icons/hi';
+import { FiArrowUp } from 'react-icons/fi';
 import Hero from './Hero';
 import Features from './Features';
 import FAQ from './FAQ';
@@ -17,6 +18,7 @@ const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
 
 const Home = () => {
     const [toggle, setToggle] = useState(false);
+    const [showUpButton, setShowUpButton] = useState(false);
     const featuresScroll = useRef(null);
     const faqScroll = useRef(null);
 
@@ -28,6 +30,22 @@ const Home = () => {
     const scrollIntoFAQ = () => {
         faqScroll.current.scrollIntoView({behavior: 'smooth'});
         setToggle(false);
+    };
+
+    useEffect(() => {
+        const handleScollButtonVisibility = () => {
+            window.scrollY > 300 ? setShowUpButton(true) : setShowUpButton(false);
+        };
+
+        window.addEventListener('scroll', handleScollButtonVisibility);
+
+        return () => {
+            window.removeEventListener('scroll', handleScollButtonVisibility);
+        };
+    }, []);
+
+    const handleScrollToTop = () => {
+        window.scrollTo({top: '0', behavior: 'smooth'})
     };
 
     return (
@@ -57,6 +75,12 @@ const Home = () => {
                     Footer
                 </div>
             </footer>
+            <FiArrowUp 
+                type='button' 
+                id={homeCSS.upButton} 
+                style={{display: !showUpButton && 'none'}}
+                onClick={handleScrollToTop}
+            />
         </main>
     );
 };

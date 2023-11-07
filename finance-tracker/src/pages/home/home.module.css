@@ -171,6 +171,23 @@
     border-bottom: 2px solid black;
 }
 
+#upButton {
+    position: fixed;
+    right: 20px;
+    bottom: 0;
+    padding: 5px;
+    border-top-right-radius: 50%;
+    border-top-left-radius: 50%;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    width: 40px;
+    height: auto;
+    background-color: #6C63FF;
+    color: white;
+    cursor: pointer;
+}
+
 @media only screen and (min-width: 600px) {
     .mobile #login {
         display: none;
