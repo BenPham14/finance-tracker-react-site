@@ -13,6 +13,29 @@
     padding: 40px 0;
 }
 
+.home h1 {
+    font-size: 2rem;
+}
+
+#login {
+    align-self: flex-start;
+    background-color: #6C63FF;
+    border: none;
+    border: 2px solid black;
+    color: white;
+    border-radius: 30px;
+    padding: 5px 20px;
+    box-shadow: black 4px 4px 0 0;
+    cursor: pointer;
+}
+
+#login:active {
+    box-shadow: black 2px 2px 0 0;
+    transform: translate(2px, 2px);
+}
+
+/* ----- Header ----- */
+
 .home header {
     display: flex;
     align-items: center;
@@ -62,26 +85,7 @@
     padding: 20px;
 }
 
-.home h1 {
-    font-size: 2rem;
-}
-
-#login {
-    align-self: flex-start;
-    background-color: #6C63FF;
-    border: none;
-    border: 2px solid black;
-    color: white;
-    border-radius: 30px;
-    padding: 5px 20px;
-    box-shadow: black 4px 4px 0 0;
-    cursor: pointer;
-}
-
-#login:active {
-    box-shadow: black 2px 2px 0 0;
-    transform: translate(2px, 2px);
-}
+/* ----- Hero ----- */
 
 .hero #login {
     padding: 10px 50px;
@@ -103,6 +107,8 @@
 .hero img {
     width: 100%;
 }
+
+/* ----- Features ----- */
 
 .features,
 .home footer {
@@ -151,6 +157,8 @@
     padding: 5px;
     border: 1px solid black;
 }
+
+/* ----- FAQ ----- */
 
 .faqQuestion {
     border-top: 2px solid black;

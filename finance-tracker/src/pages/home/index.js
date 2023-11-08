@@ -5,6 +5,7 @@ import { FiArrowUp } from 'react-icons/fi';
 import Hero from './Hero';
 import Features from './Features';
 import FAQ from './FAQ';
+import { useNavigate } from 'react-router-dom';
 
 const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
     if (!toggle) return;
@@ -21,6 +22,7 @@ const Home = () => {
     const [showUpButton, setShowUpButton] = useState(false);
     const featuresScroll = useRef(null);
     const faqScroll = useRef(null);
+    const navigate = useNavigate();
 
     const scrollIntoFeatures = () => {
         featuresScroll.current.scrollIntoView({behavior: 'smooth'});
@@ -59,12 +61,12 @@ const Home = () => {
                         scrollIntoFeatures={scrollIntoFeatures}
                         scrollIntoFAQ={scrollIntoFAQ}
                     />
-                    <button id={homeCSS.login}>Login</button>
+                    <button id={homeCSS.login} onClick={() => navigate('/login')}>Login</button>
                 </div>
                 <nav className={homeCSS.rightLinks}>
                     <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
                     <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
-                    <button id={homeCSS.login}>Login</button>
+                    <button id={homeCSS.login} onClick={() => navigate('/login')}>Login</button>
                 </nav>
             </header>
             <Hero/>
