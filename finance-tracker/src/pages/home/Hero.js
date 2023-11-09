@@ -1,10 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
 import homeCSS from './home.module.css';
 
-const Hero = () => {
-    const navigate = useNavigate();
-
+const Hero = ({setLoginOpen}) => {
     return (
         <section className={homeCSS.hero}>
             <div>
@@ -13,7 +10,7 @@ const Hero = () => {
                     Track your expenses effortlessly and save more money with FinTracker, 
                     the smart and simple app that helps you manage your finances.
                 </p>
-                <button id={homeCSS.login} onClick={() => navigate('/login')}>Login</button>
+                <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
             </div>
             <img src={hero} alt="hero"/>
         </section>

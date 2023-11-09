@@ -5,7 +5,7 @@ import { FiArrowUp } from 'react-icons/fi';
 import Hero from './Hero';
 import Features from './Features';
 import FAQ from './FAQ';
-import { useNavigate } from 'react-router-dom';
+import Login from './Login';
 
 const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
     if (!toggle) return;
@@ -20,9 +20,9 @@ const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
 const Home = () => {
     const [toggle, setToggle] = useState(false);
     const [showUpButton, setShowUpButton] = useState(false);
+    const [loginOpen, setLoginOpen] = useState(false);
     const featuresScroll = useRef(null);
     const faqScroll = useRef(null);
-    const navigate = useNavigate();
 
     const scrollIntoFeatures = () => {
         featuresScroll.current.scrollIntoView({behavior: 'smooth'});
@@ -61,15 +61,16 @@ const Home = () => {
                         scrollIntoFeatures={scrollIntoFeatures}
                         scrollIntoFAQ={scrollIntoFAQ}
                     />
-                    <button id={homeCSS.login} onClick={() => navigate('/login')}>Login</button>
+                    <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
                 </div>
                 <nav className={homeCSS.rightLinks}>
                     <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
                     <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
-                    <button id={homeCSS.login} onClick={() => navigate('/login')}>Login</button>
+                    <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
                 </nav>
             </header>
-            <Hero/>
+            <Login loginOpen={loginOpen} setLoginOpen={setLoginOpen}/>
+            <Hero setLoginOpen={setLoginOpen}/>
             <Features featuresScroll={featuresScroll}/>
             <FAQ faqScroll={faqScroll}/>
             <footer>
