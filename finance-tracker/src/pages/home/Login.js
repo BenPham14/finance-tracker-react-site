@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 import homeCSS from './home.module.css';
 import { FcGoogle } from 'react-icons/fc';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-const Login = ({loginOpen, setLoginOpen}) => {
+const Login = ({loginOpen, setLoginOpen, signInWithGoogle}) => {
     const loginRef = useRef(null);
 
     useEffect(() => {
@@ -13,13 +14,18 @@ const Login = ({loginOpen, setLoginOpen}) => {
                     setLoginOpen(false);
                 };
             });
+            // Disable scrolling when modal is open
+            document.body.style.overflow = 'hidden';
         } else {
             loginRef.current.close();
+            // Enable scrolling when modal is open
+            document.body.style.overflow = 'auto';
         }
     },[loginOpen]);
 
     return (
         <dialog ref={loginRef} className={homeCSS.login}>
+            <AiOutlineCloseCircle id={homeCSS.loginClose} onClick={() => setLoginOpen(false)}/>
             <form>
                 <label>
                     <p>Email Address</p>
@@ -34,7 +40,7 @@ const Login = ({loginOpen, setLoginOpen}) => {
                 <p id={homeCSS.signUp}>Don't have an account?<span><a href=''>Sign up</a></span></p>
             </form>
             <p id={homeCSS.divider}><span></span> Or <span></span></p>
-            <button id={homeCSS.google}>
+            <button id={homeCSS.google} onClick={signInWithGoogle}>
                 <FcGoogle/>
                 Continue with Google
             </button>

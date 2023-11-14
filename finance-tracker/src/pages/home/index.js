@@ -6,6 +6,11 @@ import Hero from './Hero';
 import Features from './Features';
 import FAQ from './FAQ';
 import Login from './Login';
+import Cookies from 'universal-cookie';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../config/firebase';
+
+const cookies = new Cookies();
 
 const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
     if (!toggle) return;
@@ -17,12 +22,33 @@ const DropDown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
     );
 };
 
-const Home = () => {
+const Home = ({setIsAuth}) => {
     const [toggle, setToggle] = useState(false);
     const [showUpButton, setShowUpButton] = useState(false);
     const [loginOpen, setLoginOpen] = useState(false);
     const featuresScroll = useRef(null);
     const faqScroll = useRef(null);
+
+    useEffect(() => {
+        // When the page is at a certain location, show return to top button
+        const handleScollButtonVisibility = () => {
+            window.scrollY > 300 ? setShowUpButton(true) : setShowUpButton(false);
+        };
+        window.addEventListener('scroll', handleScollButtonVisibility);
+        return () => {
+            window.removeEventListener('scroll', handleScollButtonVisibility);
+        };
+    }, []);
+
+    const signInWithGoogle = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            cookies.set('auth-token', result.user.refreshToken);
+            setIsAuth(true);
+        } catch(err) {
+            console.log(err);
+        };
+    };
 
     const scrollIntoFeatures = () => {
         featuresScroll.current.scrollIntoView({behavior: 'smooth'});
@@ -33,18 +59,6 @@ const Home = () => {
         faqScroll.current.scrollIntoView({behavior: 'smooth'});
         setToggle(false);
     };
-
-    useEffect(() => {
-        const handleScollButtonVisibility = () => {
-            window.scrollY > 300 ? setShowUpButton(true) : setShowUpButton(false);
-        };
-
-        window.addEventListener('scroll', handleScollButtonVisibility);
-
-        return () => {
-            window.removeEventListener('scroll', handleScollButtonVisibility);
-        };
-    }, []);
 
     const handleScrollToTop = () => {
         window.scrollTo({top: '0', behavior: 'smooth'})
@@ -69,7 +83,11 @@ const Home = () => {
                     <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
                 </nav>
             </header>
-            <Login loginOpen={loginOpen} setLoginOpen={setLoginOpen}/>
+            <Login 
+                loginOpen={loginOpen} 
+                setLoginOpen={setLoginOpen}
+                signInWithGoogle={signInWithGoogle}
+            />
             <Hero setLoginOpen={setLoginOpen}/>
             <Features featuresScroll={featuresScroll}/>
             <FAQ faqScroll={faqScroll}/>
