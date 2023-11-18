@@ -1,7 +1,38 @@
-.main aside {
-    position: absolute;
-    width: 100%;
+.main {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1360px;
+    display: grid;
+    gap: 30px;
+    padding-top: 20px;
+}
+
+.main header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main button {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
     background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+    cursor: pointer;
+}
+
+.main button p:first-of-type {
+    font-weight: bold;
+}
+
+.main aside {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 .main aside > div {
@@ -9,26 +40,36 @@
     flex-direction: column;
 }
 
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.main aside .sectionHeader {
+    margin-bottom: 0;
+}
+
 .summaryItems,
 .bucketItems {
     display: grid;
-    gap: 10px;
 }
 
-.summaryItems > div,
-.bucketItems > div {
-    border: 1px solid black;
-    border-radius: 5px;
+.main aside > div,
+.summaryItems,
+.bucketItems {
+    gap: 15px;
+}
+
+.bucketItems {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 @media only screen and (min-width: 600px) {
-    .main aside {
-        position: static;
-    }
-
     .main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: auto 1fr;
     }
 
     .main header {
@@ -38,8 +79,28 @@
     .main aside {
         grid-row: span 3;
     }
+
+    .bucketItems {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media only screen and (min-width: 768px) {
+    .summaryItems {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
+    .bucketItems {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .summaryItems {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .bucketItems {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }

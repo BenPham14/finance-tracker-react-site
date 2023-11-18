@@ -1,14 +1,21 @@
 import mainCSS from './main.module.css';
+import { FaBucket, FaLandmark, FaCreditCard, FaCalendar, FaMoneyBillTransfer } from "react-icons/fa6";
+
 
 const Main = () => {
     return (
         <main className={mainCSS.main}>
             <header>
                 <h1>FinTracker</h1>
+                <img src='' alt='Profile'/>
             </header>
+
             <aside>
                 <div>
-                    <p>Accounts</p>
+                    <div className={mainCSS.sectionHeader}>
+                        <FaLandmark/>
+                        <p>Accounts</p>
+                    </div>
                     <button>
                         <p>Account 1</p>
                         <p>$0.00</p>
@@ -23,7 +30,10 @@ const Main = () => {
                     </button>
                 </div>
                 <div>
-                    <p>Budgets</p>
+                    <div className={mainCSS.sectionHeader}>
+                        <FaMoneyBillTransfer/>
+                        <p>Budgets</p>
+                    </div>
                     <button>
                         <p>Budget 1</p>
                         <p>$0.00 out of $0.00</p>
@@ -34,25 +44,33 @@ const Main = () => {
                     </button>
                 </div>
             </aside>
+
             <section className={mainCSS.summary}>
-                <p>Summary</p>
+                <div className={mainCSS.sectionHeader}>
+                    <FaCalendar/>
+                    <p>Summary</p>
+                </div>
                 <div className={mainCSS.summaryItems}>
-                    <div>
+                    <button>
                         <p>Today</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>This Week</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>This Month</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>This Year</p>
-                    </div>
+                    </button>
                 </div>
             </section>
+
             <section className={mainCSS.transactions}>
-                <p>Transactions</p>
+                <div className={mainCSS.sectionHeader}>
+                    <FaCreditCard/>
+                    <p>Transactions</p>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -70,45 +88,49 @@ const Main = () => {
                     </tbody>
                 </table>
             </section>
+
             <section className={mainCSS.buckets}>
-                <p>Buckets</p>
+                <div className={mainCSS.sectionHeader}>
+                    <FaBucket/>
+                    <p>Buckets</p>
+                </div>
                 <div className={mainCSS.bucketItems}>
-                    <div>
+                    <button>
                         <p>Shopping</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Restuarants</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Groceries</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Entertainment</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Bills</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Education</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Transportation</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Investments</p>
                         <p>$0.00</p>
-                    </div>
-                    <div>
+                    </button>
+                    <button>
                         <p>Health</p>
                         <p>$0.00</p>
-                    </div>
+                    </button>
                 </div>
             </section>
         </main>
