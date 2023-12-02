@@ -29,27 +29,49 @@
     font-weight: bold;
 }
 
+.main button,
+.transactions table {
+    font-size: 0.875rem;
+}
+
+.transactions table {
+    min-width: 100%;
+}
+
+.transactions th {
+    text-align: start;
+}
+
 .main aside {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.main aside > div {
-    display: flex;
-    flex-direction: column;
-}
-
 .sectionHeader {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 15px;
-    margin-left: 10px;
+    padding: 0 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    width: fit-content;
 }
 
-.main aside .sectionHeader {
-    margin-bottom: 0;
+.accountsItems,
+.budgetsItems,
+.summaryItems,
+.bucketItems,
+.transactions table {
+    gap: 15px;
+    border-top: 0.5px solid gray;
+    padding-top: 15px;
+}
+
+.accountsItems,
+.budgetsItems {
+    display: flex;
+    flex-direction: column;
 }
 
 .summaryItems,
@@ -57,19 +79,19 @@
     display: grid;
 }
 
-.main aside > div,
-.summaryItems,
-.bucketItems {
-    gap: 15px;
-}
-
 .bucketItems {
     grid-template-columns: repeat(2, 1fr);
 }
 
+.accountsItems button p:last-of-type,
+.budgetsItems button p:last-of-type,
+.bucketItems button p:last-of-type {
+    font-size: 0.75rem;
+}
+
 @media only screen and (min-width: 600px) {
     .main {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1fr 3fr;
     }
 
     .main header {

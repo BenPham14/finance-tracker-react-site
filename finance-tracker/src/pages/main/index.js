@@ -11,37 +11,42 @@ const Main = () => {
             </header>
 
             <aside>
-                <div>
+                <div className={mainCSS.accounts}>
                     <div className={mainCSS.sectionHeader}>
                         <FaLandmark/>
                         <p>Accounts</p>
                     </div>
-                    <button>
-                        <p>Account 1</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Account 2</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Account 3</p>
-                        <p>$0.00</p>
-                    </button>
+                    <div className={mainCSS.accountsItems}>
+                        <button>
+                            <p>Account 1</p>
+                            <p>$0.00</p>
+                        </button>
+                        <button>
+                            <p>Account 2</p>
+                            <p>$0.00</p>
+                        </button>
+                        <button>
+                            <p>Account 3</p>
+                            <p>$0.00</p>
+                        </button>
+                    </div>
+                    
                 </div>
-                <div>
+                <div className={mainCSS.budgets}>
                     <div className={mainCSS.sectionHeader}>
                         <FaMoneyBillTransfer/>
                         <p>Budgets</p>
                     </div>
-                    <button>
-                        <p>Budget 1</p>
-                        <p>$0.00 out of $0.00</p>
-                    </button>
-                    <button>
-                        <p>Budget 2</p>
-                        <p>$0.00 out of $0.00</p>
-                    </button>
+                    <div className={mainCSS.budgetsItems}>
+                        <button>
+                            <p>Budget 1</p>
+                            <p>$0.00 out of $0.00</p>
+                        </button>
+                        <button>
+                            <p>Budget 2</p>
+                            <p>$0.00 out of $0.00</p>
+                        </button>
+                    </div>
                 </div>
             </aside>
 
