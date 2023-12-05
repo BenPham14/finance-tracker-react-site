@@ -1,8 +1,65 @@
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import NewUser from './NewUser';
 import mainCSS from './main.module.css';
 import { FaBucket, FaLandmark, FaCreditCard, FaCalendar, FaMoneyBillTransfer } from "react-icons/fa6";
+import { auth, db } from '../../config/firebase';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 const Main = () => {
+    // const accounts = [
+    //     {name: "Account", amount: "0.00"},
+    //     {name: "Account", amount: "0.00"},
+    //     {name: "Account", amount: "0.00"}
+    // ];
+
+    const budgets = [
+        {name: "Budget", amount: "0.00", limit: "0.00"},
+        {name: "Budget", amount: "0.00", limit: "0.00"}
+    ];
+
+    const transactions = [
+        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
+        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
+        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
+        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"}
+    ];
+
+    const buckets = [
+        {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
+        {name: "Groceries", amount: "0.00"}, {name: "Entertainment", amount: "0.00"},
+        {name: "Bills", amount: "0.00"}, {name: "Education", amount: "0.00"},
+        {name: "Transportation", amount: "0.00"}, {name: "Investments", amount: "0.00"},
+        {name: "Health", amount: "0.00"}, {name: "Pets", amount: "0.00"}
+    ];
+
+    const [accounts, setAccounts] = useState([]);
+    const accountsRef = collection(db, 'accounts');
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const queryAccounts = query(
+                    accountsRef, 
+                    where('uid', '==', user.uid)
+                );
+                const unsubscribe = onSnapshot(queryAccounts, (snapshot) => {
+                    let accounts = [];
+                    snapshot.forEach((doc) => {
+                        accounts.push({...doc.data(), id: doc.id});
+                    });
+                    setAccounts(accounts);
+                });
+                return () => unsubscribe();
+            }
+        })
+    }, []);
+
+    if (accounts.length === 0) {
+        return <NewUser/>;
+    };
+
     return (
         <main className={mainCSS.main}>
             <header>
@@ -17,18 +74,14 @@ const Main = () => {
                         <p>Accounts</p>
                     </div>
                     <div className={mainCSS.accountsItems}>
-                        <button>
-                            <p>Account 1</p>
-                            <p>$0.00</p>
-                        </button>
-                        <button>
-                            <p>Account 2</p>
-                            <p>$0.00</p>
-                        </button>
-                        <button>
-                            <p>Account 3</p>
-                            <p>$0.00</p>
-                        </button>
+                        {
+                            accounts.map((account, index) => (
+                                <button key={index}>
+                                    <p>{account.name}</p>
+                                    <p>${account.amount}</p>
+                                </button>
+                            ))
+                        }
                     </div>
                     
                 </div>
@@ -38,14 +91,14 @@ const Main = () => {
                         <p>Budgets</p>
                     </div>
                     <div className={mainCSS.budgetsItems}>
-                        <button>
-                            <p>Budget 1</p>
-                            <p>$0.00 out of $0.00</p>
-                        </button>
-                        <button>
-                            <p>Budget 2</p>
-                            <p>$0.00 out of $0.00</p>
-                        </button>
+                        {
+                            budgets.map((budget, index) => (
+                                <button key={index}>
+                                    <p>{budget.name}</p>
+                                    <p>${budget.amount} out of ${budget.limit}</p>
+                                </button>
+                            ))
+                        }
                     </div>
                 </div>
             </aside>
@@ -80,16 +133,22 @@ const Main = () => {
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Date</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Example</td>
-                            <td>1/1/2023</td>
-                            <td>$0.00</td>
-                        </tr>
+                        {
+                            transactions.map((transaction, index) => (
+                                <tr key={index}>
+                                    <td>{transaction.name}</td>
+                                    <td>{transaction.category}</td>
+                                    <td>{transaction.date}</td>
+                                    <td>${transaction.amount}</td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </section>
@@ -100,42 +159,14 @@ const Main = () => {
                     <p>Buckets</p>
                 </div>
                 <div className={mainCSS.bucketItems}>
-                    <button>
-                        <p>Shopping</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Restuarants</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Groceries</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Entertainment</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Bills</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Education</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Transportation</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Investments</p>
-                        <p>$0.00</p>
-                    </button>
-                    <button>
-                        <p>Health</p>
-                        <p>$0.00</p>
-                    </button>
+                    {
+                        buckets.map((bucket, index) => (
+                            <button key={index}>
+                                <p>{bucket.name}</p>
+                                <p>${bucket.amount}</p>
+                            </button>
+                        ))
+                    }
                 </div>
             </section>
         </main>

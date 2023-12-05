@@ -1,3 +1,11 @@
+/* .dark * {
+    color: white;
+} */
+
+.dark {
+    background-color: rgb(25, 25, 25);
+}
+
 .main {
     margin: 0 auto;
     width: 90%;
@@ -13,6 +21,12 @@
     justify-content: space-between;
 }
 
+.main aside {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .main button {
     display: flex;
     flex-direction: column;
@@ -25,6 +39,10 @@
     cursor: pointer;
 }
 
+.main button:hover {
+    background-color: whitesmoke;
+}
+
 .main button p:first-of-type {
     font-weight: bold;
 }
@@ -34,18 +52,25 @@
     font-size: 0.875rem;
 }
 
-.transactions table {
-    min-width: 100%;
+.transactions table,
+.transactions th:nth-child(1) {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions th,
+.transactions td {
+    padding: 10px 0;
+    border-bottom: 0.5px solid gray;
 }
 
 .transactions th {
     text-align: start;
 }
 
-.main aside {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+.transactions th:not(:nth-child(4)),
+.transactions td:not(:nth-child(4)) {
+    padding-right: 30px;
 }
 
 .sectionHeader {
