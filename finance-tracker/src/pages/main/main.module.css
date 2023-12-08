@@ -1,11 +1,3 @@
-/* .dark * {
-    color: white;
-} */
-
-.dark {
-    background-color: rgb(25, 25, 25);
-}
-
 .main {
     margin: 0 auto;
     width: 90%;
@@ -112,6 +104,46 @@
 .budgetsItems button p:last-of-type,
 .bucketItems button p:last-of-type {
     font-size: 0.75rem;
+}
+
+.newUser {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.carouselItem {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.carouselItem img {
+    max-width: 400px;
+}
+
+.carouselNav {
+    display: flex;
+    gap: 10px;
+}
+
+.carouselNav button {
+    background-color: #6C63FF;
+    border: none;
+    border: 2px solid black;
+    color: white;
+    border-radius: 30px;
+    padding: 5px 20px;
+    box-shadow: black 4px 4px 0 0;
+    cursor: pointer;
+}
+
+.carouselNav button:active {
+    box-shadow: black 2px 2px 0 0;
+    transform: translate(2px, 2px);
 }
 
 @media only screen and (min-width: 600px) {
