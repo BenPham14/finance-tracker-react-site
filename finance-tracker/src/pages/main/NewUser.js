@@ -7,42 +7,53 @@ const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
         <div className={mainCSS.carouselItem} style={{display: currentStep !== id && 'none'}}>
             <h2>{title}</h2>
             <img src={image} alt={title}/>
-            {custom}
             <p>{text}</p>
+            {custom}
         </div>
     );
 };
 
 const NewUser = () => {
     const items = [
-        {id: 1, title: 'Get Started', image: hero, text: 'text', custom: ''},
-        {id: 2, title: 'Create Account', image: hero, text: 'text', custom: <input/>},
-        {id: 3, title: 'Create Budget', image: hero, text: 'text', custom: <input/>},
-        {id: 4, title: 'All Set', image: hero, text: 'text', custom: ''},
+        {id: 1, title: 'Get Started', image: hero, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", custom: ''},
+        {id: 2, title: 'Create Account', image: hero, text: "Enter a name for your first account:", custom: <input/>},
+        {id: 3, title: 'Create Budget', image: hero, text: "Enter a name for your first budget:", custom: <input/>},
+        {id: 4, title: 'All Set', image: hero, text: 'You are all set! Let the budgeting begin!', custom: ''},
     ];
 
     const [currentStep, setCurrentStep] = useState(1);
 
-    const backCurrentStep = () => {
+    const decrementStep = () => {
         if (currentStep > 1) {
             setCurrentStep(currentStep - 1);
         };
     };
 
-    const nextCurrentStep = () => {
-        if (currentStep < 4) {
+    const incrementStep = () => {
+        if (currentStep < items.length) {
             setCurrentStep(currentStep + 1);
         };
     };
 
     return (
         <main className={mainCSS.newUser}>
-            <h1>Welcome</h1>
+            {/* <h1>Steps here . . . .</h1> */}
             <div className={mainCSS.steps}>
-                <img src='' alt=''/>
-                <img src='' alt=''/>
-                <img src='' alt=''/>
-                <img src='' alt=''/>
+                {
+                    items.map((item) => (
+                        <>
+                            <p id={item.id} style={{backgroundColor: currentStep >= item.id && '#6C63FF', color: currentStep >= item.id && 'white'}}>{item.id}</p>
+                            <hr/>
+                        </>
+                    ))
+                }
+                {/* <p>1</p>
+                <hr/>
+                <p>2</p>
+                <hr/>
+                <p>3</p>
+                <hr/>
+                <p>4</p> */}
             </div>
             <div className={mainCSS.carousel}>
                 {
@@ -59,8 +70,8 @@ const NewUser = () => {
                 }
             </div>
             <div className={mainCSS.carouselNav}>
-                <button onClick={backCurrentStep}>Back</button>
-                <button onClick={nextCurrentStep}>Next</button>
+                <button onClick={decrementStep} style={{backgroundColor: currentStep === 1 && '#6b63ff80'}}>Back</button>
+                <button onClick={incrementStep}>Next</button>
             </div>
         </main>
     );

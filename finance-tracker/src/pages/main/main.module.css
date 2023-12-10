@@ -114,29 +114,80 @@
     height: 100vh;
 }
 
-.carouselItem {
+.steps {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.steps p {
     background-color: white;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+}
+
+/* .steps p:first-of-type {
+    background-color: #6C63FF;
+    color: white;
+} */
+
+.steps hr {
+    width: 50px;
+    height: 2px;
+    background-color: black;
+    border: none;
+}
+
+.steps hr:last-of-type {
+    display: none;
+}
+
+.carousel {
+    width: 90%;
+    max-width: 460px;
+}
+
+.carousel input {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: whitesmoke;
+    padding: 0 15px;
+}
+
+.carouselItem {
+    height: 460px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
+    gap: 30px;
 }
 
 .carouselItem img {
-    max-width: 400px;
+    max-width: 320px;
 }
 
 .carouselNav {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
 .carouselNav button {
+    margin: 30px 0;
+    padding: 5px 20px;
+    color: white;
     background-color: #6C63FF;
     border: none;
     border: 2px solid black;
-    color: white;
     border-radius: 30px;
-    padding: 5px 20px;
     box-shadow: black 4px 4px 0 0;
     cursor: pointer;
 }
@@ -144,6 +195,16 @@
 .carouselNav button:active {
     box-shadow: black 2px 2px 0 0;
     transform: translate(2px, 2px);
+}
+
+@media only screen and (max-width: 360px) {
+    .carouselItem img {
+        max-width: 240px;
+    }
+
+    .steps hr {
+        width: 30px;
+    }
 }
 
 @media only screen and (min-width: 600px) {
