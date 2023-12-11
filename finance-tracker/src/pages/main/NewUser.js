@@ -4,6 +4,9 @@ import account from '../../assets/undraw_online_payments_re_y8f2.svg';
 import budget from '../../assets/undraw_transfer_money_re_6o1h.svg';
 import allSet from '../../assets/undraw_done_re_oak4.svg';
 import { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, db } from '../../config/firebase';
+import {v4 as uuidv4} from 'uuid';
 
 const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
     return (
@@ -18,6 +21,7 @@ const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
 
 const NewUser = () => {
     const [accountValue, setAccountValue] = useState('');
+    const accountId = uuidv4();
     const [budgetValue, setBudgetValue] = useState('');
     const items = [
         {id: 1, title: 'Get Started', image: getStarted, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", custom: ''},
@@ -66,6 +70,30 @@ const NewUser = () => {
         };
     };
 
+    const accountsRef = collection(db, "accounts");
+    const budgetsRef = collection(db, "budgets");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        await addDoc(accountsRef, {
+            uid: auth.currentUser.uid,
+            id: accountId,
+            name: accountValue,
+            amount: '0'
+        });
+
+        await addDoc(budgetsRef, {
+            uid: auth.currentUser.uid,
+            id: uuidv4(),
+            name: budgetValue,
+            amount: '0',
+            limit: '0',
+            accountId: accountId,
+            accountName: accountValue
+        });
+    };
+
     return (
         <main className={mainCSS.newUser}>
             <div className={mainCSS.steps}>
@@ -78,7 +106,7 @@ const NewUser = () => {
                     ))
                 }
             </div>
-            <form id='new-user' className={mainCSS.carousel}>
+            <form id='new-user' className={mainCSS.carousel} onSubmit={handleSubmit}>
                 {
                     items.map((item) => (
                         <CarouselItem key={item.id}
