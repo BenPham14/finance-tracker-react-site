@@ -1,5 +1,8 @@
 import mainCSS from './main.module.css';
-import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
+import getStarted from '../../assets/undraw_start_building_re_xani.svg';
+import account from '../../assets/undraw_online_payments_re_y8f2.svg';
+import budget from '../../assets/undraw_transfer_money_re_6o1h.svg';
+import allSet from '../../assets/undraw_done_re_oak4.svg';
 import { useState } from 'react';
 
 const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
@@ -14,11 +17,13 @@ const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
 };
 
 const NewUser = () => {
+    const [accountValue, setAccountValue] = useState('');
+    const [budgetValue, setBudgetValue] = useState('');
     const items = [
-        {id: 1, title: 'Get Started', image: hero, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", custom: ''},
-        {id: 2, title: 'Create Account', image: hero, text: "Enter a name for your first account:", custom: <input/>},
-        {id: 3, title: 'Create Budget', image: hero, text: "Enter a name for your first budget:", custom: <input/>},
-        {id: 4, title: 'All Set', image: hero, text: 'You are all set! Let the budgeting begin!', custom: ''},
+        {id: 1, title: 'Get Started', image: getStarted, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", custom: ''},
+        {id: 2, title: 'Create Account', image: account, text: "Enter a name for your first account:", custom: <input value={accountValue} onChange={(e) => setAccountValue(e.target.value)}/>},
+        {id: 3, title: 'Create Budget', image: budget, text: "Enter a name for your first budget:", custom: <input value={budgetValue} onChange={(e) => setBudgetValue(e.target.value)}/>},
+        {id: 4, title: 'All Set', image: allSet, text: 'You are all set! Let the budgeting begin!', custom: ''},
     ];
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -30,14 +35,39 @@ const NewUser = () => {
     };
 
     const incrementStep = () => {
-        if (currentStep < items.length) {
+        if ((currentStep === 2 && accountValue === '') || (currentStep === 3 && budgetValue === '')) {
+            return
+        } else if (currentStep < items.length) {
             setCurrentStep(currentStep + 1);
+        };
+    };
+
+    const fadeBackButton = () => {
+        if (currentStep === 1) {
+            return '#6b63ff80';
+        };
+    };
+
+    const fadeNextButton = () => {
+        if ((currentStep === 2 && accountValue === '') || (currentStep === 3 && budgetValue === '')) {
+            return '#6b63ff80';
+        };
+    };
+
+    const hideNextButton = () => {
+        if (currentStep === 4) {
+            return 'none';
+        };
+    };
+
+    const showFinishButton = () => {
+        if (currentStep != 4) {
+            return 'none';
         };
     };
 
     return (
         <main className={mainCSS.newUser}>
-            {/* <h1>Steps here . . . .</h1> */}
             <div className={mainCSS.steps}>
                 {
                     items.map((item) => (
@@ -47,15 +77,8 @@ const NewUser = () => {
                         </>
                     ))
                 }
-                {/* <p>1</p>
-                <hr/>
-                <p>2</p>
-                <hr/>
-                <p>3</p>
-                <hr/>
-                <p>4</p> */}
             </div>
-            <div className={mainCSS.carousel}>
+            <form id='new-user' className={mainCSS.carousel}>
                 {
                     items.map((item) => (
                         <CarouselItem key={item.id}
@@ -68,10 +91,11 @@ const NewUser = () => {
                         />
                     ))
                 }
-            </div>
+            </form>
             <div className={mainCSS.carouselNav}>
-                <button onClick={decrementStep} style={{backgroundColor: currentStep === 1 && '#6b63ff80'}}>Back</button>
-                <button onClick={incrementStep}>Next</button>
+                <button onClick={decrementStep} style={{backgroundColor: fadeBackButton()}}>Back</button>
+                <button onClick={incrementStep} style={{backgroundColor: fadeNextButton(), display: hideNextButton()}}>Next</button>
+                <button type='submit' form='new-user' style={{display: showFinishButton()}}>Finish</button>
             </div>
         </main>
     );
