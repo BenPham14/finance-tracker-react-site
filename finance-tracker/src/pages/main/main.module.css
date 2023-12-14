@@ -5,12 +5,20 @@
     display: grid;
     gap: 30px;
     padding-top: 20px;
+    padding-bottom: 30px;
 }
 
 .main header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.profile {
+    width: 25px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+    cursor: pointer;
 }
 
 .main aside {
@@ -39,6 +47,17 @@
     font-weight: bold;
 }
 
+/* .actionsItems button {
+    background-color: #6C63FF;
+    background-color: black;
+    color: white;
+}
+
+.actionsItems button:hover {
+    background-color: #6b63ffcc;
+    background-color: rgba(0, 0, 0, 0.75);
+} */
+
 .main button,
 .transactions table {
     font-size: 0.875rem;
@@ -65,6 +84,10 @@
     padding-right: 30px;
 }
 
+#transactionCategory {
+    display: none;
+}
+
 .sectionHeader {
     display: flex;
     align-items: center;
@@ -75,16 +98,14 @@
     width: fit-content;
 }
 
-.accountsItems,
-.budgetsItems,
-.summaryItems,
-.bucketItems,
+.items,
 .transactions table {
     gap: 15px;
     border-top: 0.5px solid gray;
     padding-top: 15px;
 }
 
+.actionsItems,
 .accountsItems,
 .budgetsItems {
     display: flex;
@@ -133,7 +154,7 @@
 }
 
 .steps hr {
-    width: 50px;
+    width: 30px;
     height: 2px;
     background-color: black;
     border: none;
@@ -171,7 +192,7 @@
 }
 
 .carouselItem img {
-    max-height: 220px;
+    max-height: 160px;
 }
 
 .carouselNav {
@@ -196,13 +217,13 @@
     transform: translate(2px, 2px);
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (min-width: 360px) {
     .carouselItem img {
-        max-height: 160px;
+        max-height: 220px;
     }
 
     .steps hr {
-        width: 30px;
+        width: 50px;
     }
 }
 
@@ -221,6 +242,10 @@
 
     .bucketItems {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    #transactionCategory {
+        display: block;
     }
 }
 

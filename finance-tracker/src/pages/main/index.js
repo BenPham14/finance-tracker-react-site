@@ -1,24 +1,16 @@
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import NewUser from './NewUser';
 import mainCSS from './main.module.css';
-import { FaBucket, FaLandmark, FaCreditCard, FaCalendar, FaMoneyBillTransfer } from "react-icons/fa6";
+import NewUser from './NewUser';
+import Aside from './Aside.js';
+import Summary from './Summary.js';
+import Transactions from './Transactions.js';
+import Buckets from './Buckets.js';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 
 
 const Main = () => {
-    // const accounts = [
-    //     {name: "Account", amount: "0.00"},
-    //     {name: "Account", amount: "0.00"},
-    //     {name: "Account", amount: "0.00"}
-    // ];
-
-    const budgets = [
-        {name: "Budget", amount: "0.00", limit: "0.00"},
-        {name: "Budget", amount: "0.00", limit: "0.00"}
-    ];
-
     const transactions = [
         {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
         {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
@@ -36,6 +28,8 @@ const Main = () => {
 
     const [accounts, setAccounts] = useState([]);
     const accountsRef = collection(db, 'accounts');
+    const [budgets, setBudgets] = useState([]);
+    const budgetsRef = collection(db, 'budgets');
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -44,17 +38,32 @@ const Main = () => {
                     accountsRef, 
                     where('uid', '==', user.uid)
                 );
-                const unsubscribe = onSnapshot(queryAccounts, (snapshot) => {
+                const unsubscribe1 = onSnapshot(queryAccounts, (snapshot) => {
                     let accounts = [];
                     snapshot.forEach((doc) => {
                         accounts.push({...doc.data(), id: doc.id});
                     });
                     setAccounts(accounts);
                 });
-                return () => unsubscribe();
+
+                const queryBudgets = query(
+                    budgetsRef,
+                    where('uid', '==', user.uid)
+                );
+                const unsubscribe2 = onSnapshot(queryBudgets, (snapshot) => {
+                    let budgets = [];
+                    snapshot.forEach((doc) => {
+                        budgets.push({...doc.data(), id: doc.id});
+                    });
+                    setBudgets(budgets);
+                });
+                return () => {
+                    unsubscribe1();
+                    unsubscribe2();
+                };
             }
         })
-    }, []);
+    });
 
     if (accounts.length === 0) {
         return <NewUser/>;
@@ -64,111 +73,16 @@ const Main = () => {
         <main className={mainCSS.main}>
             <header>
                 <h1>FinTracker</h1>
-                <img src='' alt='Profile'/>
+                <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile'/>
             </header>
 
-            <aside>
-                <div className={mainCSS.accounts}>
-                    <div className={mainCSS.sectionHeader}>
-                        <FaLandmark/>
-                        <p>Accounts</p>
-                    </div>
-                    <div className={mainCSS.accountsItems}>
-                        {
-                            accounts.map((account, index) => (
-                                <button key={index}>
-                                    <p>{account.name}</p>
-                                    <p>${account.amount}</p>
-                                </button>
-                            ))
-                        }
-                    </div>
-                    
-                </div>
-                <div className={mainCSS.budgets}>
-                    <div className={mainCSS.sectionHeader}>
-                        <FaMoneyBillTransfer/>
-                        <p>Budgets</p>
-                    </div>
-                    <div className={mainCSS.budgetsItems}>
-                        {
-                            budgets.map((budget, index) => (
-                                <button key={index}>
-                                    <p>{budget.name}</p>
-                                    <p>${budget.amount} out of ${budget.limit}</p>
-                                </button>
-                            ))
-                        }
-                    </div>
-                </div>
-            </aside>
+            <Aside accounts={accounts} budgets={budgets} buckets={buckets}/>
 
-            <section className={mainCSS.summary}>
-                <div className={mainCSS.sectionHeader}>
-                    <FaCalendar/>
-                    <p>Summary</p>
-                </div>
-                <div className={mainCSS.summaryItems}>
-                    <button>
-                        <p>Today</p>
-                    </button>
-                    <button>
-                        <p>This Week</p>
-                    </button>
-                    <button>
-                        <p>This Month</p>
-                    </button>
-                    <button>
-                        <p>This Year</p>
-                    </button>
-                </div>
-            </section>
+            <Summary/>
 
-            <section className={mainCSS.transactions}>
-                <div className={mainCSS.sectionHeader}>
-                    <FaCreditCard/>
-                    <p>Transactions</p>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            transactions.map((transaction, index) => (
-                                <tr key={index}>
-                                    <td>{transaction.name}</td>
-                                    <td>{transaction.category}</td>
-                                    <td>{transaction.date}</td>
-                                    <td>${transaction.amount}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-            </section>
+            <Transactions transactions={transactions}/>
 
-            <section className={mainCSS.buckets}>
-                <div className={mainCSS.sectionHeader}>
-                    <FaBucket/>
-                    <p>Buckets</p>
-                </div>
-                <div className={mainCSS.bucketItems}>
-                    {
-                        buckets.map((bucket, index) => (
-                            <button key={index}>
-                                <p>{bucket.name}</p>
-                                <p>${bucket.amount}</p>
-                            </button>
-                        ))
-                    }
-                </div>
-            </section>
+            <Buckets buckets={buckets}/>
         </main>
     );
 };

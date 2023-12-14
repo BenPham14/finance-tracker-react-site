@@ -23,6 +23,7 @@ const NewUser = () => {
     const [accountValue, setAccountValue] = useState('');
     const accountId = uuidv4();
     const [budgetValue, setBudgetValue] = useState('');
+
     const items = [
         {id: 1, title: 'Get Started', image: getStarted, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", custom: ''},
         {id: 2, title: 'Create Account', image: account, text: "Enter a name for your first account:", custom: <input value={accountValue} onChange={(e) => setAccountValue(e.target.value)}/>},
@@ -65,7 +66,7 @@ const NewUser = () => {
     };
 
     const showFinishButton = () => {
-        if (currentStep != 4) {
+        if (currentStep !== 4) {
             return 'none';
         };
     };
