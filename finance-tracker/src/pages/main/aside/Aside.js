@@ -1,7 +1,20 @@
-import mainCSS from './main.module.css';
+import mainCSS from '../main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
+import AddTransactions from './AddTransactions';
+import { useEffect, useRef, useState } from 'react';
 
 const Aside = ({accounts, budgets, buckets}) => {
+    const [transactionsOpen, setTransactionsOpen] = useState(false);
+    const transactionsRef = useRef(null);
+
+    useEffect(() => {
+        if (transactionsOpen) {
+            transactionsRef.current.showModal();
+        } else {
+            transactionsRef.current.close();
+        };
+    }, [transactionsOpen]);
+
     return (
         <aside>
             <div>
@@ -10,24 +23,8 @@ const Aside = ({accounts, budgets, buckets}) => {
                     <p>Actions</p>
                 </div>
                 <div className={`${mainCSS.actionsItems} ${mainCSS.items}`}>
-                    <button>+ Transaction</button>
-                    {/* <dialog open>
-                        <p>Transactions</p>
-                        <form>
-                            <label htmlFor='buckets'>Choose a bucket:</label>
-                            <select name='buckets'>
-                                {
-                                    buckets.map((bucket, index) => (
-                                        <option key={index} value={bucket.name}>{bucket.name}</option>
-                                    ))
-                                }
-                            </select>
-                            <input type='text' placeholder='Name'/>
-                            <input type='text' placeholder='Amount'/>
-                            <input type='date' placeholder='Date'/>
-                            <input type='submit'/>
-                        </form>
-                    </dialog> */}
+                    <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
+                    <AddTransactions buckets={buckets} modalRef={transactionsRef}/>
                     <button>+ Account</button>
                     <button>+ Budget</button>
                 </div>

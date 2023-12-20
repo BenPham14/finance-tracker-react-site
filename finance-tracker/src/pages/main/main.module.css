@@ -217,6 +217,34 @@
     transform: translate(2px, 2px);
 }
 
+.main dialog {
+    padding: 20px;
+    width: 70%;
+    max-width: 280px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+}
+
+.main dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main dialog input,
+.main dialog select {
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.main dialog input[type="submit"] {
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+
 @media only screen and (min-width: 360px) {
     .carouselItem img {
         max-height: 220px;

@@ -93,6 +93,9 @@ const NewUser = () => {
             accountId: accountId,
             accountName: accountValue
         });
+        
+        setAccountValue('');
+        setBudgetValue('');
     };
 
     return (

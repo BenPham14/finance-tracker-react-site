@@ -1,6 +1,6 @@
 import mainCSS from './main.module.css';
 import NewUser from './NewUser';
-import Aside from './Aside.js';
+import Aside from './aside/Aside.js';
 import Summary from './Summary.js';
 import Transactions from './Transactions.js';
 import Buckets from './Buckets.js';
@@ -8,6 +8,14 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+
+const Loading = () => {
+    return (
+        <>
+            <h1 style={{paddingTop: "40vh", textAlign: 'center'}}>Loading...</h1>
+        </>
+    );
+}
 
 
 const Main = () => {
@@ -30,6 +38,8 @@ const Main = () => {
     const accountsRef = collection(db, 'accounts');
     const [budgets, setBudgets] = useState([]);
     const budgetsRef = collection(db, 'budgets');
+    const [showNewUser, setShowNewUser] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -44,6 +54,9 @@ const Main = () => {
                         accounts.push({...doc.data(), id: doc.id});
                     });
                     setAccounts(accounts);
+                    if (accounts.length === 0) {
+                        setShowNewUser(true);
+                    };
                 });
 
                 const queryBudgets = query(
@@ -57,16 +70,19 @@ const Main = () => {
                     });
                     setBudgets(budgets);
                 });
+                setIsLoading(false);
                 return () => {
                     unsubscribe1();
                     unsubscribe2();
                 };
             }
         })
-    });
+    }, []);
 
-    if (accounts.length === 0) {
+    if (!isLoading && showNewUser) {
         return <NewUser/>;
+    } else if (isLoading) {
+        return <Loading/>
     };
 
     return (
