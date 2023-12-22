@@ -1,5 +1,5 @@
 import mainCSS from './main.module.css';
-import NewUser from './NewUser';
+import NewUser from '../new-user/NewUser.js';
 import Aside from './aside/Aside.js';
 import Summary from './Summary.js';
 import Transactions from './Transactions.js';
@@ -80,7 +80,7 @@ const Main = () => {
     }, []);
 
     if (!isLoading && showNewUser) {
-        return <NewUser/>;
+        return <NewUser setShowNewUser={setShowNewUser}/>;
     } else if (isLoading) {
         return <Loading/>
     };

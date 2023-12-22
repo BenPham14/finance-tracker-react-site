@@ -196,23 +196,6 @@
     cursor: pointer;
 }
 
-@media only screen and (min-width: 600px) {
-    .mobile #login {
-        display: none;
-    }
-
-    .rightLinks {
-        display: flex;
-        align-items: center;
-        gap: 30px;
-    }
-
-    .menuIcon,
-    .dropDown {
-        display: none;
-    }
-}
-
 /* ----- Login ----- */
 
 .login form,
@@ -309,6 +292,23 @@
     top: 10px;
     right: 10px;
     cursor: pointer;
+}
+
+@media only screen and (min-width: 600px) {
+    .mobile #login {
+        display: none;
+    }
+
+    .rightLinks {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .menuIcon,
+    .dropDown {
+        display: none;
+    }
 }
 
 @media only screen and (min-width: 768px) {

@@ -1,4 +1,4 @@
-import mainCSS from './main.module.css';
+import newUserCSS from './newUserCSS.module.css';
 import getStarted from '../../assets/undraw_start_building_re_xani.svg';
 import account from '../../assets/undraw_online_payments_re_y8f2.svg';
 import budget from '../../assets/undraw_transfer_money_re_6o1h.svg';
@@ -10,7 +10,7 @@ import {v4 as uuidv4} from 'uuid';
 
 const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
     return (
-        <div className={mainCSS.carouselItem} style={{display: currentStep !== id && 'none'}}>
+        <div className={newUserCSS.carouselItem} style={{display: currentStep !== id && 'none'}}>
             <h2>{title}</h2>
             <img src={image} alt={title}/>
             <p>{text}</p>
@@ -19,7 +19,7 @@ const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
     );
 };
 
-const NewUser = () => {
+const NewUser = ({setShowNewUser}) => {
     const [accountValue, setAccountValue] = useState('');
     const accountId = uuidv4();
     const [budgetValue, setBudgetValue] = useState('');
@@ -94,13 +94,14 @@ const NewUser = () => {
             accountName: accountValue
         });
         
+        setShowNewUser(false);
         setAccountValue('');
         setBudgetValue('');
     };
 
     return (
-        <main className={mainCSS.newUser}>
-            <div className={mainCSS.steps}>
+        <main className={newUserCSS.newUser}>
+            <div className={newUserCSS.steps}>
                 {
                     items.map((item) => (
                         <>
@@ -110,7 +111,7 @@ const NewUser = () => {
                     ))
                 }
             </div>
-            <form id='new-user' className={mainCSS.carousel} onSubmit={handleSubmit}>
+            <form id='new-user' className={newUserCSS.carousel} onSubmit={handleSubmit}>
                 {
                     items.map((item) => (
                         <CarouselItem key={item.id}
@@ -124,7 +125,7 @@ const NewUser = () => {
                     ))
                 }
             </form>
-            <div className={mainCSS.carouselNav}>
+            <div className={newUserCSS.carouselNav}>
                 <button onClick={decrementStep} style={{backgroundColor: fadeBackButton()}}>Back</button>
                 <button onClick={incrementStep} style={{backgroundColor: fadeNextButton(), display: hideNextButton()}}>Next</button>
                 <button type='submit' form='new-user' style={{display: showFinishButton()}}>Finish</button>

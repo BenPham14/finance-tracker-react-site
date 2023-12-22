@@ -1,12 +1,35 @@
-const AddTransactions = ({buckets, modalRef}) => {
+import { useState } from 'react';
+import mainCSS from '../main.module.css';
+import { IoMdCloseCircle } from 'react-icons/io';
+
+const AddTransactions = ({buckets, modalRef, setTransactionsOpen}) => {
+    const [dateValue, setDateValue] = useState("");
+    const [selectValue, setSelectValue] = useState("");
+
+    const changeDateColor = () => {
+        if (dateValue === "") {
+            return "gray";
+        };
+    };
+
+    const changeSelectColor = () => {
+        if (selectValue === "") {
+            return "gray";
+        };
+    };
+
     return (
-        <dialog ref={modalRef}>
+        <dialog ref={modalRef} className={mainCSS.modal}>
             <form>
-                <p>Transactions</p>
+                <div className={mainCSS.modalHeader}>
+                    <p>Transactions</p>
+                    <IoMdCloseCircle onClick={() => setTransactionsOpen(false)}/>
+                </div>
                 <input type='text' placeholder='Name'/>
                 <input type='number' placeholder='Amount'/>
-                <input type='date' placeholder='Date'/>
-                <select name='buckets'>
+                <input type='date' placeholder='Date' style={{color: changeDateColor()}} value={dateValue} onChange={(e) => setDateValue(e.target.value)}/>
+                <select name='buckets' style={{color: changeSelectColor()}} value={selectValue} onChange={(e) => setSelectValue(e.target.value)}>
+                    <option value="" disabled>Category</option>
                     {
                         buckets.map((bucket, index) => (
                             <option key={index} value={bucket.name}>{bucket.name}</option>

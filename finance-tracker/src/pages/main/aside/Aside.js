@@ -24,7 +24,11 @@ const Aside = ({accounts, budgets, buckets}) => {
                 </div>
                 <div className={`${mainCSS.actionsItems} ${mainCSS.items}`}>
                     <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
-                    <AddTransactions buckets={buckets} modalRef={transactionsRef}/>
+                    <AddTransactions 
+                        buckets={buckets} 
+                        modalRef={transactionsRef}
+                        setTransactionsOpen={setTransactionsOpen}
+                    />
                     <button>+ Account</button>
                     <button>+ Budget</button>
                 </div>
