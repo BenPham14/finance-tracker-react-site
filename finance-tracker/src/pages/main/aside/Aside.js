@@ -1,19 +1,10 @@
 import mainCSS from '../main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
 import AddTransactions from './AddTransactions';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 const Aside = ({accounts, budgets, buckets}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
-    const transactionsRef = useRef(null);
-
-    useEffect(() => {
-        if (transactionsOpen) {
-            transactionsRef.current.showModal();
-        } else {
-            transactionsRef.current.close();
-        };
-    }, [transactionsOpen]);
 
     return (
         <aside>
@@ -26,7 +17,7 @@ const Aside = ({accounts, budgets, buckets}) => {
                     <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
                     <AddTransactions 
                         buckets={buckets} 
-                        modalRef={transactionsRef}
+                        transactionsOpen={transactionsOpen}
                         setTransactionsOpen={setTransactionsOpen}
                     />
                     <button>+ Account</button>

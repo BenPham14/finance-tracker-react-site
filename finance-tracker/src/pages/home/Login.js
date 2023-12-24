@@ -8,14 +8,16 @@ const Login = ({loginOpen, setLoginOpen, signInWithGoogle}) => {
 
     useEffect(() => {
         if (loginOpen) {
-            loginRef.current.showModal();
-            window.addEventListener('keydown', (event) => {
-                if (event.code === 'Escape') {
+            const onEscape = (e) => {
+                if (e.code === 'Escape') {
                     setLoginOpen(false);
                 };
-            });
+            };
+            loginRef.current.showModal();
+            window.addEventListener('keydown', onEscape);
             // Disable scrolling when modal is open
             document.body.style.overflow = 'hidden';
+            return () => window.removeEventListener("keydown", onEscape);
         } else {
             loginRef.current.close();
             // Enable scrolling when modal is open
