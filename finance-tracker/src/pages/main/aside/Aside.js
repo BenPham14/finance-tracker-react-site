@@ -2,9 +2,11 @@ import mainCSS from '../main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
 import AddTransactions from './AddTransactions';
 import { useState } from 'react';
+import AddAccount from './AddAccount';
 
 const Aside = ({accounts, budgets, buckets}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
+    const [accountsOpen, setAccountsOpen] = useState(false);
 
     return (
         <aside>
@@ -20,7 +22,11 @@ const Aside = ({accounts, budgets, buckets}) => {
                         transactionsOpen={transactionsOpen}
                         setTransactionsOpen={setTransactionsOpen}
                     />
-                    <button>+ Account</button>
+                    <button onClick={() => setAccountsOpen(true)}>+ Account</button>
+                    <AddAccount
+                        accountsOpen={accountsOpen}
+                        setAccountsOpen={setAccountsOpen}
+                    />
                     <button>+ Budget</button>
                 </div>
             </div>
