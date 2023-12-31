@@ -2,14 +2,14 @@ import { useEffect, useRef } from 'react';
 import mainCSS from '../main.module.css';
 import { IoMdCloseCircle } from 'react-icons/io';
 
-const Modal = ({isOpen, setIsOpen, close, title, submit, content}) => {
+const Modal = ({isOpen, close, title, submit, content}) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
         if (isOpen) {
             const onEscape = (e) => {
                 if (e.code === "Escape") {
-                    setIsOpen(false);
+                    close();
                 };
             };
             modalRef.current.showModal();

@@ -47,7 +47,6 @@ const AddTransactions = ({buckets, transactionsOpen, setTransactionsOpen}) => {
     return (
         <Modal
             isOpen={transactionsOpen}
-            setIsOpen={setTransactionsOpen}
             close={closeModal}
             title={"+ Transaction"}
             submit={submitTransaction}
@@ -56,7 +55,7 @@ const AddTransactions = ({buckets, transactionsOpen, setTransactionsOpen}) => {
                     <input type='text' placeholder='Name' required 
                         value={nameValue} onChange={(e) => setNameValue(e.target.value)}
                     />
-                    <input type='number' placeholder='Amount' required 
+                    <input type='number' placeholder='Amount' required min="0"
                         value={amountValue} onChange={(e) => setAmountValue(e.target.value)}
                     />
                     <input type='date' placeholder='Date' required style={{color: changeDateColor()}} 

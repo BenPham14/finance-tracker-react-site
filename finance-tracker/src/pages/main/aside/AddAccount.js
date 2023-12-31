@@ -27,7 +27,6 @@ const AddAccount = ({accountsOpen, setAccountsOpen}) => {
     return (
         <Modal
             isOpen={accountsOpen}
-            setIsOpen={setAccountsOpen}
             close={closeModal}
             title={"+ Account"}
             submit={submitAccount}
