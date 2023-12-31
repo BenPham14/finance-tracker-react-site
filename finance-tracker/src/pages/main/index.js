@@ -51,7 +51,7 @@ const Main = () => {
                 const unsubscribe1 = onSnapshot(queryAccounts, (snapshot) => {
                     let accounts = [];
                     snapshot.forEach((doc) => {
-                        accounts.push({...doc.data(), id: doc.id});
+                        accounts.push({...doc.data(), docId: doc.id});
                     });
                     setAccounts(accounts);
                     if (accounts.length === 0) {
@@ -66,7 +66,7 @@ const Main = () => {
                 const unsubscribe2 = onSnapshot(queryBudgets, (snapshot) => {
                     let budgets = [];
                     snapshot.forEach((doc) => {
-                        budgets.push({...doc.data(), id: doc.id});
+                        budgets.push({...doc.data(), docId: doc.id});
                     });
                     setBudgets(budgets);
                 });

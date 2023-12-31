@@ -7,6 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
     const [limitValue, setLimitValue] = useState("");
+    const [accountIdValue, setAccountIdValue] = useState("");
     const [accountValue, setAccountValue] = useState("");
     const budgetsRef = collection(db, "budgets");
 
@@ -28,7 +29,7 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
-            accountId: "", // Fix this
+            accountId: accountIdValue,
             accountName: accountValue,
             name: nameValue,
             limit: limitValue,
@@ -52,12 +53,16 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
                         value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
                     />
                     <select name="accounts" required style={{color: changeAccountColor()}}
-                        value={accountValue} onChange={(e) => setAccountValue(e.target.value)}
+                        value={accountValue} 
+                        onChange={(e) => {
+                            setAccountIdValue(e.target.value.split(',')[0]); 
+                            setAccountValue(e.target.value.split(',')[1])}
+                        }
                     >
                         <option value="" disabled>Account</option>
                         {
                             accounts.map((account, index) => (
-                                <option key={index} value={account.name}>{account.name}</option>
+                                <option key={index} value={[account.id, account.name]}>{account.name}</option>
                             ))
                         }
                     </select>
