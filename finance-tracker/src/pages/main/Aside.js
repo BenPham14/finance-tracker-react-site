@@ -13,9 +13,9 @@ const Aside = ({accounts, budgets, buckets}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
     const [accountDetailsData, setAccountDetailsData] = useState({});
 
-    const openAccountDetails = (title, amount) => {
+    const openAccountDetails = (id, title, amount) => {
         setAccountDetailsOpen(true);
-        setAccountDetailsData({title: title, amount: amount});
+        setAccountDetailsData({id: id, title: title, amount: amount});
     };
 
     return (
@@ -55,13 +55,13 @@ const Aside = ({accounts, budgets, buckets}) => {
                     {
                         accounts.map((account, index) => (
                             <>
-                                <button key={index} onClick={() => openAccountDetails(account.name, account.amount)}>
+                                <button key={index} onClick={() => openAccountDetails(account.id, account.name, account.amount)}>
                                     <p>{account.name}</p>
                                     <p>${account.amount}</p>
                                 </button>
                                 <AccountDetails
-                                    title={accountDetailsData.title}
-                                    amount={accountDetailsData.amount}
+                                    data={accountDetailsData}
+                                    setAccountDetailsData={setAccountDetailsData}
                                     accountDetailsOpen={accountDetailsOpen}
                                     setAccountDetailsOpen={setAccountDetailsOpen}
                                 />

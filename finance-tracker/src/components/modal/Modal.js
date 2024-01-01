@@ -30,7 +30,9 @@ const Modal = ({isOpen, close, title, submit, content}) => {
                     <IoMdCloseCircle onClick={close}/>
                 </div>
                 {content}
-                <input type='submit'/>
+                {
+                    submit !== null && <input type='submit'/>
+                }
             </form>
         </dialog>
     );
