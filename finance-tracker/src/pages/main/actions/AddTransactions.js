@@ -8,7 +8,6 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
     const [nameValue, setNameValue] = useState("");
     const [amountValue, setAmountValue] = useState("");
     const [dateValue, setDateValue] = useState("");
-    const [accountIdValue, setAccountIdValue] = useState("");
     const [accountValue, setAccountValue] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
     const transactionsRef = collection(db, "transactions");
@@ -48,8 +47,8 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
             name: nameValue,
             amount: amountValue,
             date: dateValue,
-            accountId: accountIdValue,
-            accountName: accountValue,
+            accountId: accountValue.split(',')[0],
+            accountName: accountValue.split(',')[1],
             category: categoryValue
         });
         closeModal();
@@ -73,10 +72,7 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
                         value={dateValue} onChange={(e) => setDateValue(e.target.value)}
                     />
                     <select name='accounts' required style={{color: changeAccountColor()}} 
-                        value={accountValue} onChange={(e) => {
-                            setAccountIdValue(e.target.value.split(',')[0])
-                            setAccountValue(e.target.value.split(',')[1]);
-                        }}
+                        value={accountValue} onChange={(e) => setAccountValue(e.target.value)}
                     >
                         <option value="" disabled>Account</option>
                         {

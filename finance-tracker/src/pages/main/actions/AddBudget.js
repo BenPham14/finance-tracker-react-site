@@ -7,7 +7,6 @@ import { addDoc, collection } from "firebase/firestore";
 const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
     const [limitValue, setLimitValue] = useState("");
-    const [accountIdValue, setAccountIdValue] = useState("");
     const [accountValue, setAccountValue] = useState("");
     const budgetsRef = collection(db, "budgets");
 
@@ -29,8 +28,8 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
-            accountId: accountIdValue,
-            accountName: accountValue,
+            accountId: accountValue.split(',')[0],
+            accountName: accountValue.split(',')[1],
             name: nameValue,
             limit: limitValue,
             amount: '0'
@@ -54,10 +53,7 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
                     />
                     <select name="accounts" required style={{color: changeAccountColor()}}
                         value={accountValue} 
-                        onChange={(e) => {
-                            setAccountIdValue(e.target.value.split(',')[0]); 
-                            setAccountValue(e.target.value.split(',')[1])}
-                        }
+                        onChange={(e) => setAccountValue(e.target.value)}
                     >
                         <option value="" disabled>Account</option>
                         {
