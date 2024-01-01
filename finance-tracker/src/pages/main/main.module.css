@@ -127,53 +127,6 @@
     font-size: 0.75rem;
 }
 
-.modal {
-    padding: 20px;
-    width: 70%;
-    max-width: 280px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
-}
-
-.modal form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.modal input:focus {
-    outline: none;
-}
-
-.modal input,
-.modal select {
-    border: none;
-    border-bottom: 1px solid black;
-}
-
-.modal input[type="submit"] {
-    border: none;
-    background-color: black;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.modal input::placeholder {
-    color: gray;
-}
-
-.modalHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.modalHeader > *:last-child {
-    cursor: pointer;
-}
-
 @media only screen and (min-width: 600px) {
     .main {
         grid-template-columns: 1fr 3fr;

@@ -1,14 +1,22 @@
-import mainCSS from '../main.module.css';
+import mainCSS from './main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
-import AddTransactions from './AddTransactions';
+import AddTransactions from './actions/AddTransactions';
 import { useState } from 'react';
-import AddAccount from './AddAccount';
-import AddBudget from './AddBudget';
+import AddAccount from './actions/AddAccount';
+import AddBudget from './actions/AddBudget';
+import AccountDetails from './details/AccountDetails';
 
 const Aside = ({accounts, budgets, buckets}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
+    const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
+    const [accountDetailsData, setAccountDetailsData] = useState({});
+
+    const openAccountDetails = (title, amount) => {
+        setAccountDetailsOpen(true);
+        setAccountDetailsData({title: title, amount: amount});
+    };
 
     return (
         <aside>
@@ -20,6 +28,7 @@ const Aside = ({accounts, budgets, buckets}) => {
                 <div className={`${mainCSS.actionsItems} ${mainCSS.items}`}>
                     <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
                     <AddTransactions 
+                        accounts={accounts}
                         buckets={buckets} 
                         transactionsOpen={transactionsOpen}
                         setTransactionsOpen={setTransactionsOpen}
@@ -45,10 +54,18 @@ const Aside = ({accounts, budgets, buckets}) => {
                 <div className={`${mainCSS.accountsItems} ${mainCSS.items}`}>
                     {
                         accounts.map((account, index) => (
-                            <button key={index}>
-                                <p>{account.name}</p>
-                                <p>${account.amount}</p>
-                            </button>
+                            <>
+                                <button key={index} onClick={() => openAccountDetails(account.name, account.amount)}>
+                                    <p>{account.name}</p>
+                                    <p>${account.amount}</p>
+                                </button>
+                                <AccountDetails
+                                    title={accountDetailsData.title}
+                                    amount={accountDetailsData.amount}
+                                    accountDetailsOpen={accountDetailsOpen}
+                                    setAccountDetailsOpen={setAccountDetailsOpen}
+                                />
+                            </>
                         ))
                     }
                 </div>

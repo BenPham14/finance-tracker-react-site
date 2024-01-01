@@ -1,6 +1,6 @@
 import mainCSS from './main.module.css';
 import NewUser from '../new-user/NewUser.js';
-import Aside from './aside/Aside.js';
+import Aside from './Aside.js';
 import Summary from './Summary.js';
 import Transactions from './Transactions.js';
 import Buckets from './Buckets.js';

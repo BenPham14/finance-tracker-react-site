@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "../../../components/modal/Modal";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection } from "firebase/firestore";

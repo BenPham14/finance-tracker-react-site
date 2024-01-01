@@ -2,17 +2,25 @@ import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
-import Modal from './Modal.js';
+import Modal from '../../../components/modal/Modal.js';
 
-const AddTransactions = ({buckets, transactionsOpen, setTransactionsOpen}) => {
+const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOpen}) => {
     const [nameValue, setNameValue] = useState("");
     const [amountValue, setAmountValue] = useState("");
     const [dateValue, setDateValue] = useState("");
+    const [accountIdValue, setAccountIdValue] = useState("");
+    const [accountValue, setAccountValue] = useState("");
     const [categoryValue, setCategoryValue] = useState("");
     const transactionsRef = collection(db, "transactions");
 
     const changeDateColor = () => {
         if (dateValue === "") {
+            return "gray";
+        };
+    };
+
+    const changeAccountColor = () => {
+        if (accountValue === "") {
             return "gray";
         };
     };
@@ -28,6 +36,7 @@ const AddTransactions = ({buckets, transactionsOpen, setTransactionsOpen}) => {
         setNameValue("");
         setAmountValue("");
         setDateValue("");
+        setAccountValue("");
         setCategoryValue("");
     };
 
@@ -39,6 +48,8 @@ const AddTransactions = ({buckets, transactionsOpen, setTransactionsOpen}) => {
             name: nameValue,
             amount: amountValue,
             date: dateValue,
+            accountId: accountIdValue,
+            accountName: accountValue,
             category: categoryValue
         });
         closeModal();
@@ -61,6 +72,19 @@ const AddTransactions = ({buckets, transactionsOpen, setTransactionsOpen}) => {
                     <input type='date' placeholder='Date' required style={{color: changeDateColor()}} 
                         value={dateValue} onChange={(e) => setDateValue(e.target.value)}
                     />
+                    <select name='accounts' required style={{color: changeAccountColor()}} 
+                        value={accountValue} onChange={(e) => {
+                            setAccountIdValue(e.target.value.split(',')[0])
+                            setAccountValue(e.target.value.split(',')[1]);
+                        }}
+                    >
+                        <option value="" disabled>Account</option>
+                        {
+                            accounts.map((account, index) => (
+                                <option key={index} value={[account.id, account.name]}>{account.name}</option>
+                            ))
+                        }
+                    </select>
                     <select name='buckets' required style={{color: changeCategoryColor()}} 
                         value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)}
                     >
