@@ -16,7 +16,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
         // query transactions that match data.id (account id)
         const queryTransactions = query(
             transactionsRef,
-            where("accountId", "==", data.id == undefined ? "" : data.id) // 49884b41-ec46-4ac9-a65d-b0261a0911dc
+            where("accountId", "==", data.id === undefined ? "" : data.id)
         );
         const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
             let transactions = [];
@@ -38,7 +38,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
                 <>
                     <p>${data.amount}</p>
                     <p>Recent transactions</p>
-                    <p>{data.id}</p>
+                    {/* <p>{data.id}</p> */}
                     <table>
                         <thead>
                             <tr>

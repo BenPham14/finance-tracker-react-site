@@ -19,12 +19,12 @@ const Loading = () => {
 
 
 const Main = () => {
-    const transactions = [
-        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
-        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
-        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
-        {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"}
-    ];
+    // const transactions = [
+    //     {name: "McDonald's", category: "Shopping", date: "01/01/2023", amount: "0.00"},
+    //     {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
+    //     {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
+    //     {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"}
+    // ];
 
     const buckets = [
         {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
@@ -38,6 +38,8 @@ const Main = () => {
     const accountsRef = collection(db, 'accounts');
     const [budgets, setBudgets] = useState([]);
     const budgetsRef = collection(db, 'budgets');
+    const transactionsRef = collection(db, "transactions");
+    const [transactions, setTransactions] = useState([]);
     const [showNewUser, setShowNewUser] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -70,10 +72,24 @@ const Main = () => {
                     });
                     setBudgets(budgets);
                 });
+
+                const queryTransactions = query(
+                    transactionsRef,
+                    where("uid", "==", user.uid)
+                );
+                const unsubscribe3 = onSnapshot(queryTransactions, (snapshot) => {
+                    let transactions = [];
+                    snapshot.forEach((doc) => {
+                        transactions.push({...doc.data(), docId: doc.id});
+                    });
+                    setTransactions(transactions);
+                })
+
                 setIsLoading(false);
                 return () => {
                     unsubscribe1();
                     unsubscribe2();
+                    unsubscribe3();
                 };
             }
         })

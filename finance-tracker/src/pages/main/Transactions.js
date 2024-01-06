@@ -19,7 +19,7 @@ const Transactions = ({transactions}) => {
                 </thead>
                 <tbody>
                     {
-                        transactions.map((transaction, index) => (
+                        transactions.slice(0,4).map((transaction, index) => (
                             <tr key={index}>
                                 <td>{transaction.name}</td>
                                 <td id={mainCSS.transactionCategory}>{transaction.category}</td>

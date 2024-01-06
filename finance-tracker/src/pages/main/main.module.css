@@ -73,6 +73,7 @@
 .transactions td {
     padding: 10px 0;
     border-bottom: 0.5px solid gray;
+    text-wrap: nowrap;
 }
 
 .transactions th {
@@ -145,7 +146,7 @@
     }
 
     #transactionCategory {
-        display: block;
+        display: table-cell;
     }
 }
 
