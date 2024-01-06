@@ -19,13 +19,6 @@ const Loading = () => {
 
 
 const Main = () => {
-    // const transactions = [
-    //     {name: "McDonald's", category: "Shopping", date: "01/01/2023", amount: "0.00"},
-    //     {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
-    //     {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"},
-    //     {name: "McDonald's", category: "Restaurants", date: "01/01/2023", amount: "0.00"}
-    // ];
-
     const buckets = [
         {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
         {name: "Groceries", amount: "0.00"}, {name: "Entertainment", amount: "0.00"},
@@ -114,7 +107,7 @@ const Main = () => {
 
             <Transactions transactions={transactions}/>
 
-            <Buckets buckets={buckets}/>
+            <Buckets buckets={buckets} transactions={transactions}/>
         </main>
     );
 };
