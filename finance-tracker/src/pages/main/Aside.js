@@ -6,7 +6,16 @@ import AddAccount from './actions/AddAccount';
 import AddBudget from './actions/AddBudget';
 import AccountDetails from './details/AccountDetails';
 
-const Aside = ({accounts, budgets, buckets}) => {
+const AccountItem = ({id, name, amount, openAccountDetails}) => {
+    return (
+        <button onClick={() => openAccountDetails(id, name, amount)}>
+            <p>{name}</p>
+            <p>${amount}</p>
+        </button>
+    );
+};
+
+const Aside = ({accounts, budgets, buckets, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
@@ -16,6 +25,16 @@ const Aside = ({accounts, budgets, buckets}) => {
     const openAccountDetails = (id, title, amount) => {
         setAccountDetailsOpen(true);
         setAccountDetailsData({id: id, title: title, amount: amount});
+    };
+
+    const accountAmount = (id) => {
+        let amount = 0;
+        transactions.forEach((transaction) => {
+            if (transaction.accountId === id) {
+                amount += parseInt(transaction.amount);
+            };
+        });
+        return amount;
     };
 
     return (
@@ -55,10 +74,13 @@ const Aside = ({accounts, budgets, buckets}) => {
                     {
                         accounts.map((account, index) => (
                             <>
-                                <button key={index} onClick={() => openAccountDetails(account.id, account.name, account.amount)}>
-                                    <p>{account.name}</p>
-                                    <p>${account.amount}</p>
-                                </button>
+                                <AccountItem
+                                    key={index}
+                                    id={account.id}
+                                    name={account.name}
+                                    amount={accountAmount(account.id)}
+                                    openAccountDetails={openAccountDetails}
+                                />
                                 <AccountDetails
                                     data={accountDetailsData}
                                     setAccountDetailsData={setAccountDetailsData}

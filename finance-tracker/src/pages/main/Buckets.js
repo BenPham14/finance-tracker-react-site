@@ -16,10 +16,10 @@ const Buckets = ({buckets, transactions}) => {
         transactions.forEach((transaction) => {
             if (transaction.category === name) {
                 amount += parseInt(transaction.amount);
-            }
+            };
         });
         return amount;
-    }
+    };
     
     return (
         <section className={mainCSS.buckets}>

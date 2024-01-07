@@ -4,7 +4,7 @@ import Aside from './Aside.js';
 import Summary from './Summary.js';
 import Transactions from './Transactions.js';
 import Buckets from './Buckets.js';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -68,7 +68,8 @@ const Main = () => {
 
                 const queryTransactions = query(
                     transactionsRef,
-                    where("uid", "==", user.uid)
+                    where("uid", "==", user.uid),
+                    orderBy("date", "desc")
                 );
                 const unsubscribe3 = onSnapshot(queryTransactions, (snapshot) => {
                     let transactions = [];
@@ -101,7 +102,7 @@ const Main = () => {
                 <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile'/>
             </header>
 
-            <Aside accounts={accounts} budgets={budgets} buckets={buckets}/>
+            <Aside accounts={accounts} budgets={budgets} buckets={buckets} transactions={transactions}/>
 
             <Summary/>
 
