@@ -21,6 +21,7 @@
 .modal select {
     border: none;
     border-bottom: 1px solid black;
+    font-size: 0.875rem;
 }
 
 .modal input[type="submit"] {
@@ -43,4 +44,30 @@
 
 .modalHeader > *:last-child {
     cursor: pointer;
+}
+
+.modal fieldset {
+    border: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    font-size: 0.875rem;
+}
+
+.modal fieldset input {
+    cursor: pointer;
+    background-color: white;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid gray;
+    border-radius: 50%;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+}
+
+.modal fieldset input:checked {
+    border: 6px solid black;
 }

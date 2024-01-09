@@ -10,7 +10,16 @@ const AccountItem = ({id, name, amount, openAccountDetails}) => {
     return (
         <button onClick={() => openAccountDetails(id, name, amount)}>
             <p>{name}</p>
-            <p>${amount}</p>
+            <p>{amount < 0 && "-"}${Math.abs(amount)}</p>
+        </button>
+    );
+};
+
+const BudgetItem = ({name, amount, limit}) => {
+    return (
+        <button>
+            <p>{name}</p>
+            <p>${amount} out of ${limit}</p>
         </button>
     );
 };
@@ -31,7 +40,11 @@ const Aside = ({accounts, budgets, buckets, transactions}) => {
         let amount = 0;
         transactions.forEach((transaction) => {
             if (transaction.accountId === id) {
-                amount += parseInt(transaction.amount);
+                if (transaction.type === 'expense') {
+                    amount -= parseInt(transaction.amount);
+                } else {
+                    amount += parseInt(transaction.amount);
+                };
             };
         });
         return amount;
@@ -100,10 +113,12 @@ const Aside = ({accounts, budgets, buckets, transactions}) => {
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
                     {
                         budgets.map((budget, index) => (
-                            <button key={index}>
-                                <p>{budget.name}</p>
-                                <p>${budget.amount} out of ${budget.limit}</p>
-                            </button>
+                            <BudgetItem 
+                                key={index}
+                                name={budget.name}
+                                amount={budget.amount}
+                                limit={budget.limit}
+                            />
                         ))
                     }
                 </div>

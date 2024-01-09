@@ -36,7 +36,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
             submit={null}
             content={
                 <>
-                    <p>${data.amount}</p>
+                    <p>{data.amount < 0 && '-'}${Math.abs(data.amount)}</p>
                     <p>Recent transactions</p>
                     {/* <p>{data.id}</p> */}
                     <table>
@@ -55,7 +55,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
                                         <td>{transaction.name}</td>
                                         <td>{transaction.category}</td>
                                         <td>{transaction.date}</td>
-                                        <td>{transaction.amount}</td>
+                                        <td>{transaction.type === 'expense' && '-'}${transaction.amount}</td>
                                     </tr>
                                 ))
                             }

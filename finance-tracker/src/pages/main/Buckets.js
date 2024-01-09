@@ -5,7 +5,7 @@ const BucketItem = ({name, amount}) => {
     return (
         <button>
             <p>{name}</p>
-            <p>${amount}</p>
+            <p>{amount < 0 && '-'}${Math.abs(amount)}</p>
         </button>
     );
 }
@@ -15,7 +15,11 @@ const Buckets = ({buckets, transactions}) => {
         let amount = 0;
         transactions.forEach((transaction) => {
             if (transaction.category === name) {
-                amount += parseInt(transaction.amount);
+                if (transaction.type === 'expense') {
+                    amount -= parseInt(transaction.amount);
+                } else {
+                    amount += parseInt(transaction.amount);
+                };
             };
         });
         return amount;

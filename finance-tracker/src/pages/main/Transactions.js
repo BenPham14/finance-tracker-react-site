@@ -24,7 +24,7 @@ const Transactions = ({transactions}) => {
                                 <td>{transaction.name}</td>
                                 <td id={mainCSS.transactionCategory}>{transaction.category}</td>
                                 <td>{transaction.date}</td>
-                                <td>${transaction.amount}</td>
+                                <td>{transaction.type === "expense" && "-"}${transaction.amount}</td>
                             </tr>
                         ))
                     }

@@ -5,6 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
 
 const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOpen}) => {
+    const [typeValue, setTypeValue] = useState("expense");
     const [nameValue, setNameValue] = useState("");
     const [amountValue, setAmountValue] = useState("");
     const [dateValue, setDateValue] = useState("");
@@ -32,6 +33,7 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
 
     const closeModal = () => {
         setTransactionsOpen(false);
+        setTypeValue("expense");
         setNameValue("");
         setAmountValue("");
         setDateValue("");
@@ -44,6 +46,7 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
         await addDoc(transactionsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
+            type: typeValue,
             name: nameValue,
             amount: amountValue,
             date: dateValue,
@@ -62,6 +65,16 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
             submit={submitTransaction}
             content={
                 <>
+                    <fieldset>
+                        <div>
+                            <input type='radio' id='expense' name='type' value='expense' checked={typeValue === "expense" ? true : false} onChange={(e) => setTypeValue(e.target.value)}/>
+                            <label htmlFor='expense'>Expense</label>
+                        </div>
+                        <div>
+                            <input type='radio' id='income' name='type' value='income'  checked={typeValue === "income" ? true : false} onChange={(e) => setTypeValue(e.target.value)}/>
+                            <label htmlFor='income'>Income</label>
+                        </div>
+                    </fieldset>
                     <input type='text' placeholder='Name' required 
                         value={nameValue} onChange={(e) => setNameValue(e.target.value)}
                     />
