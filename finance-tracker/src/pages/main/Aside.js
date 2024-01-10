@@ -19,7 +19,7 @@ const BudgetItem = ({name, amount, limit}) => {
     return (
         <button>
             <p>{name}</p>
-            <p>${amount} out of ${limit}</p>
+            <p>${amount} spent of ${limit}</p>
         </button>
     );
 };

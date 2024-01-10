@@ -52,7 +52,7 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
             date: dateValue,
             accountId: accountValue.split(',')[0],
             accountName: accountValue.split(',')[1],
-            category: categoryValue
+            category: typeValue === 'expense' ? categoryValue : 'Income'
         });
         closeModal();
     };
@@ -94,7 +94,7 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
                             ))
                         }
                     </select>
-                    <select name='buckets' required style={{color: changeCategoryColor()}} 
+                    <select name='buckets' required={typeValue === 'income' ? false : true} style={{color: changeCategoryColor(), display: typeValue === 'income' && 'none'}} 
                         value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)}
                     >
                         <option value="" disabled>Category</option>
