@@ -114,17 +114,17 @@
 }
 
 .summaryItems,
-.bucketItems {
+.categoryItems {
     display: grid;
 }
 
-.bucketItems {
+.categoryItems {
     grid-template-columns: repeat(2, 1fr);
 }
 
 .accountsItems button p:last-of-type,
-.budgetsItems button p:last-of-type,
-.bucketItems button p:last-of-type {
+.categoryItems button p:last-of-type,
+.categoryItems button p:last-of-type {
     font-size: 0.75rem;
 }
 
@@ -141,7 +141,7 @@
         grid-row: span 3;
     }
 
-    .bucketItems {
+    .categoryItems {
         grid-template-columns: repeat(3, 1fr);
     }
 
@@ -155,7 +155,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .bucketItems {
+    .categoryItems {
         grid-template-columns: repeat(4, 1fr);
     }
 }
@@ -165,7 +165,7 @@
         grid-template-columns: repeat(4, 1fr);
     }
 
-    .bucketItems {
+    .categoryItems {
         grid-template-columns: repeat(5, 1fr);
     }
 }

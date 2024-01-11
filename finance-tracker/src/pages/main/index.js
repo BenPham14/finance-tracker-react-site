@@ -3,7 +3,7 @@ import NewUser from '../new-user/NewUser.js';
 import Aside from './Aside.js';
 import Summary from './Summary.js';
 import Transactions from './Transactions.js';
-import Buckets from './Buckets.js';
+import Categories from './Categories.js';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
@@ -108,7 +108,7 @@ const Main = () => {
 
             <Transactions transactions={transactions}/>
 
-            <Buckets buckets={buckets} transactions={transactions}/>
+            <Categories buckets={buckets} transactions={transactions}/>
         </main>
     );
 };
