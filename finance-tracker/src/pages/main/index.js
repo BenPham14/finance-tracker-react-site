@@ -19,7 +19,7 @@ const Loading = () => {
 
 
 const Main = () => {
-    const buckets = [
+    const categories = [
         {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
         {name: "Groceries", amount: "0.00"}, {name: "Entertainment", amount: "0.00"},
         {name: "Bills", amount: "0.00"}, {name: "Education", amount: "0.00"},
@@ -41,7 +41,8 @@ const Main = () => {
             if (user) {
                 const queryAccounts = query(
                     accountsRef, 
-                    where('uid', '==', user.uid)
+                    where('uid', '==', user.uid),
+                    orderBy('createdAt')
                 );
                 const unsubscribe1 = onSnapshot(queryAccounts, (snapshot) => {
                     let accounts = [];
@@ -56,7 +57,8 @@ const Main = () => {
 
                 const queryBudgets = query(
                     budgetsRef,
-                    where('uid', '==', user.uid)
+                    where('uid', '==', user.uid),
+                    orderBy('createdAt')
                 );
                 const unsubscribe2 = onSnapshot(queryBudgets, (snapshot) => {
                     let budgets = [];
@@ -102,13 +104,13 @@ const Main = () => {
                 <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile'/>
             </header>
 
-            <Aside accounts={accounts} budgets={budgets} buckets={buckets} transactions={transactions}/>
+            <Aside accounts={accounts} budgets={budgets} categories={categories} transactions={transactions}/>
 
             <Summary/>
 
             <Transactions transactions={transactions}/>
 
-            <Categories buckets={buckets} transactions={transactions}/>
+            <Categories categories={categories} transactions={transactions}/>
         </main>
     );
 };

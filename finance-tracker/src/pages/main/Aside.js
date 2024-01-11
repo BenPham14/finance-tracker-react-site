@@ -24,7 +24,7 @@ const BudgetItem = ({name, amount, limit}) => {
     );
 };
 
-const Aside = ({accounts, budgets, buckets, transactions}) => {
+const Aside = ({accounts, budgets, categories, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
@@ -61,7 +61,7 @@ const Aside = ({accounts, budgets, buckets, transactions}) => {
                     <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
                     <AddTransactions 
                         accounts={accounts}
-                        buckets={buckets} 
+                        categories={categories} 
                         transactionsOpen={transactionsOpen}
                         setTransactionsOpen={setTransactionsOpen}
                     />
@@ -73,6 +73,7 @@ const Aside = ({accounts, budgets, buckets, transactions}) => {
                     <button onClick={() => setBudgetsOpen(true)}>+ Budget</button>
                     <AddBudget
                         accounts={accounts}
+                        categories={categories}
                         budgetsOpen={budgetsOpen}
                         setBudgetsOpen={setBudgetsOpen}
                     />

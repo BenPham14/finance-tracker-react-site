@@ -4,7 +4,7 @@ import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
 
-const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOpen}) => {
+const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen}) => {
     const [typeValue, setTypeValue] = useState("expense");
     const [nameValue, setNameValue] = useState("");
     const [amountValue, setAmountValue] = useState("");
@@ -13,20 +13,14 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
     const [categoryValue, setCategoryValue] = useState("");
     const transactionsRef = collection(db, "transactions");
 
-    const changeDateColor = () => {
-        if (dateValue === "") {
+    const changePlaceholderColor = (value) => {
+        if (value === "") {
             return "gray";
         };
     };
 
-    const changeAccountColor = () => {
-        if (accountValue === "") {
-            return "gray";
-        };
-    };
-
-    const changeCategoryColor = () => {
-        if (categoryValue === "") {
+    const changeRadioColor = (value) => {
+        if (value !== typeValue) {
             return "gray";
         };
     };
@@ -68,11 +62,11 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
                     <fieldset>
                         <div>
                             <input type='radio' id='expense' name='type' value='expense' checked={typeValue === "expense" ? true : false} onChange={(e) => setTypeValue(e.target.value)}/>
-                            <label htmlFor='expense'>Expense</label>
+                            <label htmlFor='expense' style={{color: changeRadioColor('expense')}}>Expense</label>
                         </div>
                         <div>
                             <input type='radio' id='income' name='type' value='income'  checked={typeValue === "income" ? true : false} onChange={(e) => setTypeValue(e.target.value)}/>
-                            <label htmlFor='income'>Income</label>
+                            <label htmlFor='income' style={{color: changeRadioColor('income')}}>Income</label>
                         </div>
                     </fieldset>
                     <input type='text' placeholder='Name' required 
@@ -81,10 +75,10 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
                     <input type='number' placeholder='Amount' required min="0"
                         value={amountValue} onChange={(e) => setAmountValue(e.target.value)}
                     />
-                    <input type='date' placeholder='Date' required style={{color: changeDateColor()}} 
+                    <input type='date' placeholder='Date' required style={{color: changePlaceholderColor(dateValue)}} 
                         value={dateValue} onChange={(e) => setDateValue(e.target.value)}
                     />
-                    <select name='accounts' required style={{color: changeAccountColor()}} 
+                    <select name='accounts' required style={{color: changePlaceholderColor(accountValue)}} 
                         value={accountValue} onChange={(e) => setAccountValue(e.target.value)}
                     >
                         <option value="" disabled>Account</option>
@@ -94,13 +88,13 @@ const AddTransactions = ({accounts, buckets, transactionsOpen, setTransactionsOp
                             ))
                         }
                     </select>
-                    <select name='buckets' required={typeValue === 'income' ? false : true} style={{color: changeCategoryColor(), display: typeValue === 'income' && 'none'}} 
+                    <select name='categories' required={typeValue === 'income' ? false : true} style={{color: changePlaceholderColor(categoryValue), display: typeValue === 'income' && 'none'}} 
                         value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)}
                     >
                         <option value="" disabled>Category</option>
                         {
-                            buckets.map((bucket, index) => (
-                                <option key={index} value={bucket.name}>{bucket.name}</option>
+                            categories.map((category, index) => (
+                                <option key={index} value={category.name}>{category.name}</option>
                             ))
                         }
                     </select>

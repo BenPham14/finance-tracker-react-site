@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from "../../../components/modal/Modal";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const AddAccount = ({accountsOpen, setAccountsOpen}) => {
     const [nameValue, setNameValue] = useState("");
@@ -18,6 +18,7 @@ const AddAccount = ({accountsOpen, setAccountsOpen}) => {
         await addDoc(accountsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
+            createdAt: serverTimestamp(),
             name: nameValue,
             amount: '0'
         });

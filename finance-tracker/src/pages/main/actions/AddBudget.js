@@ -2,16 +2,44 @@ import { useState } from "react";
 import Modal from "../../../components/modal/Modal";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import modalCSS from '../../../components/modal/modal.module.css';
+import { VscChevronDown } from "react-icons/vsc";
+import { FaCheck } from "react-icons/fa6";
 
-const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
+const Checkbox = ({category, categoriesValue, setCategoriesValue}) => {
+    const [isChecked, setIsChecked] = useState(false);
+
+    const onCheck = () => {
+        if (isChecked) {
+            const result = categoriesValue.filter((value) => value !== category.name);
+            setCategoriesValue(result);
+            setIsChecked(false);
+            
+        } else {
+            setCategoriesValue([...categoriesValue, category.name]);
+            setIsChecked(true);
+        };
+    };
+
+    return (
+        <div className={modalCSS.checkbox} onClick={onCheck}>
+            <input type="checkbox" value={category.name} id={category.name} name={category.name} checked={isChecked} readOnly/>
+            <FaCheck style={{display: !isChecked && 'none'}}/>
+        </div>
+    );
+};
+
+const AddBudget = ({accounts, categories, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
     const [limitValue, setLimitValue] = useState("");
     const [accountValue, setAccountValue] = useState("");
+    const [categoriesValue, setCategoriesValue] = useState([]);
+    const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = collection(db, "budgets");
 
-    const changeAccountColor = () => {
-        if (accountValue === "") {
+    const changePlaceholderColor = (value) => {
+        if (value === "" || value.length === 0) {
             return "gray";
         };
     };
@@ -21,6 +49,8 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
         setNameValue("");
         setLimitValue("");
         setAccountValue("");
+        setCategoriesValue([]);
+        setCategoriesOpen(false);
     };
 
     const submitBudget = async (e) => {
@@ -28,6 +58,7 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
+            createdAt: serverTimestamp(),
             accountId: accountValue.split(',')[0],
             accountName: accountValue.split(',')[1],
             name: nameValue,
@@ -51,7 +82,7 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
                     <input type="number" placeholder="Limit" required min="0"
                         value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
                     />
-                    <select name="accounts" required style={{color: changeAccountColor()}}
+                    <select name="accounts" required style={{color: changePlaceholderColor(accountValue)}}
                         value={accountValue} 
                         onChange={(e) => setAccountValue(e.target.value)}
                     >
@@ -62,6 +93,26 @@ const AddBudget = ({accounts, budgetsOpen, setBudgetsOpen}) => {
                             ))
                         }
                     </select>
+                    <div className={modalCSS.categories}>
+                        <div className={modalCSS.categoriesSelected} onClick={() => setCategoriesOpen(!categoriesOpen)}>
+                            <p style={{color: changePlaceholderColor(categoriesValue)}}>Categories: {categoriesValue.length}</p>
+                            <VscChevronDown style={{color: changePlaceholderColor(categoriesValue)}}/>
+                        </div>
+                        <div className={modalCSS.categoryOptions}  style={{display: !categoriesOpen && "none"}}>
+                            {
+                                categories.map((category, index) => (
+                                    <div key={index}>
+                                        <Checkbox 
+                                            category={category} 
+                                            categoriesValue={categoriesValue}
+                                            setCategoriesValue={setCategoriesValue}
+                                        />
+                                        <label htmlFor={category.name}>{category.name}</label>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
                 </>
             }
         />

@@ -10,7 +10,7 @@ const CategoriesItem = ({name, amount}) => {
     );
 }
 
-const Categories = ({buckets, transactions}) => {
+const Categories = ({categories, transactions}) => {
     const categoryAmount = (name) => {
         let amount = 0;
         transactions.forEach((transaction) => {
@@ -33,7 +33,7 @@ const Categories = ({buckets, transactions}) => {
             </div>
             <div className={`${mainCSS.categoryItems} ${mainCSS.items}`}>
                 {
-                    buckets.map((category, index) => (
+                    categories.map((category, index) => (
                         <CategoriesItem 
                             key={index}
                             name={category.name}
