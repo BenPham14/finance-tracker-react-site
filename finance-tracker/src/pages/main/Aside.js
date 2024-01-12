@@ -19,7 +19,7 @@ const BudgetItem = ({name, amount, limit}) => {
     return (
         <button>
             <p>{name}</p>
-            <p>${amount} spent of ${limit}</p>
+            <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${limit}</p>
         </button>
     );
 };
@@ -40,6 +40,20 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
         let amount = 0;
         transactions.forEach((transaction) => {
             if (transaction.accountId === id) {
+                if (transaction.type === 'expense') {
+                    amount -= parseInt(transaction.amount);
+                } else {
+                    amount += parseInt(transaction.amount);
+                };
+            };
+        });
+        return amount;
+    };
+
+    const budgetAmount = (limit, categories) => {
+        let amount = limit;
+        transactions.forEach((transaction) => {
+            if (categories.includes(transaction.category)) {
                 if (transaction.type === 'expense') {
                     amount -= parseInt(transaction.amount);
                 } else {
@@ -117,7 +131,7 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                             <BudgetItem 
                                 key={index}
                                 name={budget.name}
-                                amount={budget.amount}
+                                amount={budgetAmount(budget.limit, budget.categories)}
                                 limit={budget.limit}
                             />
                         ))
