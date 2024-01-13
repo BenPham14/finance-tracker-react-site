@@ -4,7 +4,7 @@ import account from '../../assets/undraw_online_payments_re_y8f2.svg';
 import budget from '../../assets/undraw_transfer_money_re_6o1h.svg';
 import allSet from '../../assets/undraw_done_re_oak4.svg';
 import { useState } from 'react';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
 
@@ -80,6 +80,7 @@ const NewUser = ({setShowNewUser}) => {
         await addDoc(accountsRef, {
             uid: auth.currentUser.uid,
             id: accountId,
+            createdAt: serverTimestamp(),
             name: accountValue,
             amount: '0'
         });
@@ -87,11 +88,11 @@ const NewUser = ({setShowNewUser}) => {
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
+            createdAt: serverTimestamp(),
             name: budgetValue,
             amount: '0',
             limit: '0',
-            accountId: accountId,
-            accountName: accountValue
+            categories: []
         });
         
         setShowNewUser(false);

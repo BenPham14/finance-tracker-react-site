@@ -123,7 +123,7 @@
 }
 
 .accountsItems button p:last-of-type,
-.categoryItems button p:last-of-type,
+.budgetsItems button p:last-of-type,
 .categoryItems button p:last-of-type {
     font-size: 0.75rem;
 }
