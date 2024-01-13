@@ -7,28 +7,75 @@ import { useState } from 'react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
+import Multiselect from "../../components/multiselect/Multiselect";
 
 const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
     return (
         <div className={newUserCSS.carouselItem} style={{display: currentStep !== id && 'none'}}>
             <h2>{title}</h2>
             <img src={image} alt={title}/>
-            <p>{text}</p>
+            {
+                text !== "" && <p>{text}</p>
+            }
             {custom}
         </div>
     );
 };
 
 const NewUser = ({setShowNewUser}) => {
-    const [accountValue, setAccountValue] = useState('');
     const accountId = uuidv4();
+    const [accountValue, setAccountValue] = useState('');
     const [budgetValue, setBudgetValue] = useState('');
+    const [limitValue, setLimitValue] = useState('');
+    const [categoriesValue, setCategoriesValue] = useState([]);
+    const [categoriesOpen, setCategoriesOpen] = useState(false);
+
+    const categories = [
+        {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
+        {name: "Groceries", amount: "0.00"}, {name: "Entertainment", amount: "0.00"},
+        {name: "Bills", amount: "0.00"}, {name: "Education", amount: "0.00"},
+        {name: "Transportation", amount: "0.00"}, {name: "Investments", amount: "0.00"},
+        {name: "Health", amount: "0.00"}, {name: "Pets", amount: "0.00"}
+    ];
 
     const items = [
-        {id: 1, title: 'Get Started', image: getStarted, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", custom: ''},
-        {id: 2, title: 'Create Account', image: account, text: "Enter a name for your first account:", custom: <input value={accountValue} onChange={(e) => setAccountValue(e.target.value)}/>},
-        {id: 3, title: 'Create Budget', image: budget, text: "Enter a name for your first budget:", custom: <input value={budgetValue} onChange={(e) => setBudgetValue(e.target.value)}/>},
-        {id: 4, title: 'All Set', image: allSet, text: 'You are all set! Let the budgeting begin!', custom: ''},
+        {
+            id: 1, 
+            title: 'Get Started', 
+            image: getStarted, text: "Hi, welcome to the Fintracker site! Let's get you set up. In the next steps, you will be creating your first account and budget.", 
+            custom: ''
+        },
+        {
+            id: 2, 
+            title: 'Create Account', 
+            image: account, text: "Enter a name for your first account:", 
+            custom: <input placeholder="Name" value={accountValue} onChange={(e) => setAccountValue(e.target.value)}/>
+        },
+        {id: 3, 
+            title: 'Create Budget', 
+            image: budget, 
+            text: "", 
+            custom: 
+                <div className={newUserCSS.budget}>
+                    <input placeholder="Name" value={budgetValue} onChange={(e) => setBudgetValue(e.target.value)}/>
+                    <input placeholder="Limit" type="number" min={1} value={limitValue} onChange={(e) => setLimitValue(e.target.value)}/>
+                    <Multiselect
+                        data={categories}
+                        value={categoriesValue}
+                        setValue={setCategoriesValue}
+                        isOpen={categoriesOpen}
+                        setIsOpen={setCategoriesOpen}
+                        modalOpen={true}
+                    />
+                </div>
+        },
+        {
+            id: 4, 
+            title: 'All Set', 
+            image: allSet, 
+            text: 'You are all set! Let the budgeting begin!', 
+            custom: ''
+        },
     ];
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -40,7 +87,7 @@ const NewUser = ({setShowNewUser}) => {
     };
 
     const incrementStep = () => {
-        if ((currentStep === 2 && accountValue === '') || (currentStep === 3 && budgetValue === '')) {
+        if ((currentStep === 2 && accountValue === '') || (currentStep === 3 && (budgetValue === '' || limitValue === '' || limitValue < 1))) {
             return
         } else if (currentStep < items.length) {
             setCurrentStep(currentStep + 1);
@@ -54,7 +101,7 @@ const NewUser = ({setShowNewUser}) => {
     };
 
     const fadeNextButton = () => {
-        if ((currentStep === 2 && accountValue === '') || (currentStep === 3 && budgetValue === '')) {
+        if ((currentStep === 2 && accountValue === '') || (currentStep === 3 && (budgetValue === '' || limitValue === '' || limitValue < 1))) {
             return '#6b63ff80';
         };
     };
@@ -91,13 +138,16 @@ const NewUser = ({setShowNewUser}) => {
             createdAt: serverTimestamp(),
             name: budgetValue,
             amount: '0',
-            limit: '0',
-            categories: []
+            limit: limitValue,
+            categories: categoriesValue
         });
         
         setShowNewUser(false);
         setAccountValue('');
         setBudgetValue('');
+        setLimitValue('');
+        setCategoriesValue([]);
+        setCategoriesOpen(false);
     };
 
     return (
