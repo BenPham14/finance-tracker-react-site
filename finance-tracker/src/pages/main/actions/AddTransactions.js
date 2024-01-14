@@ -3,6 +3,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
+import modalCSS from "../../../components/modal/modal.module.css";
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen}) => {
     const [typeValue, setTypeValue] = useState("expense");
@@ -57,6 +58,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             close={closeModal}
             title={"+ Transaction"}
             submit={submitTransaction}
+            type={modalCSS.action}
             content={
                 <>
                     <fieldset>

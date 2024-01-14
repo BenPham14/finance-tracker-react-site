@@ -1,45 +1,37 @@
 import { useEffect, useState } from 'react';
 import Modal from '../../../components/modal/Modal.js';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { db } from '../../../config/firebase.js';
 import modalCSS from "../../../components/modal/modal.module.css";
+import { collection, query, where } from 'firebase/firestore';
+import { db } from '../../../config/firebase.js';
 
-const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAccountDetailsOpen}) => {
+const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
     const [transactions, setTransactions] = useState([]);
-
+    
     const closeModal = () => {
-        setAccountDetailsOpen(false);
-        setAccountDetailsData({});
+        setBudgetDetailsOpen(false);
+        setBudgetDetailsData({});
     };
 
-    useEffect(() => {
-        // query transactions that match data.id (account id)
-        const queryTransactions = query(
-            transactionsRef,
-            where("accountId", "==", data.id === undefined ? "" : data.id)
-        );
-        const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
-            let transactions = [];
-            snapshot.forEach((doc) => {
-                transactions.push({...doc.data(), docId: doc.id});
-            });
-            setTransactions(transactions);
-        });
-        return () => unsubscribe();
-    }, [data.id]);
+    // useEffect(() => {
+    //     const queryTransactions = query(
+    //         transactionsRef, 
+    //         // where uid == user id and category is in categories
+    //     );
+    // }, [])
 
     return (
         <Modal
-            isOpen={accountDetailsOpen}
+            isOpen={budgetDetailsOpen}
             close={closeModal}
             title={data.title}
             submit={null}
             type={modalCSS.details}
             content={
                 <>
-                    <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} remaining</p>
-                    <table>
+                    <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} remaining of ${data.limit}</p>
+                    <p>{data.categories}</p>
+                    {/* <table>
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -60,11 +52,11 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
                                 ))
                             }
                         </tbody>
-                    </table>
+                    </table> */}
                 </>
             }
         />
     );
 };
 
-export default AccountDetails
+export default BudgetDetails;

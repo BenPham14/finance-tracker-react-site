@@ -8,6 +8,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
 import Multiselect from "../../components/multiselect/Multiselect";
+import { categories } from '../../context/context';
 
 const CarouselItem = ({id, title, image, text, custom, currentStep}) => {
     return (
@@ -29,14 +30,6 @@ const NewUser = ({setShowNewUser}) => {
     const [limitValue, setLimitValue] = useState('');
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
-
-    const categories = [
-        {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
-        {name: "Groceries", amount: "0.00"}, {name: "Entertainment", amount: "0.00"},
-        {name: "Bills", amount: "0.00"}, {name: "Education", amount: "0.00"},
-        {name: "Transportation", amount: "0.00"}, {name: "Investments", amount: "0.00"},
-        {name: "Health", amount: "0.00"}, {name: "Pets", amount: "0.00"}
-    ];
 
     const items = [
         {

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import modalCSS from './modal.module.css';
 import { IoMdCloseCircle } from 'react-icons/io';
 
-const Modal = ({isOpen, close, title, submit, content}) => {
+const Modal = ({isOpen, close, title, submit, type, content}) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Modal = ({isOpen, close, title, submit, content}) => {
     }, [isOpen]);
 
     return (
-        <dialog ref={modalRef} className={modalCSS.modal}>
+        <dialog ref={modalRef} className={`${modalCSS.modal} ${type}`}>
             <form onSubmit={submit}>
                 <div className={modalCSS.modalHeader}>
                     <p>{title}</p>

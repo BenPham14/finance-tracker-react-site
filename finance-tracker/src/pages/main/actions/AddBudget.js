@@ -4,6 +4,7 @@ import Multiselect from "../../../components/multiselect/Multiselect";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import modalCSS from "../../../components/modal/modal.module.css";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
@@ -40,6 +41,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
             close={closeModal}
             title={"+ Budget"}
             submit={submitBudget}
+            type={modalCSS.action}
             content={
                 <>
                     <input type="text" placeholder="Name" required

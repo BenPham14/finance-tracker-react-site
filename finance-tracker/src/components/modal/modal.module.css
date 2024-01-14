@@ -1,10 +1,19 @@
 .modal {
     padding: 20px;
     width: 70%;
-    max-width: 280px;
+    max-height: 70%;
     border: none;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+    font-size: 0.875rem;
+}
+
+.action {
+    max-width: 280px;
+}
+
+.details {
+    max-width: 560px;
 }
 
 .modal form {
@@ -44,6 +53,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 1rem;
 }
 
 .modalHeader > *:last-child {
@@ -55,7 +65,6 @@
     padding: 0;
     display: flex;
     gap: 10px;
-    font-size: 0.875rem;
 }
 
 .modal fieldset input {
@@ -74,4 +83,35 @@
 
 .modal fieldset input:checked {
     border: 6px solid black;
+}
+
+.modal table {
+    border-collapse: collapse;
+    text-wrap: nowrap;
+}
+
+.modal th {
+    text-align: start;
+}
+
+.modal th,
+.modal td {
+    padding: 10px 0;
+    padding-right: 20px;
+    border-bottom: 0.5px solid gray;
+}
+
+.modal th:last-child,
+.modal td:last-child {
+    padding-right: 0;
+}
+
+#transactionCategory {
+    display: none;
+}
+
+@media only screen and (min-width: 600px) {
+    #transactionCategory {
+        display: table-cell;
+    }
 }

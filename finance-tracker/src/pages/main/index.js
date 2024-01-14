@@ -8,6 +8,7 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { categories } from '../../context/context.js';
 
 const Loading = () => {
     return (
@@ -17,16 +18,7 @@ const Loading = () => {
     );
 }
 
-
 const Main = () => {
-    const categories = [
-        {name: "Shopping", amount: "0.00"}, {name: "Restaurants", amount: "0.00"},
-        {name: "Groceries", amount: "0.00"}, {name: "Entertainment", amount: "0.00"},
-        {name: "Bills", amount: "0.00"}, {name: "Education", amount: "0.00"},
-        {name: "Transportation", amount: "0.00"}, {name: "Investments", amount: "0.00"},
-        {name: "Health", amount: "0.00"}, {name: "Pets", amount: "0.00"}
-    ];
-
     const [accounts, setAccounts] = useState([]);
     const accountsRef = collection(db, 'accounts');
     const [budgets, setBudgets] = useState([]);
@@ -101,7 +93,7 @@ const Main = () => {
         <main className={mainCSS.main}>
             <header>
                 <h1>FinTracker</h1>
-                <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile'/>
+                <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
             </header>
 
             <Aside accounts={accounts} budgets={budgets} categories={categories} transactions={transactions}/>

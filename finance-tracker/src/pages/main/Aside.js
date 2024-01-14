@@ -5,21 +5,22 @@ import { useState } from 'react';
 import AddAccount from './actions/AddAccount';
 import AddBudget from './actions/AddBudget';
 import AccountDetails from './details/AccountDetails';
+import BudgetDetails from './details/BudgetDetails';
 
-const AccountItem = ({id, name, amount, openAccountDetails}) => {
+const AccountItem = ({account, amount, openAccountDetails}) => {
     return (
-        <button onClick={() => openAccountDetails(id, name, amount)}>
-            <p>{name}</p>
+        <button onClick={() => openAccountDetails(account.id, account.name, amount)}>
+            <p>{account.name}</p>
             <p>{amount < 0 && "-"}${Math.abs(amount)}</p>
         </button>
     );
 };
 
-const BudgetItem = ({name, amount, limit}) => {
+const BudgetItem = ({budget, amount, openBudgetDetails}) => {
     return (
-        <button>
-            <p>{name}</p>
-            <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${limit}</p>
+        <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories)}>
+            <p>{budget.name}</p>
+            <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
         </button>
     );
 };
@@ -28,12 +29,23 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
+
+    // Control opening details modals and setting data
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
     const [accountDetailsData, setAccountDetailsData] = useState({});
+    const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
+    const [budgetDetailsData, setBudgetDetailsData] = useState({});
 
     const openAccountDetails = (id, title, amount) => {
         setAccountDetailsOpen(true);
-        setAccountDetailsData({id: id, title: title, amount: amount});
+
+        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
+        setAccountDetailsData({id, title, amount}); // Since parameter is same, no need for 'key: ' in array
+    };
+
+    const openBudgetDetails = (id, title, amount, limit, categories) => {
+        setBudgetDetailsOpen(true);
+        setBudgetDetailsData({id, title, amount, limit, categories});
     };
 
     const accountAmount = (id) => {
@@ -104,8 +116,7 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                             <>
                                 <AccountItem
                                     key={index}
-                                    id={account.id}
-                                    name={account.name}
+                                    account={account}
                                     amount={accountAmount(account.id)}
                                     openAccountDetails={openAccountDetails}
                                 />
@@ -128,12 +139,20 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
                     {
                         budgets.map((budget, index) => (
-                            <BudgetItem 
-                                key={index}
-                                name={budget.name}
-                                amount={budgetAmount(budget.limit, budget.categories)}
-                                limit={budget.limit}
-                            />
+                            <>
+                                <BudgetItem 
+                                    key={index}
+                                    budget={budget}
+                                    amount={budgetAmount(budget.limit, budget.categories)}
+                                    openBudgetDetails={openBudgetDetails}
+                                />
+                                <BudgetDetails
+                                    data={budgetDetailsData}
+                                    setBudgetDetailsData={setBudgetDetailsData}
+                                    budgetDetailsOpen={budgetDetailsOpen}
+                                    setBudgetDetailsOpen={setBudgetDetailsOpen}
+                                />
+                            </>
                         ))
                     }
                 </div>
