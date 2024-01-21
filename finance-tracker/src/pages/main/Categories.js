@@ -1,12 +1,31 @@
+import { useState } from 'react';
+import CategoryDetails from './details/CategoryDetails';
 import mainCSS from './main.module.css';
 import { FaBucket } from "react-icons/fa6";
 
-const CategoriesItem = ({name, amount}) => {
+const CategoriesItem = ({category, amount}) => {
+    const [categoryDetailsOpen, setCategoryDetailsOpen] = useState(false);
+    const [categoryDetailsData, setCategoryDetailsData] = useState({});
+
+    const openCategoryDetails = (id, title, amount) => {
+        setCategoryDetailsOpen(true);
+        setCategoryDetailsData({id, title, amount})
+    };
+
     return (
-        <button>
-            <p>{name}</p>
-            <p>{amount < 0 && '-'}${Math.abs(amount)}</p>
-        </button>
+        <>
+            <button onClick={() => openCategoryDetails(category.id, category.name, amount)}>
+                <p>{category.name}</p>
+                <p>{amount < 0 && '-'}${Math.abs(amount)}</p>
+            </button>
+            <CategoryDetails
+                data={categoryDetailsData}
+                setCategoryDetailsData={setCategoryDetailsData}
+                categoryDetailsOpen={categoryDetailsOpen}
+                setCategoryDetailsOpen={setCategoryDetailsOpen}
+            />
+        </>
+        
     );
 }
 
@@ -36,7 +55,7 @@ const Categories = ({categories, transactions}) => {
                     categories.map((category, index) => (
                         <CategoriesItem 
                             key={index}
-                            name={category.name}
+                            category={category}
                             amount={categoryAmount(category.name)}
                         />
                     ))
