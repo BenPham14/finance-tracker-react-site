@@ -7,21 +7,55 @@ import AddBudget from './actions/AddBudget';
 import AccountDetails from './details/AccountDetails';
 import BudgetDetails from './details/BudgetDetails';
 
-const AccountItem = ({account, amount, openAccountDetails}) => {
+const AccountItem = ({account, amount}) => {
+    const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
+    const [accountDetailsData, setAccountDetailsData] = useState({});
+
+    const openAccountDetails = (id, title, amount) => {
+        setAccountDetailsOpen(true);
+        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
+        setAccountDetailsData({id, title, amount}); // Since parameter is same, no need for 'key: ' in array
+    };
+
     return (
-        <button onClick={() => openAccountDetails(account.id, account.name, amount)}>
-            <p>{account.name}</p>
-            <p>{amount < 0 && "-"}${Math.abs(amount)}</p>
-        </button>
+        <>
+            <button onClick={() => openAccountDetails(account.id, account.name, amount)}>
+                <p>{account.name}</p>
+                <p>{amount < 0 && "-"}${Math.abs(amount)}</p>
+            </button>
+            <AccountDetails
+                data={accountDetailsData}
+                setAccountDetailsData={setAccountDetailsData}
+                accountDetailsOpen={accountDetailsOpen}
+                setAccountDetailsOpen={setAccountDetailsOpen}
+            />
+        </>
     );
 };
 
-const BudgetItem = ({budget, amount, openBudgetDetails}) => {
+const BudgetItem = ({budget, amount}) => {
+    const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
+    const [budgetDetailsData, setBudgetDetailsData] = useState({});
+
+    const openBudgetDetails = (id, title, amount, limit, categories) => {
+        setBudgetDetailsOpen(true);
+        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
+        setBudgetDetailsData({id, title, amount, limit, categories}); // Since parameter is same, no need for 'key: ' in array
+    };
+
     return (
-        <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories)}>
-            <p>{budget.name}</p>
-            <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
-        </button>
+        <>
+            <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories)}>
+                <p>{budget.name}</p>
+                <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
+            </button>
+            <BudgetDetails
+                data={budgetDetailsData}
+                setBudgetDetailsData={setBudgetDetailsData}
+                budgetDetailsOpen={budgetDetailsOpen}
+                setBudgetDetailsOpen={setBudgetDetailsOpen}
+            />
+        </>
     );
 };
 
@@ -29,24 +63,6 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
-
-    // Control opening details modals and setting data
-    const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
-    const [accountDetailsData, setAccountDetailsData] = useState({});
-    const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
-    const [budgetDetailsData, setBudgetDetailsData] = useState({});
-
-    const openAccountDetails = (id, title, amount) => {
-        setAccountDetailsOpen(true);
-
-        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setAccountDetailsData({id, title, amount}); // Since parameter is same, no need for 'key: ' in array
-    };
-
-    const openBudgetDetails = (id, title, amount, limit, categories) => {
-        setBudgetDetailsOpen(true);
-        setBudgetDetailsData({id, title, amount, limit, categories});
-    };
 
     const accountAmount = (id) => {
         let amount = 0;
@@ -113,20 +129,11 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                 <div className={`${mainCSS.accountsItems} ${mainCSS.items}`}>
                     {
                         accounts.map((account, index) => (
-                            <>
-                                <AccountItem
-                                    key={index}
-                                    account={account}
-                                    amount={accountAmount(account.id)}
-                                    openAccountDetails={openAccountDetails}
-                                />
-                                <AccountDetails
-                                    data={accountDetailsData}
-                                    setAccountDetailsData={setAccountDetailsData}
-                                    accountDetailsOpen={accountDetailsOpen}
-                                    setAccountDetailsOpen={setAccountDetailsOpen}
-                                />
-                            </>
+                            <AccountItem
+                                key={index}
+                                account={account}
+                                amount={accountAmount(account.id)}
+                            />
                         ))
                     }
                 </div>
@@ -139,20 +146,11 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
                     {
                         budgets.map((budget, index) => (
-                            <>
-                                <BudgetItem 
-                                    key={index}
-                                    budget={budget}
-                                    amount={budgetAmount(budget.limit, budget.categories)}
-                                    openBudgetDetails={openBudgetDetails}
-                                />
-                                <BudgetDetails
-                                    data={budgetDetailsData}
-                                    setBudgetDetailsData={setBudgetDetailsData}
-                                    budgetDetailsOpen={budgetDetailsOpen}
-                                    setBudgetDetailsOpen={setBudgetDetailsOpen}
-                                />
-                            </>
+                            <BudgetItem 
+                                key={index}
+                                budget={budget}
+                                amount={budgetAmount(budget.limit, budget.categories)}
+                            />
                         ))
                     }
                 </div>
