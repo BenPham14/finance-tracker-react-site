@@ -6,4 +6,9 @@ const categories = [
     {name: "Health", amount: "0.00"}, {name: "Pets", amount: "0.00"}
 ];
 
-export { categories };
+const convertDateFormat = (date) => {
+    // convert date from "YYYY-MM-DD" to locale format. However, the date minused a day because it assumes we are UTC time: it shows "1/1/2024" as "12/31/2023", so we use getTimezoneOffet to add the day back
+    return new Date(date + "Z" + new Date().getTimezoneOffset() * -1 / 60).toLocaleDateString();
+};
+
+export { categories, convertDateFormat };

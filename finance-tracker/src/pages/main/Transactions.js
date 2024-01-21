@@ -19,6 +19,7 @@ const Transactions = ({transactions}) => {
                 </thead>
                 <tbody>
                     {
+                        // limits table to 4 lines
                         transactions.slice(0,4).map((transaction, index) => (
                             <tr key={index}>
                                 <td>{transaction.name}</td>
