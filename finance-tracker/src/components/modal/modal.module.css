@@ -84,34 +84,3 @@
 .modal fieldset input:checked {
     border: 6px solid black;
 }
-
-.modal table {
-    border-collapse: collapse;
-    text-wrap: nowrap;
-}
-
-.modal th {
-    text-align: start;
-}
-
-.modal th,
-.modal td {
-    padding: 10px 0;
-    padding-right: 20px;
-    border-bottom: 0.5px solid gray;
-}
-
-.modal th:last-child,
-.modal td:last-child {
-    padding-right: 0;
-}
-
-#transactionCategory {
-    display: none;
-}
-
-@media only screen and (min-width: 600px) {
-    #transactionCategory {
-        display: table-cell;
-    }
-}

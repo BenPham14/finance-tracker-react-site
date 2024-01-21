@@ -5,6 +5,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth, db } from "../../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { convertDateFormat } from "../../../context/context";
+import Table from "../../../components/table/Table";
 
 const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
@@ -49,28 +50,7 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
             content={
                 <>
                     <p>${Math.abs(data.amount)} spent</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th id={modalCSS.transactionCategory}>Category</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                transactions.map((transaction) => (
-                                    <tr key={transaction.id}>
-                                        <td>{transaction.name}</td>
-                                        <td id={modalCSS.transactionCategory}>{transaction.category}</td>
-                                        <td>{transaction.date}</td>
-                                        <td>{transaction.type === 'expense' && '-'}${transaction.amount}</td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
+                    <Table data={transactions}/>
                 </>
             } 
         />

@@ -4,6 +4,7 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../../config/firebase.js';
 import modalCSS from "../../../components/modal/modal.module.css";
 import { convertDateFormat } from '../../../context/context.js';
+import Table from '../../../components/table/Table.js';
 
 const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAccountDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
@@ -40,28 +41,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
             content={
                 <>
                     <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} remaining</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th id={modalCSS.transactionCategory}>Category</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                transactions.map((transaction) => (
-                                    <tr key={transaction.id}>
-                                        <td>{transaction.name}</td>
-                                        <td id={modalCSS.transactionCategory}>{transaction.category}</td>
-                                        <td>{transaction.date}</td>
-                                        <td>{transaction.type === 'expense' && '-'}${transaction.amount}</td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
+                    <Table data={transactions}/>
                 </>
             }
         />
