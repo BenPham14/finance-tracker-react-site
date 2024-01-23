@@ -59,29 +59,33 @@
 } */
 
 .main button,
-.transactions table {
+#homeTable {
     font-size: 0.875rem;
 }
 
-.transactions table,
-.transactions th:nth-child(1) {
+#homeTable{
+    cursor: pointer;
+}
+
+#homeTable,
+#homeTable th:nth-child(1) {
     width: 100%;
     border-collapse: collapse;
 }
 
-.transactions th,
-.transactions td {
+#homeTable th,
+#homeTable td {
     padding: 10px 0;
     border-bottom: 0.5px solid gray;
     text-wrap: nowrap;
 }
 
-.transactions th {
+#homeTable th {
     text-align: start;
 }
 
-.transactions th:not(:nth-child(4)),
-.transactions td:not(:nth-child(4)) {
+#homeTable th:not(:nth-child(4)),
+#homeTable td:not(:nth-child(4)) {
     padding-right: 30px;
 }
 
@@ -100,7 +104,7 @@
 }
 
 .items,
-.transactions table {
+#homeTable {
     gap: 15px;
     border-top: 0.5px solid gray;
     padding-top: 15px;

@@ -1,14 +1,18 @@
+import { useState } from 'react';
+import TransactionDetails from './details/TransactionDetails';
 import mainCSS from './main.module.css';
 import { FaCreditCard } from "react-icons/fa6";
 
 const Transactions = ({transactions}) => {
+    const [transactionDetailsOpen, setTransactionDetailsOpen] = useState(false);
+    
     return (
         <section className={mainCSS.transactions}>
             <div className={mainCSS.sectionHeader}>
                 <FaCreditCard/>
                 <p>Transactions</p>
             </div>
-            <table>
+            <table id={mainCSS.homeTable} onClick={() => setTransactionDetailsOpen(true)}>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -31,6 +35,11 @@ const Transactions = ({transactions}) => {
                     }
                 </tbody>
             </table>
+            <TransactionDetails
+                data={transactions}
+                transactionDetailsOpen={transactionDetailsOpen}
+                setTransactionDetailsOpen={setTransactionDetailsOpen}
+            />
         </section>
     );
 };
