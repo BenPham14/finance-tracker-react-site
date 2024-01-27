@@ -10,10 +10,13 @@ import Table from '../../../components/table/Table.js';
 const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
     const [transactions, setTransactions] = useState([]);
+    const [categories, setCategories] = useState([]);
     
     const closeModal = () => {
         setBudgetDetailsOpen(false);
         setBudgetDetailsData({});
+        setTransactions([]);
+        setCategories([]);
     };
 
     useEffect(() => {
@@ -35,6 +38,7 @@ const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudget
                             setTransactions((oldArray) => [...oldArray, {...doc.data(), date: convertDateFormat(doc.data().date)}]);
                         });
                     });
+                    setCategories((cat) => [...cat, category]);
                     return () => unsubscribe();
                 });
             };
@@ -51,7 +55,7 @@ const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudget
             content={
                 <>
                     <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} remaining of ${data.limit}</p>
-                    {/* <p>{data.categories}</p> */}
+                    <p>Categories: {categories.join(', ')}</p>
                     <Table data={transactions}/>
                 </>
             }

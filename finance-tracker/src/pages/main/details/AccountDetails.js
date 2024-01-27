@@ -13,6 +13,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
     const closeModal = () => {
         setAccountDetailsOpen(false);
         setAccountDetailsData({});
+        setTransactions([]);
     };
 
     useEffect(() => {

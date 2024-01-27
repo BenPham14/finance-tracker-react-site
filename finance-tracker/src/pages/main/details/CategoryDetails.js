@@ -14,6 +14,7 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
     const closeModal = () => {
         setCategoryDetailsOpen(false);
         setCategoryDetailsData({});
+        setTransactions([]);
     };
 
     useEffect(() => {
