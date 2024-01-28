@@ -43,7 +43,7 @@
     background-color: whitesmoke;
 }
 
-.main button p:first-of-type {
+.main button > p:first-of-type {
     font-weight: bold;
 }
 
@@ -126,10 +126,17 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.accountsItems button p:last-of-type,
-.budgetsItems button p:last-of-type,
-.categoryItems button p:last-of-type {
+.accountsItems button p:not(:first-of-type),
+.budgetDescription,
+.categoryItems button p:not(:first-of-type) {
     font-size: 0.75rem;
+}
+
+.budgetDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
 }
 
 @media only screen and (min-width: 600px) {

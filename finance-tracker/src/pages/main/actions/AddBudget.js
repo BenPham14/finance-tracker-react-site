@@ -9,20 +9,40 @@ import modalCSS from "../../../components/modal/modal.module.css";
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
     const [limitValue, setLimitValue] = useState("");
+    const [periodValue, setPeriodValue] = useState("");
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = collection(db, "budgets");
+
+    const periodOptions = [
+        {name: "day(s)", count: 6},
+        {name: "week(s)", count: 3},
+        {name: "month(s)", count: 11},
+        {name: "year(s)", count: 10}
+    ];
+
+    const changePlaceholderColor = (value) => {
+        if (value === "") {
+            return "gray";
+        };
+    };
 
     const closeModal = (e) => {
         setBudgetsOpen(false);
         setNameValue("");
         setLimitValue("");
+        setPeriodValue("");
         setCategoriesValue([]);
         setCategoriesOpen(false);
     };
 
     const submitBudget = async (e) => {
         e.preventDefault();
+
+        let startDate = new Date();
+        let endDate = new Date();
+        endDate.setDate(startDate.getDate() + 5);
+
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
@@ -30,6 +50,9 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
             name: nameValue,
             limit: limitValue,
             amount: '0',
+            period: periodValue,
+            periodStart: startDate,
+            periodEnd: endDate,
             categories: categoriesValue
         });
         closeModal();
@@ -50,6 +73,18 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
                     <input type="number" placeholder="Limit" required min="0"
                         value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
                     />
+                    <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
+                        value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
+                    >
+                        <option value="" disabled>Period</option>
+                        {
+                            periodOptions.map((period, index) => {
+                                return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
+                                    return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
+                                })
+                            })
+                        }
+                    </select>
                     <Multiselect
                         data={categories}
                         value={categoriesValue}

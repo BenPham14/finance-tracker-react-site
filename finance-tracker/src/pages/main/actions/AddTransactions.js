@@ -77,7 +77,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                     <input type='number' placeholder='Amount' required min="0"
                         value={amountValue} onChange={(e) => setAmountValue(e.target.value)}
                     />
-                    <input type='date' placeholder='Date' required style={{color: changePlaceholderColor(dateValue)}} 
+                    <input type='date' required style={{color: changePlaceholderColor(dateValue)}} 
                         value={dateValue} onChange={(e) => setDateValue(e.target.value)}
                     />
                     <select name='accounts' required style={{color: changePlaceholderColor(accountValue)}} 

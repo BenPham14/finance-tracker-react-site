@@ -43,11 +43,22 @@ const BudgetItem = ({budget, amount}) => {
         setBudgetDetailsData({id, title, amount, limit, categories}); // Since parameter is same, no need for 'key: ' in array
     };
 
+    const getDaysUntilReset = () => {
+        const now = new Date();
+        const end = new Date(budget.periodEnd.seconds * 1000);
+        const difference = end.getTime() - now.getTime();
+
+        return Math.ceil(difference / (1000 * 3600 * 24));
+    };
+
     return (
         <>
             <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories)}>
                 <p>{budget.name}</p>
-                <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
+                <div className={mainCSS.budgetDescription}>
+                    <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
+                    <p>Resets in {getDaysUntilReset()} {getDaysUntilReset() < 2 ? "day" : "days"}</p>
+                </div>
             </button>
             <BudgetDetails
                 data={budgetDetailsData}
