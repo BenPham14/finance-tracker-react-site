@@ -38,10 +38,21 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
 
     const submitBudget = async (e) => {
         e.preventDefault();
-
         let startDate = new Date();
         let endDate = new Date();
-        endDate.setDate(startDate.getDate() + 5);
+
+        // Keep only number value in string like 2 day(s) becomes 2
+        let number = periodValue.replace(/[^0-9]/g, '');
+
+        if (periodValue.includes("day")) {
+            endDate.setDate(startDate.getDate() + parseInt(number));
+        } else if (periodValue.includes("week")) {
+            endDate.setDate(startDate.getDate() + (parseInt(number)*7));
+        } else if (periodValue.includes("month")) {
+            endDate.setDate(startDate.getDate() + (parseInt(number)*30));
+        } else if (periodValue.includes("year")) {
+            endDate.setDate(startDate.getDate() + (parseInt(number)*365));
+        };
 
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
