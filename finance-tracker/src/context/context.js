@@ -11,4 +11,9 @@ const convertDateFormat = (date) => {
     return new Date(date + "Z" + new Date().getTimezoneOffset() * -1 / 60).toLocaleDateString();
 };
 
-export { categories, convertDateFormat };
+const convertTimestampToDate = (date) => {
+    // Since Timestamps are returned in seconds and nanoseconds, we have to convert to date
+    return new Date(date.seconds * 1000 + date.seconds / 1000000);
+};
+
+export { categories, convertDateFormat, convertTimestampToDate };

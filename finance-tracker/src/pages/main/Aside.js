@@ -1,11 +1,14 @@
 import mainCSS from './main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
 import AddTransactions from './actions/AddTransactions';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddAccount from './actions/AddAccount';
 import AddBudget from './actions/AddBudget';
 import AccountDetails from './details/AccountDetails';
 import BudgetDetails from './details/BudgetDetails';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+import { convertTimestampToDate } from '../../context/context';
 
 const AccountItem = ({account, amount}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
@@ -36,11 +39,12 @@ const AccountItem = ({account, amount}) => {
 const BudgetItem = ({budget, amount}) => {
     const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
     const [budgetDetailsData, setBudgetDetailsData] = useState({});
+    const budgetsRef = doc(db, "budgets", budget.docId);
 
-    const openBudgetDetails = (id, title, amount, limit, categories) => {
+    const openBudgetDetails = (id, title, amount, limit, categories, period) => {
         setBudgetDetailsOpen(true);
         // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setBudgetDetailsData({id, title, amount, limit, categories}); // Since parameter is same, no need for 'key: ' in array
+        setBudgetDetailsData({id, title, amount, limit, categories, period}); // Since parameter is same, no need for 'key: ' in array
     };
 
     const getDaysUntilReset = () => {
@@ -51,9 +55,33 @@ const BudgetItem = ({budget, amount}) => {
         return Math.ceil(difference / (1000 * 3600 * 24));
     };
 
+    // If days until reset is < 1 then updateDoc with new budget end date
+    useEffect(() => {
+        if (getDaysUntilReset() < 1) {
+            let startDate = convertTimestampToDate(budget.periodEnd);
+            let endDate = convertTimestampToDate(budget.periodEnd);
+            let number = budget.period.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
+
+            if (budget.period.includes("day")) {
+                endDate.setDate(endDate.getDate() + parseInt(number));
+            } else if (budget.period.includes("week")) {
+                endDate.setDate(endDate.getDate() + (parseInt(number)*7));
+            } else if (budget.period.includes("month")) {
+                endDate.setDate(endDate.getDate() + (parseInt(number)*30));
+            } else if (budget.period.includes("year")) {
+                endDate.setDate(endDate.getDate() + (parseInt(number)*365));
+            };
+
+            updateDoc(budgetsRef, {
+                periodStart: startDate,
+                periodEnd: endDate
+            });
+        };
+    }, [getDaysUntilReset()]);
+
     return (
         <>
-            <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories)}>
+            <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories, budget.period)}>
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
                     <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>

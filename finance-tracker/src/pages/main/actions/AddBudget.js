@@ -40,9 +40,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
         e.preventDefault();
         let startDate = new Date();
         let endDate = new Date();
-
-        // Keep only number value in string like 2 day(s) becomes 2
-        let number = periodValue.replace(/[^0-9]/g, '');
+        let number = periodValue.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
 
         if (periodValue.includes("day")) {
             endDate.setDate(startDate.getDate() + parseInt(number));

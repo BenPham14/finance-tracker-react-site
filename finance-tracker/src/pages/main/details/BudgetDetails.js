@@ -56,6 +56,7 @@ const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudget
                 <>
                     <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} remaining of ${data.limit}</p>
                     <p>Categories: {categories.join(', ')}</p>
+                    <p>Resets every {data.period}</p>
                     <Table data={transactions}/>
                 </>
             }
