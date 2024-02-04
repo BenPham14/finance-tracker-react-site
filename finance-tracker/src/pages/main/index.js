@@ -8,7 +8,7 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { categories, convertDateFormat } from '../../context/context.js';
+import { categories, convertTimestampToDate } from '../../context/context.js';
 
 const Loading = () => {
     return (
@@ -68,7 +68,7 @@ const Main = () => {
                 const unsubscribe3 = onSnapshot(queryTransactions, (snapshot) => {
                     let transactions = [];
                     snapshot.forEach((doc) => {
-                        transactions.push({...doc.data(), docId: doc.id, date: convertDateFormat(doc.data().date)});
+                        transactions.push({...doc.data(), docId: doc.id, date: convertTimestampToDate(doc.data().date).toLocaleDateString()});
                     });
                     setTransactions(transactions);
                 })

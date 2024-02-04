@@ -3,7 +3,7 @@ import Modal from '../../../components/modal/Modal.js';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { db } from '../../../config/firebase.js';
 import modalCSS from "../../../components/modal/modal.module.css";
-import { convertDateFormat } from '../../../context/context.js';
+import { convertTimestampToDate } from '../../../context/context.js';
 import Table from '../../../components/table/Table.js';
 
 const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAccountDetailsOpen}) => {
@@ -25,7 +25,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
         const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
             let transactions = [];
             snapshot.forEach((doc) => {
-                transactions.push({...doc.data(), docId: doc.id, date: convertDateFormat(doc.data().date)});
+                transactions.push({...doc.data(), docId: doc.id, date: convertTimestampToDate(doc.data().date).toLocaleDateString()});
             });
             setTransactions(transactions);
         });

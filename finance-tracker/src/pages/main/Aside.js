@@ -41,10 +41,10 @@ const BudgetItem = ({budget, amount}) => {
     const [budgetDetailsData, setBudgetDetailsData] = useState({});
     const budgetsRef = doc(db, "budgets", budget.docId);
 
-    const openBudgetDetails = (id, title, amount, limit, categories, period) => {
+    const openBudgetDetails = (id, title, amount, limit, categories, period, start, end) => {
         setBudgetDetailsOpen(true);
         // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setBudgetDetailsData({id, title, amount, limit, categories, period}); // Since parameter is same, no need for 'key: ' in array
+        setBudgetDetailsData({id, title, amount, limit, categories, period, start, end}); // Since parameter is same, no need for 'key: ' in array
     };
 
     const getDaysUntilReset = () => {
@@ -81,11 +81,11 @@ const BudgetItem = ({budget, amount}) => {
 
     return (
         <>
-            <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories, budget.period)}>
+            <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories, budget.period, budget.periodStart, budget.periodEnd)}>
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
                     <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
-                    <p>Resets in {getDaysUntilReset()} {getDaysUntilReset() < 2 ? "day" : "days"}</p>
+                    <p>Ends in {getDaysUntilReset()} {getDaysUntilReset() < 2 ? "day" : "days"}</p>
                 </div>
             </button>
             <BudgetDetails

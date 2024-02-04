@@ -4,6 +4,7 @@ import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
 import modalCSS from "../../../components/modal/modal.module.css";
+import { convertDateFormat } from '../../../context/context.js';
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen}) => {
     const [typeValue, setTypeValue] = useState("expense");
@@ -44,7 +45,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             type: typeValue,
             name: nameValue,
             amount: amountValue,
-            date: dateValue,
+            date: convertDateFormat(dateValue),
             accountId: accountValue.split(',')[0],
             accountName: accountValue.split(',')[1],
             category: typeValue === 'expense' ? categoryValue : 'Income'

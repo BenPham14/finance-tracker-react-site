@@ -4,7 +4,7 @@ import modalCSS from "../../../components/modal/modal.module.css";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth, db } from "../../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { convertDateFormat } from "../../../context/context";
+import { convertTimestampToDate } from "../../../context/context";
 import Table from "../../../components/table/Table";
 
 const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {
@@ -32,7 +32,7 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
                 const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
                     let transactions = [];
                     snapshot.forEach((doc) => {
-                        transactions.push({...doc.data(), docId: doc.id, date: convertDateFormat(doc.data().date)});
+                        transactions.push({...doc.data(), docId: doc.id, date: convertTimestampToDate(doc.data().date).toLocaleDateString()});
                     });
                     setTransactions(transactions);
                 });

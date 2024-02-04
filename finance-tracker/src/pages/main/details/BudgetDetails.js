@@ -4,7 +4,7 @@ import modalCSS from "../../../components/modal/modal.module.css";
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { auth, db } from '../../../config/firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
-import { convertDateFormat } from '../../../context/context.js';
+import { convertTimestampToDate } from '../../../context/context.js';
 import Table from '../../../components/table/Table.js';
 
 const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudgetDetailsOpen}) => {
@@ -31,11 +31,13 @@ const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudget
                         transactionsRef, 
                         // where uid == user id and transaction category is in budget's categories
                         where("uid", "==", user.uid),
-                        where("category", "==", category)
+                        where("category", "==", category),
+                        where("date", ">=", data.start),
+                        where("date", "<", data.end)
                     );
                     const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
                         snapshot.forEach((doc) => {
-                            setTransactions((oldArray) => [...oldArray, {...doc.data(), date: convertDateFormat(doc.data().date)}]);
+                            setTransactions((oldArray) => [...oldArray, {...doc.data(), date: convertTimestampToDate(doc.data().date).toLocaleDateString()}]);
                         });
                     });
                     setCategories((cat) => [...cat, category]);
