@@ -1,135 +1,16 @@
 import mainCSS from './main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
 import AddTransactions from './actions/AddTransactions';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AddAccount from './actions/AddAccount';
 import AddBudget from './actions/AddBudget';
-import AccountDetails from './details/AccountDetails';
-import BudgetDetails from './details/BudgetDetails';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { convertTimestampToDate } from '../../context/context';
-
-const AccountItem = ({account, amount}) => {
-    const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
-    const [accountDetailsData, setAccountDetailsData] = useState({});
-
-    const openAccountDetails = (id, title, amount) => {
-        setAccountDetailsOpen(true);
-        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setAccountDetailsData({id, title, amount}); // Since parameter is same, no need for 'key: ' in array
-    };
-
-    return (
-        <>
-            <button onClick={() => openAccountDetails(account.id, account.name, amount)}>
-                <p>{account.name}</p>
-                <p>{amount < 0 && "-"}${Math.abs(amount)}</p>
-            </button>
-            <AccountDetails
-                data={accountDetailsData}
-                setAccountDetailsData={setAccountDetailsData}
-                accountDetailsOpen={accountDetailsOpen}
-                setAccountDetailsOpen={setAccountDetailsOpen}
-            />
-        </>
-    );
-};
-
-const BudgetItem = ({budget, amount}) => {
-    const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
-    const [budgetDetailsData, setBudgetDetailsData] = useState({});
-    const budgetsRef = doc(db, "budgets", budget.docId);
-
-    const openBudgetDetails = (id, title, amount, limit, categories, period, start, end) => {
-        setBudgetDetailsOpen(true);
-        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setBudgetDetailsData({id, title, amount, limit, categories, period, start, end}); // Since parameter is same, no need for 'key: ' in array
-    };
-
-    const getDaysUntilReset = () => {
-        const now = new Date();
-        const end = new Date(budget.periodEnd.seconds * 1000);
-        const difference = end.getTime() - now.getTime();
-
-        return Math.ceil(difference / (1000 * 3600 * 24));
-    };
-
-    // If days until reset is < 1 then updateDoc with new budget end date
-    useEffect(() => {
-        if (getDaysUntilReset() < 1) {
-            let startDate = convertTimestampToDate(budget.periodEnd);
-            let endDate = convertTimestampToDate(budget.periodEnd);
-            let number = budget.period.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
-
-            if (budget.period.includes("day")) {
-                endDate.setDate(endDate.getDate() + parseInt(number));
-            } else if (budget.period.includes("week")) {
-                endDate.setDate(endDate.getDate() + (parseInt(number)*7));
-            } else if (budget.period.includes("month")) {
-                endDate.setDate(endDate.getDate() + (parseInt(number)*30));
-            } else if (budget.period.includes("year")) {
-                endDate.setDate(endDate.getDate() + (parseInt(number)*365));
-            };
-
-            updateDoc(budgetsRef, {
-                periodStart: startDate,
-                periodEnd: endDate
-            });
-        };
-    }, [getDaysUntilReset()]);
-
-    return (
-        <>
-            <button onClick={() => openBudgetDetails(budget.id, budget.name, amount, budget.limit, budget.categories, budget.period, budget.periodStart, budget.periodEnd)}>
-                <p>{budget.name}</p>
-                <div className={mainCSS.budgetDescription}>
-                    <p>{amount < 0 && "-"}${Math.abs(amount)} remaining of ${budget.limit}</p>
-                    <p>Ends in {getDaysUntilReset()} {getDaysUntilReset() < 2 ? "day" : "days"}</p>
-                </div>
-            </button>
-            <BudgetDetails
-                data={budgetDetailsData}
-                setBudgetDetailsData={setBudgetDetailsData}
-                budgetDetailsOpen={budgetDetailsOpen}
-                setBudgetDetailsOpen={setBudgetDetailsOpen}
-            />
-        </>
-    );
-};
+import Budget from './aside/Budget';
+import Account from './aside/Account';
 
 const Aside = ({accounts, budgets, categories, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
-
-    const accountAmount = (id) => {
-        let amount = 0;
-        transactions.forEach((transaction) => {
-            if (transaction.accountId === id) {
-                if (transaction.type === 'expense') {
-                    amount -= parseInt(transaction.amount);
-                } else {
-                    amount += parseInt(transaction.amount);
-                };
-            };
-        });
-        return amount;
-    };
-
-    const budgetAmount = (limit, categories) => {
-        let amount = limit;
-        transactions.forEach((transaction) => {
-            if (categories.includes(transaction.category)) {
-                if (transaction.type === 'expense') {
-                    amount -= parseInt(transaction.amount);
-                } else {
-                    amount += parseInt(transaction.amount);
-                };
-            };
-        });
-        return amount;
-    };
 
     return (
         <aside>
@@ -168,10 +49,10 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                 <div className={`${mainCSS.accountsItems} ${mainCSS.items}`}>
                     {
                         accounts.map((account, index) => (
-                            <AccountItem
+                            <Account
                                 key={index}
                                 account={account}
-                                amount={accountAmount(account.id)}
+                                transactions={transactions}
                             />
                         ))
                     }
@@ -185,10 +66,9 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
                     {
                         budgets.map((budget, index) => (
-                            <BudgetItem 
+                            <Budget
                                 key={index}
                                 budget={budget}
-                                amount={budgetAmount(budget.limit, budget.categories)}
                             />
                         ))
                     }
