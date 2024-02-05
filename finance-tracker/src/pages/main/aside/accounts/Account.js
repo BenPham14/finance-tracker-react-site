@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AccountDetails from "../details/AccountDetails";
+import AccountDetails from "./AccountDetails";
 
 const Account = ({account, transactions}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);

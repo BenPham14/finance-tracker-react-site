@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Modal from '../../../components/modal/Modal.js';
-import modalCSS from "../../../components/modal/modal.module.css";
+import Modal from '../../../../components/modal/Modal.js';
+import modalCSS from "../../../../components/modal/modal.module.css";
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { auth, db } from '../../../config/firebase.js';
+import { auth, db } from '../../../../config/firebase.js';
 import { onAuthStateChanged } from 'firebase/auth';
-import { convertTimestampToDate } from '../../../context/context.js';
-import Table from '../../../components/table/Table.js';
+import { convertTimestampToDate } from '../../../../context/context.js';
+import Table from '../../../../components/table/Table.js';
 
 const BudgetDetails = ({data, setBudgetDetailsData, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');

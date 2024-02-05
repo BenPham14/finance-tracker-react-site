@@ -1,9 +1,9 @@
 import mainCSS from './main.module.css';
 import NewUser from '../new-user/NewUser.js';
-import Aside from './Aside.js';
-import Summary from './Summary.js';
-import Transactions from './Transactions.js';
-import Categories from './Categories.js';
+import Aside from './aside/Aside.js';
+import Summary from './summary/Summary.js';
+import Transactions from './transactions/Transactions.js';
+import Categories from './categories/Categories.js';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';

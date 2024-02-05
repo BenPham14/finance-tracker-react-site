@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import CategoryDetails from './details/CategoryDetails';
-import mainCSS from './main.module.css';
+import CategoryDetails from './CategoryDetails';
+import mainCSS from '../main.module.css';
 import { FaBucket } from "react-icons/fa6";
 
 const CategoriesItem = ({category, amount}) => {

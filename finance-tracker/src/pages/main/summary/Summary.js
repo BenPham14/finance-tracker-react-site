@@ -1,4 +1,4 @@
-import mainCSS from './main.module.css';
+import mainCSS from '../main.module.css';
 import { FaCalendar } from "react-icons/fa6";
 
 const Summary = () => {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { auth, db } from "../../../config/firebase";
+import { auth, db } from "../../../../config/firebase";
 import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
-import { convertTimestampToDate } from "../../../context/context";
-import BudgetDetails from "../details/BudgetDetails";
-import mainCSS from "../main.module.css";
+import { convertTimestampToDate } from "../../../../context/context";
+import BudgetDetails from "./BudgetDetails";
+import mainCSS from "../../main.module.css";
 import { onAuthStateChanged } from "firebase/auth";
 
 const Budget = ({budget}) => {

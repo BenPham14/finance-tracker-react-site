@@ -1,11 +1,11 @@
-import mainCSS from './main.module.css';
+import mainCSS from '../main.module.css';
 import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
-import AddTransactions from './actions/AddTransactions';
+import AddTransactions from '../actions/AddTransactions';
 import { useState } from 'react';
-import AddAccount from './actions/AddAccount';
-import AddBudget from './actions/AddBudget';
-import Budget from './aside/Budget';
-import Account from './aside/Account';
+import AddAccount from '../actions/AddAccount';
+import AddBudget from '../actions/AddBudget';
+import Budget from './budgets/Budget';
+import Account from './accounts/Account';
 
 const Aside = ({accounts, budgets, categories, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
