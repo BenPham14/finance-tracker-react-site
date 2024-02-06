@@ -8,42 +8,44 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const Budget = ({budget}) => {
     const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
-    const [budgetDetailsData, setBudgetDetailsData] = useState({});
+    const [transactions, setTransactions] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [budgetCategories, setBudgetCategories] = useState([]);
     const budgetsRef = doc(db, "budgets", budget.docId);
-
-    const openBudgetDetails = (id, title, amount, limit, categories, period, start, end) => {
-        setBudgetDetailsOpen(true);
-        // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setBudgetDetailsData({id, title, amount, limit, categories, period, start, end}); // Since parameter is same, no need for 'key: ' in array
-    };
+    const transactionsRef = collection(db, 'transactions');
 
     const getDaysUntilReset = () => {
         const now = new Date();
         const end = new Date(budget.periodEnd.seconds * 1000);
         const difference = end.getTime() - now.getTime();
-
         return Math.ceil(difference / (1000 * 3600 * 24));
     };
 
-    const transactionsRef = collection(db, 'transactions');
-    const [transactions, setTransactions] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [budgetCategories, setBudgetCategories] = useState([]);
+    const budgetAmount = (limit, categories) => {
+        let amount = limit;
+        transactions.forEach((transaction) => {
+            if (categories.includes(transaction.category)) {
+                if (transaction.type === 'expense') {
+                    amount -= parseInt(transaction.amount);
+                } else {
+                    amount += parseInt(transaction.amount);
+                };
+            };
+        });
+        return amount;
+    };
 
     useEffect(() => {
-        // copy query from budgetDetails and setTransactions()
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 if (budget.categories === undefined) {
-                    // onClose modal, this will reset array so it doesn't stack results
                     return setTransactions([]);
                 };
 
-                setBudgetCategories(budget.categories);
+                setBudgetCategories(budget.categories); // Since state loads twice, it appends duplicates. This prevents that
                 budgetCategories.forEach((category) => {
                     const queryTransactions = query(
-                        transactionsRef, 
-                        // where uid == user id and transaction category is in budget's categories
+                        transactionsRef,
                         where("uid", "==", user.uid),
                         where("category", "==", category),
                         where("date", ">=", budget.periodStart),
@@ -60,20 +62,6 @@ const Budget = ({budget}) => {
             };
         });
     }, [budgetCategories]);
-
-    const budgetAmount = (limit, categories) => {
-        let amount = limit;
-        transactions.forEach((transaction) => {
-            if (categories.includes(transaction.category)) {
-                if (transaction.type === 'expense') {
-                    amount -= parseInt(transaction.amount);
-                } else {
-                    amount += parseInt(transaction.amount);
-                };
-            };
-        });
-        return amount;
-    };
 
     // If days until reset is < 1 then updateDoc with new budget end date
     useEffect(() => {
@@ -101,7 +89,7 @@ const Budget = ({budget}) => {
 
     return (
         <>
-            <button onClick={() => openBudgetDetails(budget.id, budget.name, budgetAmount(budget.limit, budget.categories), budget.limit, budget.categories, budget.period, budget.periodStart, budget.periodEnd)}>
+            <button onClick={() => setBudgetDetailsOpen(true)}>
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
                     <p>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${Math.abs(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</p>
@@ -109,8 +97,10 @@ const Budget = ({budget}) => {
                 </div>
             </button>
             <BudgetDetails
-                data={budgetDetailsData}
-                setBudgetDetailsData={setBudgetDetailsData}
+                data={budget}
+                amount={budgetAmount(budget.limit, budget.categories)}
+                transactions={transactions}
+                categories={categories}
                 budgetDetailsOpen={budgetDetailsOpen}
                 setBudgetDetailsOpen={setBudgetDetailsOpen}
             />
