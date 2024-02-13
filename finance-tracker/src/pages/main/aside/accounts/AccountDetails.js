@@ -41,7 +41,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
             type={modalCSS.details}
             content={
                 <>
-                    <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} remaining</p>
+                    <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} available</p>
                     <Table data={transactions}/>
                 </>
             }

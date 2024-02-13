@@ -68,7 +68,12 @@ const Main = () => {
                 const unsubscribe3 = onSnapshot(queryTransactions, (snapshot) => {
                     let transactions = [];
                     snapshot.forEach((doc) => {
-                        transactions.push({...doc.data(), docId: doc.id, date: convertTimestampToDate(doc.data().date).toLocaleDateString()});
+                        transactions.push({
+                            ...doc.data(), 
+                            docId: doc.id, 
+                            date: convertTimestampToDate(doc.data().date).toLocaleDateString(), 
+                            timeStamp: doc.data().date
+                        });
                     });
                     setTransactions(transactions);
                 })

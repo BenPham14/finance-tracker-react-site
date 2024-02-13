@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import { auth, db } from "../../../../config/firebase";
-import { collection, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
+import { db } from "../../../../config/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import { convertTimestampToDate } from "../../../../context/context";
 import BudgetDetails from "./BudgetDetails";
 import mainCSS from "../../main.module.css";
-import { onAuthStateChanged } from "firebase/auth";
 
-const Budget = ({budget}) => {
+const Budget = ({budget, transactions}) => {
     const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
-    const [transactions, setTransactions] = useState([]);
     const [categories, setCategories] = useState([]);
     const [budgetCategories, setBudgetCategories] = useState([]);
     const budgetsRef = doc(db, "budgets", budget.docId);
-    const transactionsRef = collection(db, 'transactions');
 
     const getDaysUntilReset = () => {
         const now = new Date();
@@ -25,41 +22,36 @@ const Budget = ({budget}) => {
         let amount = limit;
         transactions.forEach((transaction) => {
             if (categories.includes(transaction.category)) {
-                if (transaction.type === 'expense') {
-                    amount -= parseInt(transaction.amount);
-                } else {
-                    amount += parseInt(transaction.amount);
+                if (convertTimestampToDate(transaction.timeStamp) >= convertTimestampToDate(budget.periodStart) 
+                && convertTimestampToDate(transaction.timeStamp) < convertTimestampToDate(budget.periodEnd)) {
+                    if (transaction.type === 'expense') {
+                        amount -= parseInt(transaction.amount);
+                    } else {
+                        amount += parseInt(transaction.amount);
+                    };
                 };
             };
         });
         return amount;
     };
 
-    useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                if (budget.categories === undefined) {
-                    return setTransactions([]);
+    const filterTransactions = (categories) => {
+        let t = [];
+        transactions.forEach((transaction) => {
+            if (categories.includes(transaction.category)) {
+                if (convertTimestampToDate(transaction.timeStamp) >= convertTimestampToDate(budget.periodStart) 
+                && convertTimestampToDate(transaction.timeStamp) < convertTimestampToDate(budget.periodEnd)) {
+                    t.push(transaction);
                 };
-
-                setBudgetCategories(budget.categories); // Since state loads twice, it appends duplicates. This prevents that
-                budgetCategories.forEach((category) => {
-                    const queryTransactions = query(
-                        transactionsRef,
-                        where("uid", "==", user.uid),
-                        where("category", "==", category),
-                        where("date", ">=", budget.periodStart),
-                        where("date", "<", budget.periodEnd)
-                    );
-                    const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
-                        snapshot.forEach((doc) => {
-                            setTransactions((oldArray) => [...oldArray, {...doc.data(), date: convertTimestampToDate(doc.data().date).toLocaleDateString()}]);
-                        });
-                    });
-                    setCategories((cat) => [...cat, category]);
-                    return () => unsubscribe();
-                });
             };
+        });
+        return t;
+    };
+
+    useEffect(() => {
+        setBudgetCategories(budget.categories); // Since state loads twice, it appends duplicates. This prevents that
+        budgetCategories.forEach((category) => {
+            setCategories((cat) => [...cat, category]);
         });
     }, [budgetCategories]);
 
@@ -99,7 +91,7 @@ const Budget = ({budget}) => {
             <BudgetDetails
                 data={budget}
                 amount={budgetAmount(budget.limit, budget.categories)}
-                transactions={transactions}
+                transactions={filterTransactions(budget.categories)}
                 categories={categories}
                 budgetDetailsOpen={budgetDetailsOpen}
                 setBudgetDetailsOpen={setBudgetDetailsOpen}

@@ -69,6 +69,7 @@ const Aside = ({accounts, budgets, categories, transactions}) => {
                             <Budget
                                 key={index}
                                 budget={budget}
+                                transactions={transactions}
                             />
                         ))
                     }
