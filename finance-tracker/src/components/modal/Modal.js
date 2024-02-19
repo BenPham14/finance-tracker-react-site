@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import modalCSS from './modal.module.css';
 import { IoMdCloseCircle } from 'react-icons/io';
+import { MdEdit } from "react-icons/md";
 
-const Modal = ({isOpen, close, title, submit, type, content}) => {
+const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, content}) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -27,7 +28,14 @@ const Modal = ({isOpen, close, title, submit, type, content}) => {
             <form onSubmit={submit}>
                 <div className={modalCSS.modalHeader}>
                     <p>{title}</p>
-                    <IoMdCloseCircle onClick={close}/>
+                    <div>
+                        {
+                            editMode ? 
+                                <p id={modalCSS.editDone} onClick={() => setEditMode(false)}>Done</p> :
+                                <MdEdit onClick={() => setEditMode(true)}/>
+                        }
+                        <IoMdCloseCircle onClick={close}/>
+                    </div>
                 </div>
                 {content}
                 {

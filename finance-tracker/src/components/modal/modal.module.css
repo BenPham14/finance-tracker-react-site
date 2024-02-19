@@ -56,8 +56,18 @@
     font-size: 1rem;
 }
 
-.modalHeader > *:last-child {
+.modalHeader div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modalHeader div > * {
     cursor: pointer;
+}
+
+#editDone {
+    font-size: 0.875rem;
 }
 
 .modal fieldset {

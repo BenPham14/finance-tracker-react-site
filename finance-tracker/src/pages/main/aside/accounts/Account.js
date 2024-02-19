@@ -5,10 +5,10 @@ const Account = ({account, transactions}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
     const [accountDetailsData, setAccountDetailsData] = useState({});
 
-    const openAccountDetails = (id, title, amount) => {
+    const openAccountDetails = (amount) => {
         setAccountDetailsOpen(true);
         // Since using same component in 'for loop', this will reset the data when we open up another details in the loop
-        setAccountDetailsData({id, title, amount}); // Since parameter is same, no need for 'key: ' in array
+        setAccountDetailsData({...account, amount}); // Since parameter is same, no need for 'key: ' in array
     };
 
     const accountAmount = (id) => {
@@ -27,7 +27,7 @@ const Account = ({account, transactions}) => {
 
     return (
         <>
-            <button onClick={() => openAccountDetails(account.id, account.name, accountAmount(account.id))}>
+            <button onClick={() => openAccountDetails(accountAmount(account.id))}>
                 <p>{account.name}</p>
                 <p>{accountAmount(account.id) < 0 && "-"}${Math.abs(accountAmount(account.id))}</p>
             </button>
