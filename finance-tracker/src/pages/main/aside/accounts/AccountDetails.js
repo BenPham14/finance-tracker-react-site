@@ -9,6 +9,7 @@ import Modal from '../../../../components/modal/Modal.js';
 const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAccountDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
     const [transactions, setTransactions] = useState([]);
+    const [transactionsTotal, setTransactionsTotal] = useState(0);
     const [editMode, setEditMode] = useState(false);
 
     const closeModal = () => {
@@ -26,10 +27,17 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
         );
         const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
             let transactions = [];
+            let total = 0;
             snapshot.forEach((doc) => {
                 transactions.push({...doc.data(), docId: doc.id, date: convertTimestampToDate(doc.data().date).toLocaleDateString()});
+                if (doc.data().type === 'expense') {
+                    total -= parseInt(doc.data().amount);
+                } else {
+                    total += parseInt(doc.data().amount);
+                };
             });
             setTransactions(transactions);
+            setTransactionsTotal(total);
         });
         return () => unsubscribe();
     }, [data.id]);
@@ -45,7 +53,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
             type={modalCSS.details}
             content={
                 <>
-                    <p>{data.amount < 0 && '-'}${Math.abs(data.amount)} available</p>
+                    <p>{transactionsTotal < 0 && '-'}${Math.abs(transactionsTotal)} available</p>
                     <Table 
                         data={transactions}
                         editMode={editMode}
