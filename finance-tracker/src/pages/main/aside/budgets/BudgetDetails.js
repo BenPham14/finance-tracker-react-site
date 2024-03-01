@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import Modal from '../../../../components/modal/Modal.js';
 import modalCSS from "../../../../components/modal/modal.module.css";
 import Table from '../../../../components/table/Table.js';
 
 const BudgetDetails = ({data, amount, transactions, categories, budgetDetailsOpen, setBudgetDetailsOpen}) => {
+    const [editMode, setEditMode] = useState(false);
+    
     const closeModal = () => {
         setBudgetDetailsOpen(false);
     };
@@ -11,6 +14,8 @@ const BudgetDetails = ({data, amount, transactions, categories, budgetDetailsOpe
         <Modal
             isOpen={budgetDetailsOpen}
             close={closeModal}
+            editMode={editMode}
+            setEditMode={setEditMode}
             title={data.name}
             submit={null}
             type={modalCSS.details}
@@ -19,7 +24,10 @@ const BudgetDetails = ({data, amount, transactions, categories, budgetDetailsOpe
                     <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of ${data.limit}</p>
                     <p>Categories: {categories.join(', ')}</p>
                     <p>Resets every {data.period}</p>
-                    <Table data={transactions}/>
+                    <Table 
+                        data={transactions}
+                        editMode={editMode}
+                    />
                 </>
             }
         />

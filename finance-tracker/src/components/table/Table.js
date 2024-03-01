@@ -33,7 +33,7 @@ const Table = ({data, editMode}) => {
                             <td>{value.type === 'expense' && '-'}${value.amount}</td>
                             {
                                 editMode &&
-                                    <td onClick={() => deleteTranscation(value.docId)}><FaTrash/></td>
+                                    <td id={tableCSS.editButton} onClick={() => deleteTranscation(value.docId)}><FaTrash/></td>
                             }
                         </tr>
                     ))

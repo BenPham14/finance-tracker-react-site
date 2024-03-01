@@ -10,6 +10,7 @@ import Table from "../../../components/table/Table";
 const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
     const [transactions, setTransactions] = useState([]);
+    const [editMode, setEditMode] = useState(false);
     
     const closeModal = () => {
         setCategoryDetailsOpen(false);
@@ -45,13 +46,18 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
         <Modal
             isOpen={categoryDetailsOpen}
             close={closeModal}
+            editMode={editMode}
+            setEditMode={setEditMode}
             title={data.title}
             submit={null}
             type={modalCSS.details}
             content={
                 <>
                     <p>${Math.abs(data.amount)} spent</p>
-                    <Table data={transactions}/>
+                    <Table 
+                        data={transactions}
+                        editMode={editMode}
+                    />
                 </>
             } 
         />
