@@ -6,8 +6,9 @@ import AddAccount from '../actions/AddAccount';
 import AddBudget from '../actions/AddBudget';
 import Budget from './budgets/Budget';
 import Account from './accounts/Account';
+import { categories } from '../../../context/context.js';
 
-const Aside = ({accounts, budgets, categories, transactions}) => {
+const Aside = ({accounts, budgets, transactions}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);

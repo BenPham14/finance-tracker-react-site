@@ -23,17 +23,25 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
         };
     }, [isOpen]);
 
+    const showEditMode = () => {
+        if (type === modalCSS.action) {
+            return;
+        };
+
+        if (editMode) {
+            return <p id={modalCSS.editDone} onClick={() => setEditMode(false)}>Done</p>;
+        } else {
+            return <MdEdit onClick={() => setEditMode(true)}/>;
+        };
+    };
+
     return (
         <dialog ref={modalRef} className={`${modalCSS.modal} ${type}`}>
             <form onSubmit={submit}>
                 <div className={modalCSS.modalHeader}>
                     <p>{title}</p>
                     <div>
-                        {
-                            editMode ? 
-                                <p id={modalCSS.editDone} onClick={() => setEditMode(false)}>Done</p> :
-                                <MdEdit onClick={() => setEditMode(true)}/>
-                        }
+                        {showEditMode()}
                         <IoMdCloseCircle onClick={close}/>
                     </div>
                 </div>

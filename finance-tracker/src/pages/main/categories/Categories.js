@@ -2,6 +2,7 @@ import { useState } from 'react';
 import CategoryDetails from './CategoryDetails';
 import mainCSS from '../main.module.css';
 import { FaBucket } from "react-icons/fa6";
+import { categories } from '../../../context/context.js';
 
 const CategoriesItem = ({category, amount}) => {
     const [categoryDetailsOpen, setCategoryDetailsOpen] = useState(false);
@@ -29,7 +30,7 @@ const CategoriesItem = ({category, amount}) => {
     );
 }
 
-const Categories = ({categories, transactions}) => {
+const Categories = ({transactions}) => {
     const categoryAmount = (name) => {
         let amount = 0;
         transactions.forEach((transaction) => {

@@ -8,7 +8,7 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { categories, convertTimestampToDate } from '../../context/context.js';
+import { convertTimestampToDate } from '../../context/context.js';
 
 const Loading = () => {
     return (
@@ -101,13 +101,13 @@ const Main = () => {
                 <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
             </header>
 
-            <Aside accounts={accounts} budgets={budgets} categories={categories} transactions={transactions}/>
+            <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
 
             <Summary/>
 
             <Transactions transactions={transactions}/>
 
-            <Categories categories={categories} transactions={transactions}/>
+            <Categories transactions={transactions}/>
         </main>
     );
 };
