@@ -16,6 +16,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
         setAccountDetailsOpen(false);
         setAccountDetailsData({});
         setTransactions([]);
+        setEditMode(false);
     };
 
     useEffect(() => {

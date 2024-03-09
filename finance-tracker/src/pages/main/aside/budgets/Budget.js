@@ -7,8 +7,6 @@ import mainCSS from "../../main.module.css";
 
 const Budget = ({budget, transactions}) => {
     const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
-    const [categories, setCategories] = useState([]);
-    const [budgetCategories, setBudgetCategories] = useState([]);
     const budgetsRef = doc(db, "budgets", budget.docId);
 
     const getDaysUntilReset = () => {
@@ -48,13 +46,6 @@ const Budget = ({budget, transactions}) => {
         return t;
     };
 
-    useEffect(() => {
-        setBudgetCategories(budget.categories); // Since state loads twice, it appends duplicates. This prevents that
-        budgetCategories.forEach((category) => {
-            setCategories((cat) => [...cat, category]);
-        });
-    }, [budgetCategories]);
-
     // If days until reset is < 1 then updateDoc with new budget end date
     useEffect(() => {
         if (getDaysUntilReset() < 1) {
@@ -92,7 +83,7 @@ const Budget = ({budget, transactions}) => {
                 data={budget}
                 amount={budgetAmount(budget.limit, budget.categories)}
                 transactions={filterTransactions(budget.categories)}
-                categories={categories}
+                budgetCategories={budget.categories}
                 budgetDetailsOpen={budgetDetailsOpen}
                 setBudgetDetailsOpen={setBudgetDetailsOpen}
             />

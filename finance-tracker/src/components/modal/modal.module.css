@@ -94,3 +94,8 @@
 .modal fieldset input:checked {
     border: 6px solid black;
 }
+
+.budgetCategories {
+    display: flex;
+    gap: 5px;
+}
