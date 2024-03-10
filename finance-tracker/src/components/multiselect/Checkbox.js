@@ -6,19 +6,19 @@ const Checkbox = ({data, value, setValue, modalOpen}) => {
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
-        if (!modalOpen) {
+        if (value.includes(data.name)) {
+            setIsChecked(true);
+        } else {
             setIsChecked(false);
         };
-    },[modalOpen])
+    },[value])
 
     const onCheck = () => {
-        if (isChecked) {
+        if (value.includes(data.name)) {
             const result = value.filter((value) => value !== data.name);
             setValue(result);
-            setIsChecked(false);
         } else {
-            setValue([...value, data.name]);
-            setIsChecked(true);
+            setValue((oldArray) => [...oldArray, data.name]);
         };
     };
 

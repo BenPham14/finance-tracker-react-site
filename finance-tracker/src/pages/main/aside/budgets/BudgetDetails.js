@@ -4,11 +4,14 @@ import modalCSS from "../../../../components/modal/modal.module.css";
 import Table from '../../../../components/table/Table.js';
 import Multiselect from '../../../../components/multiselect/Multiselect.js';
 import { categories } from '../../../../context/context.js';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../../config/firebase.js';
 
 const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const [editMode, setEditMode] = useState(false);
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
+    const budgetsRef = doc(db, "budgets", data.docId);
     
     const closeModal = () => {
         setBudgetDetailsOpen(false);
@@ -19,7 +22,20 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
 
     useEffect(() => {
         setCategoriesValue(budgetCategories);
-    }, [budgetCategories])
+    }, [budgetCategories]);
+
+    useEffect(() => {
+        if (editMode === false) {
+            const difference = categoriesValue.filter((e) => !budgetCategories.includes(e));
+            const len = budgetCategories.length - categoriesValue.length;
+            // Update categories in firestore if new value different from old value, and if new is not empty
+            if ((len > 0 || difference.length > 0) && categoriesValue.length > 0) {
+                updateDoc(budgetsRef, {
+                    'categories': categoriesValue
+                });
+            };
+        };
+    }, [editMode]);
 
     return (
         <Modal
