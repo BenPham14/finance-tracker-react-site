@@ -5,6 +5,7 @@ import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import modalCSS from "../../../components/modal/modal.module.css";
+import { periodOptions } from "../../../context/context";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
@@ -13,13 +14,6 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = collection(db, "budgets");
-
-    const periodOptions = [
-        {name: "day(s)", count: 6},
-        {name: "week(s)", count: 3},
-        {name: "month(s)", count: 11},
-        {name: "year(s)", count: 10}
-    ];
 
     const changePlaceholderColor = (value) => {
         if (value === "") {

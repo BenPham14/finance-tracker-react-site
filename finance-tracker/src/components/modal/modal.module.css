@@ -95,7 +95,7 @@
     border: 6px solid black;
 }
 
-.budgetCategories {
+.budgetCategories,
+.budgetPeriods {
     display: flex;
-    gap: 5px;
 }
