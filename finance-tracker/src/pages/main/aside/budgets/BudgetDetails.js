@@ -17,6 +17,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
     const closeModal = () => {
         setBudgetDetailsOpen(false);
         setCategoriesValue(budgetCategories);
+        setPeriodValue(data.period);
         setCategoriesOpen(false);
         setEditMode(false);
     };
@@ -36,22 +37,37 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
     }, [data.period]);
 
     useEffect(() => {
+        let startDate =  new Date();
+        let endDate = new Date();
+        let number = periodValue.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
+
+        if (periodValue.includes("day")) {
+            endDate.setDate(startDate.getDate() + parseInt(number));
+        } else if (periodValue.includes("week")) {
+            endDate.setDate(startDate.getDate() + (parseInt(number)*7));
+        } else if (periodValue.includes("month")) {
+            endDate.setDate(startDate.getDate() + (parseInt(number)*30));
+        } else if (periodValue.includes("year")) {
+            endDate.setDate(startDate.getDate() + (parseInt(number)*365));
+        };
+        
         if (editMode === false) {
             const difference = categoriesValue.filter((e) => !budgetCategories.includes(e));
             const len = budgetCategories.length - categoriesValue.length;
             // Update categories in firestore if new value different from old value, and if new is not empty
             if ((len > 0 || difference.length > 0) && categoriesValue.length > 0) {
                 updateDoc(budgetsRef, {
-                    'categories': categoriesValue,
+                    categories: categoriesValue,
                 });
             };
             if (periodValue != "" && periodValue != data.period) {
                 updateDoc(budgetsRef, {
-                    'period': periodValue,
+                    period: periodValue,
+                    periodStart: startDate,
+                    periodEnd: endDate
                 });
             };
         };
-
     }, [editMode]);
 
     return (
