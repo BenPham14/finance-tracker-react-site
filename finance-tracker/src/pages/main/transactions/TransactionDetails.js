@@ -8,6 +8,7 @@ const TransactionDetails = ({data, transactionDetailsOpen, setTransactionDetails
     
     const closeModal = () => {
         setTransactionDetailsOpen(false);
+        setEditMode(false);
     };
     
     return (

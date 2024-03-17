@@ -46,6 +46,10 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
             endDate.setDate(startDate.getDate() + (parseInt(number)*365));
         };
 
+        // Set time to 12:00AM
+        startDate.setHours(0,0,0,0);
+        endDate.setHours(0,0,0,0);
+
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
