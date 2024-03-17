@@ -3,7 +3,7 @@ import Modal from '../../../../components/modal/Modal.js';
 import modalCSS from "../../../../components/modal/modal.module.css";
 import Table from '../../../../components/table/Table.js';
 import Multiselect from '../../../../components/multiselect/Multiselect.js';
-import { categories, periodOptions } from '../../../../context/context.js';
+import { calculateDates, categories, periodOptions } from '../../../../context/context.js';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../config/firebase.js';
 
@@ -37,19 +37,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
     }, [data.period]);
 
     useEffect(() => {
-        let startDate =  new Date();
-        let endDate = new Date();
-        let number = periodValue.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
-
-        if (periodValue.includes("day")) {
-            endDate.setDate(startDate.getDate() + parseInt(number));
-        } else if (periodValue.includes("week")) {
-            endDate.setDate(startDate.getDate() + (parseInt(number)*7));
-        } else if (periodValue.includes("month")) {
-            endDate.setDate(startDate.getDate() + (parseInt(number)*30));
-        } else if (periodValue.includes("year")) {
-            endDate.setDate(startDate.getDate() + (parseInt(number)*365));
-        };
+        const dates = calculateDates(periodValue);
         
         if (editMode === false) {
             const difference = categoriesValue.filter((e) => !budgetCategories.includes(e));
@@ -63,8 +51,8 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
             if (periodValue != "" && periodValue != data.period) {
                 updateDoc(budgetsRef, {
                     period: periodValue,
-                    periodStart: startDate,
-                    periodEnd: endDate
+                    periodStart: dates.startDate,
+                    periodEnd: dates.endDate
                 });
             };
         };

@@ -23,4 +23,29 @@ const convertTimestampToDate = (date) => {
     return new Date(date.seconds * 1000 + date.seconds / 1000000);
 };
 
-export { categories, periodOptions, convertDateFormat, convertTimestampToDate };
+const calculateDates = (periodValue) => {
+    let startDate = new Date();
+    let endDate = new Date();
+    let number = periodValue.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
+
+    if (periodValue.includes("day")) {
+        endDate.setDate(startDate.getDate() + parseInt(number));
+    } else if (periodValue.includes("week")) {
+        endDate.setDate(startDate.getDate() + (parseInt(number)*7));
+    } else if (periodValue.includes("month")) {
+        endDate.setDate(startDate.getDate() + (parseInt(number)*30));
+    } else if (periodValue.includes("year")) {
+        endDate.setDate(startDate.getDate() + (parseInt(number)*365));
+    };
+
+    // Set time to 12:00AM
+    startDate.setHours(0,0,0,0);
+    endDate.setHours(0,0,0,0);
+
+    return {
+        startDate: startDate,
+        endDate: endDate
+    };
+};
+
+export { categories, periodOptions, convertDateFormat, convertTimestampToDate, calculateDates };

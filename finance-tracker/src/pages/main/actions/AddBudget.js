@@ -5,7 +5,7 @@ import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import modalCSS from "../../../components/modal/modal.module.css";
-import { periodOptions } from "../../../context/context";
+import { calculateDates, periodOptions } from "../../../context/context";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
     const [nameValue, setNameValue] = useState("");
@@ -32,23 +32,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
 
     const submitBudget = async (e) => {
         e.preventDefault();
-        let startDate = new Date();
-        let endDate = new Date();
-        let number = periodValue.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
-
-        if (periodValue.includes("day")) {
-            endDate.setDate(startDate.getDate() + parseInt(number));
-        } else if (periodValue.includes("week")) {
-            endDate.setDate(startDate.getDate() + (parseInt(number)*7));
-        } else if (periodValue.includes("month")) {
-            endDate.setDate(startDate.getDate() + (parseInt(number)*30));
-        } else if (periodValue.includes("year")) {
-            endDate.setDate(startDate.getDate() + (parseInt(number)*365));
-        };
-
-        // Set time to 12:00AM
-        startDate.setHours(0,0,0,0);
-        endDate.setHours(0,0,0,0);
+        const dates = calculateDates(periodValue);
 
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
@@ -58,8 +42,8 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
             limit: limitValue,
             amount: '0',
             period: periodValue,
-            periodStart: startDate,
-            periodEnd: endDate,
+            periodStart: dates.startDate,
+            periodEnd: dates.endDate,
             categories: categoriesValue
         });
         closeModal();

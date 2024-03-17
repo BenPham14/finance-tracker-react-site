@@ -63,8 +63,6 @@ const Budget = ({budget, transactions}) => {
                 endDate.setDate(endDate.getDate() + (parseInt(number)*365));
             };
 
-            // CHANGE TRANSACTIONS TO HAVE TIME IN DATE
-
             updateDoc(budgetsRef, {
                 periodStart: startDate,
                 periodEnd: endDate

@@ -4,7 +4,6 @@ import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
 import modalCSS from "../../../components/modal/modal.module.css";
-import { convertDateFormat } from '../../../context/context.js';
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen}) => {
     const [typeValue, setTypeValue] = useState("expense");
@@ -45,7 +44,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             type: typeValue,
             name: nameValue,
             amount: amountValue,
-            date: convertDateFormat(dateValue),
+            date: new Date(dateValue),
             accountId: accountValue.split(',')[0],
             accountName: accountValue.split(',')[1],
             category: typeValue === 'expense' ? categoryValue : 'Income'
@@ -78,7 +77,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                     <input type='number' placeholder='Amount' required min="0"
                         value={amountValue} onChange={(e) => setAmountValue(e.target.value)}
                     />
-                    <input type='date' required style={{color: changePlaceholderColor(dateValue)}} 
+                    <input type='datetime-local' required style={{color: changePlaceholderColor(dateValue)}} 
                         value={dateValue} onChange={(e) => setDateValue(e.target.value)}
                     />
                     <select name='accounts' required style={{color: changePlaceholderColor(accountValue)}} 
