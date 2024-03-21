@@ -99,3 +99,22 @@
 .budgetPeriods {
     display: flex;
 }
+
+.budget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.budgetDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.budgetDonut {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
