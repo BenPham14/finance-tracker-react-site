@@ -15,13 +15,21 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = doc(db, "budgets", data.docId);
     const [chartData, setChartData] = useState({
-        labels: [],
+        labels: ["Spent", "Remaining"],
         datasets: [{
             label: "",
             data: [data.limit, 0],
             backgroundColor: ["black", "#6C63FF"]
         }]
     });
+
+    const chartOptions = {
+        plugins: {
+            legend: {
+                display: false
+            }
+        }
+    }
     
     const closeModal = () => {
         setBudgetDetailsOpen(false);
@@ -77,7 +85,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                     categories: categoriesValue,
                 });
             };
-            if (periodValue != "" && periodValue != data.period) {
+            if (periodValue !== "" && periodValue !== data.period) {
                 updateDoc(budgetsRef, {
                     period: periodValue,
                     periodStart: dates.startDate,
@@ -137,7 +145,23 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                             }
                         </div>
                         <div className={modalCSS.budgetDonut}>
-                            <Donut data={chartData}/>
+                            <div>
+                                <Donut 
+                                    data={chartData}
+                                    options={chartOptions}
+                                />
+                            </div>
+                            <div className={modalCSS.budgetLegend}>
+                                <div id={modalCSS.remaining}>
+                                    <span></span>
+                                    <p>Remaining</p>
+                                </div>
+                                <div id={modalCSS.spent} style={{display: data.limit-amount <= 0 && "none"}}>
+                                    <span></span>
+                                    <p>Spent</p>
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                     <Table 

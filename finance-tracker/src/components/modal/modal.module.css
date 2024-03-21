@@ -113,8 +113,47 @@
 }
 
 .budgetDonut {
-    width: 100px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin: 0 15px;
+}
+
+.budgetDonut > div:first-of-type {
+    min-width: 90px;
+    min-height: 90px;
     display: flex;
     justify-content: center;
-    padding-bottom: 10px;
+}
+
+.budgetLegend {
+    display: none;
+}
+
+.budgetLegend div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.budgetLegend span {
+    width: 10px;
+    height: 10px;
+}
+
+#remaining span {
+    background-color: #6C63FF;
+}
+
+#spent span {
+    background-color: black;
+}
+
+@media only screen and (min-width: 600px) {
+    .budgetLegend {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-size: 0.75rem;
+    }
 }
