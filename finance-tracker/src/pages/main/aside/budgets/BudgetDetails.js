@@ -49,16 +49,19 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
         let limit = data.limit;
         let remaining = amount;
         let dataValue = [limit-remaining, remaining];
+        let color = ["black", "#6C63FF"];
 
         if (remaining < 0) {
-            dataValue = [remaining];
+            dataValue = [0, remaining];
+            color = ["black"]
         };
 
         setChartData(chartData => ({...chartData, 
                 datasets: [
                     {
                         ...chartData.datasets[0],
-                        data: dataValue
+                        data: dataValue,
+                        backgroundColor: color
                     }
                 ]
             })
@@ -152,7 +155,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                 />
                             </div>
                             <div className={modalCSS.budgetLegend}>
-                                <div id={modalCSS.remaining}>
+                                <div id={modalCSS.remaining} style={{display: amount <= 0 && "none"}}>
                                     <span></span>
                                     <p>Remaining</p>
                                 </div>
