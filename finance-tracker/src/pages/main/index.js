@@ -101,13 +101,17 @@ const Main = () => {
                 <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
             </header>
 
-            <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
+            <div className={mainCSS.body}>
+                <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
 
-            <Summary/>
+                <div>
+                    <Summary/>
 
-            <Transactions transactions={transactions}/>
+                    <Transactions transactions={transactions}/>
 
-            <Categories transactions={transactions}/>
+                    <Categories transactions={transactions}/>
+                </div>
+            </div>
         </main>
     );
 };
