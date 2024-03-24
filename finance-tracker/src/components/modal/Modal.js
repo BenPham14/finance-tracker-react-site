@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import modalCSS from './modal.module.css';
-import { IoMdCloseCircle } from 'react-icons/io';
+import { IoMdClose } from 'react-icons/io';
 import { MdEdit } from "react-icons/md";
 
 const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, content}) => {
@@ -42,7 +42,7 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
                     <p>{title}</p>
                     <div>
                         {showEditMode()}
-                        <IoMdCloseCircle onClick={close}/>
+                        <IoMdClose onClick={close}/>
                     </div>
                 </div>
                 {content}

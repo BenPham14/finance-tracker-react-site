@@ -30,7 +30,7 @@ const AddAccount = ({accountsOpen, setAccountsOpen}) => {
         <Modal
             isOpen={accountsOpen}
             close={closeModal}
-            title={"+ Account"}
+            title={"Account"}
             submit={submitAccount}
             type={modalCSS.action}
             content={

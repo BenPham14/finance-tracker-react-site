@@ -5,15 +5,20 @@
     padding: 30px 0;
 }
 
-.body {
-    display: grid;
+.body,
+.body > div,
+.main aside {
     gap: 30px;
 }
 
-.body > div {
+.body {
+    display: grid;
+}
+
+.body > div,
+.main aside {
     display: flex;
     flex-direction: column;
-    gap: 30px;
 }
 
 .main header {
@@ -21,12 +26,6 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
-}
-
-.main aside {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
 }
 
 .profile {
@@ -55,17 +54,6 @@
 .main button > p:first-of-type {
     font-weight: bold;
 }
-
-/* .actionsItems button {
-    background-color: #6C63FF;
-    background-color: black;
-    color: white;
-}
-
-.actionsItems button:hover {
-    background-color: #6b63ffcc;
-    background-color: rgba(0, 0, 0, 0.75);
-} */
 
 .main button,
 #homeTable {

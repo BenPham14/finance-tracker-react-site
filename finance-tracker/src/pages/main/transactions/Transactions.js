@@ -33,6 +33,15 @@ const Transactions = ({transactions}) => {
                             </tr>
                         ))
                     }
+                    {
+                        transactions.length === 0 &&
+                            <tr>
+                                <td style={{color: "gray"}}>No Transactions</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                    }
                 </tbody>
             </table>
             <TransactionDetails

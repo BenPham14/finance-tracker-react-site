@@ -43,6 +43,7 @@
     color: white;
     padding: 5px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .modal input::placeholder {
@@ -53,7 +54,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 1rem;
+    font-size: 1.125rem;
+    font-weight: bolder;
+    padding: 10px 20px;
+    margin: -20px;
+    margin-bottom: 0px;
+    border-bottom: 0.5px solid gray;
 }
 
 .modalHeader div {

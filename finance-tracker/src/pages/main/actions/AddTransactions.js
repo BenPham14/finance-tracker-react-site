@@ -56,7 +56,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
         <Modal
             isOpen={transactionsOpen}
             close={closeModal}
-            title={"+ Transaction"}
+            title={"Transaction"}
             submit={submitTransaction}
             type={modalCSS.action}
             content={

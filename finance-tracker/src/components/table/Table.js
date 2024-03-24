@@ -62,13 +62,22 @@ const Table = ({data, editMode}) => {
                             </tr>
                         ))
                     }
+                    {
+                        data.length === 0 &&
+                            <tr>
+                                <td style={{color: "gray"}}>No Transactions</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                    }
                 </tbody>
             </table>
 
             <div className={tableCSS.deleteDialog} style={{display: deleteOpen ? "" : "none"}}>
                 <p>Are you sure you want to delete: {deleteDocValue.name} ({deleteDocValue.type === 'expense' && '-'}${deleteDocValue.amount})?</p>
                 <div>
-                    <button onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
+                    <button id={tableCSS.delete} onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
                     <button onClick={closeDelete}>Cancel</button>
                 </div>
             </div>

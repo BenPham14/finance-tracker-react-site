@@ -27,7 +27,6 @@
     flex-direction: column;
     gap: 15px;
     position: relative;
-    background-color: white;
 }
 
 .deleteDialog div {
@@ -38,6 +37,18 @@
 .deleteDialog button {
     width: 100%;
     text-align: center;
+}
+
+.deleteDialog p {
+    font-weight: bold;
+}
+
+#delete {
+    background-color: rgb(255, 130, 130);
+}
+
+#delete:hover {
+    background-color: rgb(255, 110, 110);
 }
 
 @media only screen and (min-width: 600px) {

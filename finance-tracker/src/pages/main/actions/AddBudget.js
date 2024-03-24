@@ -53,7 +53,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
         <Modal
             isOpen={budgetsOpen}
             close={closeModal}
-            title={"+ Budget"}
+            title={"Budget"}
             submit={submitBudget}
             type={modalCSS.action}
             content={
