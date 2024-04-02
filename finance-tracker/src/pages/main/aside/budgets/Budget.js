@@ -63,6 +63,10 @@ const Budget = ({budget, transactions}) => {
                 endDate.setDate(endDate.getDate() + (parseInt(number)*365));
             };
 
+            // Set time to 12:00AM
+            startDate.setHours(0,0,0,0);
+            endDate.setHours(0,0,0,0);
+
             updateDoc(budgetsRef, {
                 periodStart: startDate,
                 periodEnd: endDate
