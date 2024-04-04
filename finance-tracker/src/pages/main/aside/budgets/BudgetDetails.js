@@ -10,6 +10,7 @@ import Donut from "../../../../components/charts/Donut";
 
 const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const [editMode, setEditMode] = useState(false);
+    const [limitValue, setLimitValue] = useState(0);
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [periodValue, setPeriodValue] = useState("");
     const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -33,6 +34,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
     
     const closeModal = () => {
         setBudgetDetailsOpen(false);
+        setLimitValue(data.limit)
         setCategoriesValue(budgetCategories);
         setPeriodValue(data.period);
         setCategoriesOpen(false);
@@ -66,7 +68,11 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                 ]
             })
         );
-    }, [amount])
+    }, [amount]);
+
+    useEffect(() => {
+        setLimitValue(data.limit);
+    }, [data.limit]);
 
     useEffect(() => {
         setCategoriesValue(budgetCategories);
@@ -83,6 +89,11 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
             const difference = categoriesValue.filter((e) => !budgetCategories.includes(e));
             const len = budgetCategories.length - categoriesValue.length;
             // Update categories in firestore if new value different from old value, and if new is not empty
+            if ((limitValue !== data.limit && limitValue > 0)) {
+                updateDoc(budgetsRef, {
+                    limit: limitValue
+                })
+            };
             if ((len > 0 || difference.length > 0) && categoriesValue.length > 0) {
                 updateDoc(budgetsRef, {
                     categories: categoriesValue,
@@ -111,10 +122,14 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                 <>
                     <div className={modalCSS.budget}>
                         <div className={modalCSS.budgetDetails}>
-                            <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of ${data.limit}</p>
                             {
                                 editMode ?
                                     <>
+                                        <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of $
+                                            <input type="number" placeholder="Limit" min="0"
+                                                value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
+                                            />
+                                        </p>
                                         <div className={modalCSS.budgetCategories}>
                                             <Multiselect
                                                 data={categories}
@@ -125,23 +140,23 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                                 modalOpen={budgetDetailsOpen}
                                             />
                                         </div>
-                                        <div className={modalCSS.budgetPeriods}>
-                                            <p>Resets every</p>
-                                            <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
-                                                value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
-                                            >
-                                                <option value="" disabled>Period</option>
-                                                {
-                                                    periodOptions.map((period, index) => {
-                                                        return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
-                                                            return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
-                                                        })
+                                        <p>Resets every
+                                        <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
+                                            value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
+                                        >
+                                            <option value="" disabled>Period</option>
+                                            {
+                                                periodOptions.map((period, index) => {
+                                                    return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
+                                                        return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
                                                     })
-                                                }
-                                            </select>
-                                        </div>
+                                                })
+                                            }
+                                        </select>
+                                        </p>
                                     </> :
                                     <>
+                                        <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of ${data.limit}</p>
                                         <p>Categories: {budgetCategories.join(', ')}</p>
                                         <p>Resets every {periodValue}</p>
                                     </>
@@ -163,7 +178,6 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                     <span></span>
                                     <p>Spent</p>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>

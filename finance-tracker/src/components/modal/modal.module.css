@@ -101,8 +101,7 @@
     border: 6px solid black;
 }
 
-.budgetCategories,
-.budgetPeriods {
+.budgetCategories {
     display: flex;
 }
 
