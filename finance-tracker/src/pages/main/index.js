@@ -97,7 +97,7 @@ const Main = () => {
     return (
         <main className={mainCSS.main}>
             <header>
-                <h1>FinTracker</h1>
+                <h1>Finance Tracker</h1>
                 <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
             </header>
 
@@ -105,7 +105,7 @@ const Main = () => {
                 <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
 
                 <div>
-                    <Summary/>
+                    <Summary transactions={transactions}/>
 
                     <Transactions transactions={transactions}/>
 
