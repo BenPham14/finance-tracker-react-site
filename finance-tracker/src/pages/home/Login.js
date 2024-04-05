@@ -39,7 +39,7 @@ const Login = ({loginOpen, setLoginOpen, signInWithGoogle}) => {
                 </label>
                 <a href=''>Forgot password?</a>
                 <button type='submit' id={homeCSS.signIn}>Sign in</button>
-                <p id={homeCSS.signUp}>Don't have an account?<span><a href=''>Sign up</a></span></p>
+                <p id={homeCSS.signUp}>Don't have an account? <a href=''>Sign up</a></p>
             </form>
             <p id={homeCSS.divider}><span></span> Or <span></span></p>
             <button id={homeCSS.google} onClick={signInWithGoogle}>
