@@ -103,12 +103,18 @@
 
 .budgetCategories {
     display: flex;
+    justify-content: center;
 }
 
 .budget {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.budgetDetails input[type="number"],
+.budgetDetails select {
+    background-color: whitesmoke;
 }
 
 .budgetDetails {
@@ -117,11 +123,20 @@
     gap: 15px;
 }
 
+.budgetDetails > *,
+.budgetDonut {
+    text-align: center;
+    background-color: whitesmoke;
+    border: 0.5px solid gray;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
 .budgetDonut {
     display: flex;
     gap: 15px;
     align-items: center;
-    margin: 0 15px;
+    justify-content: center;
 }
 
 .budgetDonut > div:first-of-type {
