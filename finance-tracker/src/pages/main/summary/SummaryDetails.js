@@ -26,7 +26,6 @@ const SummaryDetails = ({title, transactions, isOpen, setIsOpen, editMode, setEd
                 // Get day of week and minus start date back to Sunday
                 startDate.setDate(today.getDate() - today.getDay());
                 endDate.setDate(today.getDate() + (7 - today.getDate()));
-                console.log(endDate);
                 break;
             case "This Month":
                 startDate = new Date(today.getFullYear(), today.getMonth(), 1);

@@ -31,7 +31,7 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
         if (editMode) {
             return <p id={modalCSS.editDone} onClick={() => setEditMode(false)}>Done</p>;
         } else {
-            return <MdEdit onClick={() => setEditMode(true)}/>;
+            return <MdEdit id={modalCSS.headerIcon} onClick={() => setEditMode(true)}/>;
         };
     };
 
@@ -42,7 +42,7 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
                     <p>{title}</p>
                     <div>
                         {showEditMode()}
-                        <IoMdClose onClick={close}/>
+                        <IoMdClose id={modalCSS.headerIcon} onClick={close}/>
                     </div>
                 </div>
                 {content}

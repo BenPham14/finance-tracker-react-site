@@ -154,6 +154,18 @@
     background-color: black;
 }
 
+#headerIcon {
+    border-radius: 20px;
+    padding: 5px;
+    width: auto;
+    height: auto;
+    margin: -5px;
+}
+
+#headerIcon:hover {
+    background-color: whitesmoke;
+}
+
 @media only screen and (min-width: 600px) {
     .budgetLegend {
         display: flex;
