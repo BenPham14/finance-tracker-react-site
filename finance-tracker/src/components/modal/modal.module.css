@@ -72,10 +72,6 @@
     cursor: pointer;
 }
 
-#editDone {
-    font-size: 0.875rem;
-}
-
 .modal fieldset {
     border: none;
     padding: 0;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import modalCSS from './modal.module.css';
-import { IoMdClose } from 'react-icons/io';
+import { IoMdClose, IoMdCheckmark } from 'react-icons/io';
 import { MdEdit } from "react-icons/md";
 
 const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, content}) => {
@@ -29,7 +29,7 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
         };
 
         if (editMode) {
-            return <p id={modalCSS.editDone} onClick={() => setEditMode(false)}>Done</p>;
+            return <IoMdCheckmark id={modalCSS.headerIcon} onClick={() => setEditMode(false)}/>;
         } else {
             return <MdEdit id={modalCSS.headerIcon} onClick={() => setEditMode(true)}/>;
         };
