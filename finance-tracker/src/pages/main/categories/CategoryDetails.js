@@ -11,11 +11,16 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
     const transactionsRef = collection(db, 'transactions');
     const [transactions, setTransactions] = useState([]);
     const [editMode, setEditMode] = useState(false);
+
+    const cancelEdit = () => {
+        setEditMode(false);
+    };
     
     const closeModal = () => {
         setCategoryDetailsOpen(false);
         setCategoryDetailsData({});
         setTransactions([]);
+        cancelEdit();
     };
 
     useEffect(() => {
@@ -46,6 +51,7 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
         <Modal
             isOpen={categoryDetailsOpen}
             close={closeModal}
+            cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
             title={data.title}

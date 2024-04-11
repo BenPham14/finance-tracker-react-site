@@ -31,14 +31,18 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
             }
         }
     }
-    
-    const closeModal = () => {
-        setBudgetDetailsOpen(false);
+
+    const cancelEdit = () => {
         setLimitValue(data.limit)
         setCategoriesValue(budgetCategories);
         setPeriodValue(data.period);
         setCategoriesOpen(false);
         setEditMode(false);
+    };
+    
+    const closeModal = () => {
+        setBudgetDetailsOpen(false);
+        cancelEdit();
     };
 
     const changePlaceholderColor = (value) => {
@@ -113,6 +117,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
         <Modal
             isOpen={budgetDetailsOpen}
             close={closeModal}
+            cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
             title={data.name}

@@ -3,7 +3,7 @@ import modalCSS from './modal.module.css';
 import { IoMdClose, IoMdCheckmark } from 'react-icons/io';
 import { MdEdit } from "react-icons/md";
 
-const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, content}) => {
+const Modal = ({isOpen, close, cancel, editMode, setEditMode, title, submit, type, content}) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
         };
     }, [isOpen]);
 
-    const showEditMode = () => {
+    const showEditModeButtons = () => {
         if (type === modalCSS.action) {
             return;
         };
@@ -39,9 +39,12 @@ const Modal = ({isOpen, close, editMode, setEditMode, title, submit, type, conte
         <dialog ref={modalRef} className={`${modalCSS.modal} ${type}`}>
             <form onSubmit={submit}>
                 <div className={modalCSS.modalHeader}>
-                    <p>{title}</p>
-                    <div>
-                        {showEditMode()}
+                    <div className={modalCSS.modalTitle}>
+                        <h3>{title}</h3>
+                        {editMode && <p onClick={cancel}>Editing <IoMdClose/></p>}
+                    </div>
+                    <div className={modalCSS.modalHeaderButtons}>
+                        {showEditModeButtons()}
                         <IoMdClose id={modalCSS.headerIcon} onClick={close}/>
                     </div>
                 </div>

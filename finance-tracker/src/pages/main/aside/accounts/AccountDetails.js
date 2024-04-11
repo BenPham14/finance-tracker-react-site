@@ -12,11 +12,15 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
     const [transactionsTotal, setTransactionsTotal] = useState(0);
     const [editMode, setEditMode] = useState(false);
 
+    const cancelEdit = () => {
+        setEditMode(false);
+    };
+
     const closeModal = () => {
         setAccountDetailsOpen(false);
         setAccountDetailsData({});
         setTransactions([]);
-        setEditMode(false);
+        cancelEdit();
     };
 
     useEffect(() => {
@@ -47,6 +51,7 @@ const AccountDetails = ({data, setAccountDetailsData, accountDetailsOpen, setAcc
         <Modal
             isOpen={accountDetailsOpen}
             close={closeModal}
+            cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
             title={data.name}

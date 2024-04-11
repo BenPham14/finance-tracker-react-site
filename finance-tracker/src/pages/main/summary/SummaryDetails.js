@@ -9,10 +9,14 @@ import { categories } from '../../../context/context';
 const SummaryDetails = ({title, transactions, isOpen, setIsOpen, editMode, setEditMode}) => {
     const [categoryValues, setCategoryValues] = useState({});
     const [transactionValues, setTransactionValues] = useState([]);
+
+    const cancelEdit = () => {
+        setEditMode(false);
+    };
     
     const closeModal = () => {
         setIsOpen(false);
-        setEditMode(false);
+        cancelEdit();
     };
 
     const data = {
@@ -88,6 +92,7 @@ const SummaryDetails = ({title, transactions, isOpen, setIsOpen, editMode, setEd
         <Modal
             isOpen={isOpen}
             close={closeModal}
+            cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
             title={title}

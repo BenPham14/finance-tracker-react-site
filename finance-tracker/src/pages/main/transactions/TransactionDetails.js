@@ -6,15 +6,20 @@ import Table from "../../../components/table/Table";
 const TransactionDetails = ({data, transactionDetailsOpen, setTransactionDetailsOpen}) => {
     const [editMode, setEditMode] = useState(false);
     
+    const cancelEdit = () => {
+        setEditMode(false);
+    }
+
     const closeModal = () => {
         setTransactionDetailsOpen(false);
-        setEditMode(false);
+        cancelEdit();
     };
     
     return (
         <Modal 
             isOpen={transactionDetailsOpen}
             close={closeModal}
+            cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
             title={"Transactions"}
