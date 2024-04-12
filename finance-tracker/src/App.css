@@ -5,6 +5,10 @@
     font-family: Poppins;
 }
 
+:root {
+  --primary-color: #6C63FF;
+}
+
 body {
   padding: 0;
   margin: 0;
