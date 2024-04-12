@@ -39,7 +39,7 @@
 
 .modal input[type="submit"] {
     border: none;
-    background-color: black;
+    background-color: var(--primary-text-color);
     color: white;
     padding: 5px;
     cursor: pointer;
@@ -47,12 +47,17 @@
 }
 
 .modal input::placeholder {
-    color: gray;
+    color: var(--secondary-text-color);
+}
+
+.modalHeader,
+.modalHeaderButtons,
+.modalSaveCancel {
+    display: flex;
+    align-items: center;
 }
 
 .modalHeader {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
     margin: -20px;
@@ -60,33 +65,31 @@
     border-bottom: 0.5px solid gray;
 }
 
-.modalHeader div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .modalHeaderButtons {
-    cursor: pointer;
+    gap: 10px;
     font-size: 1rem;
 }
 
 .modalSaveCancel {
     font-size: 0.625rem;
-    padding: 2px 10px 2px 2px;
+    padding: 2px;
     border: 0.5px solid gray;
     border-radius: 20px;
 }
 
-#save {
+.modalSaveCancel p {
     padding: 2px 10px;
     border-radius: 20px;
+    cursor: pointer;
+}
+
+#save {
     background-color: var(--primary-color);
     color: white;
 }
 
 #cancel {
-    color: gray;
+    color: var(--secondary-text-color);
 }
 
 .modal fieldset {
@@ -185,7 +188,8 @@
 }
 
 #headerIcon:hover {
-    background-color: whitesmoke;
+    background-color: var(--accent-color);
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 600px) {

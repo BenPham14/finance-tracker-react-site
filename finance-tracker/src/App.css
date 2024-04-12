@@ -7,6 +7,12 @@
 
 :root {
   --primary-color: #6C63FF;
+  --secondary-color: white;
+  --accent-color: whitesmoke;
+  --primary-text-color: black;
+  --secondary-text-color: gray;
+  --delete-color: rgb(255, 90, 90);
+  --delete-color-bold: rgb(255, 70, 70);
 }
 
 body {

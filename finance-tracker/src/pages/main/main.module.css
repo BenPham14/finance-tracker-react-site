@@ -48,7 +48,7 @@
 }
 
 .main button:hover {
-    background-color: whitesmoke;
+    background-color: var(--accent-color);
 }
 
 .main button > p:first-of-type {
