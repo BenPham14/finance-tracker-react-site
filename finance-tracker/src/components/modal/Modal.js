@@ -1,16 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import modalCSS from './modal.module.css';
-import { IoMdClose, IoMdCheckmark } from 'react-icons/io';
+import { IoMdClose} from 'react-icons/io';
 import { MdEdit } from "react-icons/md";
 
 const Modal = ({isOpen, close, cancel, editMode, setEditMode, title, submit, type, content}) => {
     const modalRef = useRef(null);
+    const [cancelColor, setCancelColor] = useState(false);
 
     useEffect(() => {
         if (isOpen) {
             const onEscape = (e) => {
                 if (e.code === "Escape") {
                     close();
+                    setCancelColor(false);
                 };
             };
             modalRef.current.showModal();
@@ -23,13 +25,24 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, title, submit, typ
         };
     }, [isOpen]);
 
+    const cancelEdit = () => {
+        cancel();
+        setCancelColor(false);
+    };
+
     const showEditModeButtons = () => {
         if (type === modalCSS.action) {
             return;
         };
 
         if (editMode) {
-            return <IoMdCheckmark id={modalCSS.headerIcon} onClick={() => setEditMode(false)}/>;
+            return (
+                <div className={modalCSS.modalSaveCancel} style={{backgroundColor: cancelColor && 'whitesmoke'}}>
+                    <p id={modalCSS.save} onClick={() => setEditMode(false)}>Save</p>
+                    <p id={modalCSS.cancel} onClick={cancelEdit} onMouseEnter={() => setCancelColor(true)} onMouseLeave={() => setCancelColor(false)}>Cancel</p>
+                </div>
+            )
+            
         } else {
             return <MdEdit id={modalCSS.headerIcon} onClick={() => setEditMode(true)}/>;
         };
@@ -39,10 +52,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, title, submit, typ
         <dialog ref={modalRef} className={`${modalCSS.modal} ${type}`}>
             <form onSubmit={submit}>
                 <div className={modalCSS.modalHeader}>
-                    <div className={modalCSS.modalTitle}>
-                        <h3>{title}</h3>
-                        {editMode && <p onClick={cancel}>Editing <IoMdClose/></p>}
-                    </div>
+                    <h3>{title}</h3>
                     <div className={modalCSS.modalHeaderButtons}>
                         {showEditModeButtons()}
                         <IoMdClose id={modalCSS.headerIcon} onClick={close}/>
