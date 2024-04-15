@@ -19,7 +19,7 @@
 
 #login {
     align-self: flex-start;
-    background-color: var(--primary-color);
+    background-color: #6C63FF;
     border: none;
     border: 2px solid black;
     color: white;
@@ -149,7 +149,7 @@
 }
 
 .features span > *:first-child {
-    background-color: var(--primary-color);
+    background-color: #6C63FF;
     color: white;
     border-radius: 50%;
     width: 30px;
@@ -191,7 +191,7 @@
     border-left: 2px solid black;
     width: 40px;
     height: auto;
-    background-color: var(--primary-color);
+    background-color: #6C63FF;
     color: white;
     cursor: pointer;
 }
@@ -228,7 +228,7 @@
 }
 
 #signIn {
-    background-color: var(--primary-color);
+    background-color: #6C63FF;
     color: white;
     border: 2px solid black;
     border-radius: 20px;

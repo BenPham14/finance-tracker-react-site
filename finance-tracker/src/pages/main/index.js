@@ -9,6 +9,7 @@ import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { convertTimestampToDate } from '../../context/context.js';
+import { IoMoon, IoSunny } from "react-icons/io5";
 
 const Loading = () => {
     return (
@@ -19,6 +20,7 @@ const Loading = () => {
 }
 
 const Main = () => {
+    const [darkMode, setDarkMode] = useState(false);
     const [accounts, setAccounts] = useState([]);
     const accountsRef = collection(db, 'accounts');
     const [budgets, setBudgets] = useState([]);
@@ -95,11 +97,18 @@ const Main = () => {
     };
 
     return (
-        <div className={mainCSS.mainBkg}>
+        <div className={mainCSS.mainBkg} id={darkMode ? "dark" : "light"}>
             <main className={mainCSS.main}>
                 <header>
                     <h1>Finance Tracker</h1>
-                    <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
+                    <div className={mainCSS.profileIcons}>
+                        {
+                            darkMode ? 
+                                <IoSunny onClick={() => setDarkMode(!darkMode)}/> : 
+                                <IoMoon onClick={() => setDarkMode(!darkMode)}/>
+                        }
+                        <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
+                    </div>
                 </header>
 
                 <div className={mainCSS.body}>

@@ -5,7 +5,7 @@
     font-family: Poppins;
 }
 
-/* :root {
+#light {
   --primary-color: #6C63FF;
   --secondary-color: white;
   --accent-color: whitesmoke;
@@ -18,9 +18,9 @@
   --cancel-color-bold: whitesmoke;
   --submit-color: black;
   --submit-text-color: white;
-} */
+}
 
-:root {
+#dark {
   --primary-color: #6C63FF;
   --secondary-color: rgb(35, 35, 35);
   --accent-color: rgb(45, 45, 45);

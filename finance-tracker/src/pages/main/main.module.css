@@ -34,11 +34,21 @@
     margin-bottom: 30px;
 }
 
-.profile {
+.profileIcons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profileIcons > * {
     width: 25px;
+    height: 25px;
     border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
     cursor: pointer;
+}
+
+.profile {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
 }
 
 .main button {
