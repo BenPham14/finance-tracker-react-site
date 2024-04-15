@@ -4,6 +4,8 @@
     max-height: 70%;
     border: none;
     border-radius: 10px;
+    background-color: var(--secondary-color);
+    color: var(--primary-text-color);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
     font-size: 0.875rem;
 }
@@ -26,11 +28,15 @@
     outline: none;
 }
 
-.modal input,
+.modal input[type="text"],
+.modal input[type="number"],
+.modal input[type="datetime-local"],
 .modal select {
     border: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--primary-text-color);
     font-size: 0.875rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-text-color);
 }
 
 .modal select {
@@ -39,8 +45,8 @@
 
 .modal input[type="submit"] {
     border: none;
-    background-color: var(--primary-text-color);
-    color: white;
+    background-color: var(--submit-color);
+    color: var(--submit-text-color);
     padding: 5px;
     cursor: pointer;
     border-radius: 5px;

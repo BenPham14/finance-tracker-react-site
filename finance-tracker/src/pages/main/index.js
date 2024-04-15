@@ -95,24 +95,26 @@ const Main = () => {
     };
 
     return (
-        <main className={mainCSS.main}>
-            <header>
-                <h1>Finance Tracker</h1>
-                <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
-            </header>
+        <div className={mainCSS.mainBkg}>
+            <main className={mainCSS.main}>
+                <header>
+                    <h1>Finance Tracker</h1>
+                    <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
+                </header>
 
-            <div className={mainCSS.body}>
-                <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
+                <div className={mainCSS.body}>
+                    <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
 
-                <div>
-                    <Summary transactions={transactions}/>
+                    <div>
+                        <Summary transactions={transactions}/>
 
-                    <Transactions transactions={transactions}/>
+                        <Transactions transactions={transactions}/>
 
-                    <Categories transactions={transactions}/>
+                        <Categories transactions={transactions}/>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     );
 };
 

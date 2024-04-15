@@ -60,6 +60,14 @@
     background-color: var(--delete-color-bold);
 }
 
+#cancel {
+    background-color: var(--cancel-color);
+}
+
+#cancel:hover {
+    background-color: var(--cancel-color-bold);
+}
+
 @media only screen and (min-width: 600px) {
     #category {
         display: table-cell;

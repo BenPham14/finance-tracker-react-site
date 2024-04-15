@@ -78,7 +78,7 @@ const Table = ({data, editMode}) => {
                 <p>Are you sure you want to delete: {deleteDocValue.name} ({deleteDocValue.type === 'expense' && '-'}${deleteDocValue.amount})?</p>
                 <div>
                     <button id={tableCSS.delete} onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
-                    <button onClick={closeDelete}>Cancel</button>
+                    <button id={tableCSS.cancel}onClick={closeDelete}>Cancel</button>
                 </div>
             </div>
         </>
