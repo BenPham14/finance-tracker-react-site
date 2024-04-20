@@ -31,6 +31,7 @@ const Main = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setDarkMode(JSON.parse(localStorage.getItem("darkMode")));
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const queryAccounts = query(
@@ -90,6 +91,11 @@ const Main = () => {
         })
     }, []);
 
+    const setTheme = (mode) => {
+        setDarkMode(mode);
+        localStorage.setItem("darkMode", mode);
+    };
+
     if (!isLoading && showNewUser) {
         return <NewUser setShowNewUser={setShowNewUser}/>;
     } else if (isLoading) {
@@ -104,8 +110,8 @@ const Main = () => {
                     <div className={mainCSS.profileIcons}>
                         {
                             darkMode ? 
-                                <IoSunny onClick={() => setDarkMode(!darkMode)}/> : 
-                                <IoMoon onClick={() => setDarkMode(!darkMode)}/>
+                                <IoSunny onClick={() => setTheme(false)}/> : 
+                                <IoMoon onClick={() => setTheme(true)}/>
                         }
                         <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
                     </div>
