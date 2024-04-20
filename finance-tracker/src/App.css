@@ -5,8 +5,11 @@
     font-family: Poppins;
 }
 
-#light {
+:root {
   --primary-color: #6C63FF;
+}
+
+#light {
   --secondary-color: white;
   --accent-color: whitesmoke;
   --background-color: white;
@@ -21,7 +24,6 @@
 }
 
 #dark {
-  --primary-color: #6C63FF;
   --secondary-color: rgb(35, 35, 35);
   --accent-color: rgb(45, 45, 45);
   --background-color: rgb(20, 20, 20);
@@ -33,6 +35,10 @@
   --cancel-color-bold: rgb(55, 55, 55);
   --submit-color: gray;
   --submit-text-color: black;
+}
+
+body:has(.mainBkgDark) {
+  background-color: rgb(20, 20, 20);
 }
 
 body {

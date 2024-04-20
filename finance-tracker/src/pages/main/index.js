@@ -103,7 +103,7 @@ const Main = () => {
     };
 
     return (
-        <div className={mainCSS.mainBkg} id={darkMode ? "dark" : "light"}>
+        <div className={`${mainCSS.mainBkg} ${darkMode && "mainBkgDark"}`} id={darkMode ? "dark" : "light"}>
             <main className={mainCSS.main}>
                 <header>
                     <h1>Finance Tracker</h1>

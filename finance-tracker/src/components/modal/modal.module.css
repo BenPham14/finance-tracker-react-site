@@ -10,6 +10,11 @@
     font-size: 0.875rem;
 }
 
+.modal::backdrop {
+    background-color: black;
+    opacity: 0.6;
+}
+
 .action {
     max-width: 280px;
 }
@@ -107,7 +112,7 @@
 
 .modal fieldset input {
     cursor: pointer;
-    background-color: white;
+    background-color: var(--secondary-color);
     appearance: none;
     width: 16px;
     height: 16px;
@@ -120,7 +125,7 @@
 }
 
 .modal fieldset input:checked {
-    border: 6px solid black;
+    border: 6px solid var(--primary-text-color);
 }
 
 .budgetCategories {
