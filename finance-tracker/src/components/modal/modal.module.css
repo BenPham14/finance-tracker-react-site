@@ -94,6 +94,10 @@
     cursor: pointer;
 }
 
+.modalSaveCancel.cancel {
+    background-color: var(--accent-color);
+}
+
 #save {
     background-color: var(--primary-color);
     color: white;

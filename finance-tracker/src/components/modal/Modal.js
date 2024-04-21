@@ -37,7 +37,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, title, submit, typ
 
         if (editMode) {
             return (
-                <div className={modalCSS.modalSaveCancel} style={{backgroundColor: cancelColor && 'whitesmoke'}}>
+                <div className={`${modalCSS.modalSaveCancel} ${cancelColor && modalCSS.cancel}`}>
                     <p id={modalCSS.save} onClick={() => setEditMode(false)}>Save</p>
                     <p id={modalCSS.cancel} onClick={cancelEdit} onMouseEnter={() => setCancelColor(true)} onMouseLeave={() => setCancelColor(false)}>Cancel</p>
                 </div>
