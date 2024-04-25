@@ -7,11 +7,14 @@ import Categories from './categories/Categories.js';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { convertTimestampToDate } from '../../context/context.js';
-import { IoMoon, IoSunny } from "react-icons/io5";
+import Cookies from 'universal-cookie';
+import Profile from './profile/Profile.js';
 
-const Main = () => {
+const cookies = new Cookies();
+
+const Main = ({setIsAuth}) => {
     const [darkMode, setDarkMode] = useState(false);
     const [accounts, setAccounts] = useState([]);
     const accountsRef = collection(db, 'accounts');
@@ -83,9 +86,15 @@ const Main = () => {
         })
     }, []);
 
-    const setTheme = (mode) => {
-        setDarkMode(mode);
-        localStorage.setItem("darkMode", mode);
+    const signOutUser = async () => {
+        await signOut(auth);
+        cookies.remove("auth-token");
+        setIsAuth(false);
+    };
+
+    const setTheme = () => {
+        setDarkMode(!darkMode);
+        localStorage.setItem("darkMode", !darkMode);
     };
 
     if (!isLoading && showNewUser) {
@@ -100,12 +109,12 @@ const Main = () => {
                 <header>
                     <h1>Finance Tracker</h1>
                     <div className={mainCSS.profileIcons}>
-                        {
-                            darkMode ? 
-                                <IoSunny onClick={() => setTheme(false)}/> : 
-                                <IoMoon onClick={() => setTheme(true)}/>
-                        }
-                        <img className={mainCSS.profile} src={auth.currentUser.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
+                        <Profile 
+                            signOutUser={signOutUser} 
+                            user={auth.currentUser}
+                            darkMode={darkMode}
+                            setTheme={setTheme}
+                        />
                     </div>
                 </header>
 

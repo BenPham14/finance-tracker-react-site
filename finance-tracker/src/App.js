@@ -19,7 +19,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path='/' element={<Main/>}/>
+        <Route path='/' element={<Main setIsAuth={setIsAuth}/>}/>
       </Routes>
     </HashRouter>
   );
