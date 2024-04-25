@@ -11,14 +11,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { convertTimestampToDate } from '../../context/context.js';
 import { IoMoon, IoSunny } from "react-icons/io5";
 
-const Loading = () => {
-    return (
-        <>
-            <h1 style={{paddingTop: "40vh", textAlign: 'center'}}>Loading...</h1>
-        </>
-    );
-}
-
 const Main = () => {
     const [darkMode, setDarkMode] = useState(false);
     const [accounts, setAccounts] = useState([]);
@@ -99,7 +91,7 @@ const Main = () => {
     if (!isLoading && showNewUser) {
         return <NewUser setShowNewUser={setShowNewUser}/>;
     } else if (isLoading) {
-        return <Loading/>
+        return <h1 className={mainCSS.loading} id={darkMode ? "dark" : "light"}>Loading...</h1>;
     };
 
     return (

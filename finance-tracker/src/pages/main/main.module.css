@@ -2,13 +2,25 @@
     background-color: var(--background-color);
 }
 
+.main,
+.loading {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
 .main {
     margin: 0 auto;
     width: 90%;
     max-width: 1360px;
     padding: 30px 0;
-    background-color: var(--background-color);
-    color: var(--primary-text-color);
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    padding-top: 40vh;
+    height: 100vh;
+    text-align: 'center';
 }
 
 .body,
@@ -113,7 +125,7 @@
     gap: 10px;
     padding: 0 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--primary-text-color);
     width: fit-content;
 }
 
