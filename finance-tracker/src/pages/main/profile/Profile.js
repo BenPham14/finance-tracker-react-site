@@ -8,7 +8,7 @@ const Profile = ({signOutUser, user, darkMode, setTheme}) => {
 
     return (
         <div className={mainCSS.profile}>
-            <img onClick={() => setProfileMenuOpen(!profileMenuOpen)} className={mainCSS.profileImage} src={user.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
+            <img onClick={() => setProfileMenuOpen(!profileMenuOpen)} className={mainCSS.profileImage} id={profileMenuOpen && mainCSS.profileOpen}src={user.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
             {
                 profileMenuOpen &&
                     <div className={mainCSS.profileMenu}>
