@@ -10,9 +10,9 @@ import Donut from "../../../../components/charts/Donut";
 
 const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const [editMode, setEditMode] = useState(false);
-    const [limitValue, setLimitValue] = useState(0);
-    const [categoriesValue, setCategoriesValue] = useState([]);
-    const [periodValue, setPeriodValue] = useState("");
+    const [limitValue, setLimitValue] = useState(data.limit);
+    const [categoriesValue, setCategoriesValue] = useState(budgetCategories);
+    const [periodValue, setPeriodValue] = useState(data.period);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = doc(db, "budgets", data.docId);
     const [chartData, setChartData] = useState({
@@ -73,18 +73,6 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
             })
         );
     }, [amount]);
-
-    useEffect(() => {
-        setLimitValue(data.limit);
-    }, [data.limit]);
-
-    useEffect(() => {
-        setCategoriesValue(budgetCategories);
-    }, [budgetCategories]);
-
-    useEffect(() => {
-        setPeriodValue(data.period);
-    }, [data.period]);
 
     useEffect(() => {
         const dates = calculateDates(periodValue);
