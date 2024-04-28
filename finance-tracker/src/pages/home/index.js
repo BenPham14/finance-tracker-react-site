@@ -67,7 +67,7 @@ const Home = ({setIsAuth}) => {
     return (
         <main className={homeCSS.home}>
             <header>
-                <h2>FinTracker</h2>
+                <h2>Finance Tracker</h2>
                 <div className={homeCSS.mobile}>
                     <HiMenuAlt3 className={homeCSS.menuIcon} onClick={() => setToggle(!toggle)}/>
                     <DropDown 

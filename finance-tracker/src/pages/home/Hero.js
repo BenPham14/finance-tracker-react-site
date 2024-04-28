@@ -7,7 +7,7 @@ const Hero = ({setLoginOpen}) => {
             <div>
                 <h1>Finances Made Easy</h1>
                 <p>
-                    Track your expenses effortlessly and save more money with FinTracker, 
+                    Track your expenses effortlessly and save more money with Finance Tracker, 
                     the smart and simple app that helps you manage your finances.
                 </p>
                 <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>

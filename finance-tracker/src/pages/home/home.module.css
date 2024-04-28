@@ -89,6 +89,7 @@
 
 .hero #login {
     padding: 10px 50px;
+    margin-top: 20px;
     display: none;
 }
 
@@ -102,6 +103,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.hero div > *:nth-child(2) {
+    color: gray
 }
 
 .hero img {
@@ -126,6 +131,10 @@
     display: grid;
     justify-content: center;
     gap: 20px;
+}
+
+.featuresContent p {
+    color: gray;
 }
 
 .featuresContent div {
@@ -173,6 +182,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.faqQuestion p {
+    color: gray;
 }
 
 .faqQuestion:last-of-type {
@@ -348,9 +361,5 @@
 @media only screen and (min-width: 1200px) {
     .home h1 {
         font-size: 3rem;
-    }
-
-    .hero div {
-        gap: 40px;
     }
 }
