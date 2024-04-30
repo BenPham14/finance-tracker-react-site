@@ -8,33 +8,38 @@ const Profile = ({signOutUser, user, darkMode, setTheme}) => {
 
     return (
         <div className={mainCSS.profile}>
-            <img onClick={() => setProfileMenuOpen(!profileMenuOpen)} className={mainCSS.profileImage} id={profileMenuOpen && mainCSS.profileOpen}src={user.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
-            {
-                profileMenuOpen &&
-                    <div className={mainCSS.profileMenu}>
-                        <div className={mainCSS.profileInfo}>
-                            <img onClick={signOutUser} className={mainCSS.profile} src={user.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
-                            <div>
-                                <p>{user.displayName}</p>
-                                <p>{user.email}</p>
-                            </div>
-                        </div>
-                            {
-                                darkMode ? 
-                                    <div id={mainCSS.theme} onClick={setTheme}>
-                                        <IoSunny/>
-                                        <p>Light Mode</p>
-                                    </div> :
-                                    <div id={mainCSS.theme} onClick={setTheme}>
-                                        <IoMoon/>
-                                        <p>Dark Mode</p>
-                                    </div> 
-                            }
-                        <div id={mainCSS.signOut} onClick={signOutUser}>
-                            <IoMdExit/>
-                            <p>Sign Out</p>
+            <img 
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)} 
+                className={mainCSS.profileImage} 
+                id={profileMenuOpen ? mainCSS.profileOpen : undefined} 
+                src={user.photoURL} 
+                alt='Profile' 
+                referrerPolicy="no-referrer"
+            />
+            {profileMenuOpen &&
+                <div className={mainCSS.profileMenu}>
+                    <div className={mainCSS.profileInfo}>
+                        <img onClick={signOutUser} className={mainCSS.profile} src={user.photoURL} alt='Profile' referrerPolicy="no-referrer"/>
+                        <div>
+                            <p>{user.displayName}</p>
+                            <p>{user.email}</p>
                         </div>
                     </div>
+                    {darkMode ? 
+                            <div id={mainCSS.theme} onClick={setTheme}>
+                                <IoSunny/>
+                                <p>Light Mode</p>
+                            </div> :
+                            <div id={mainCSS.theme} onClick={setTheme}>
+                                <IoMoon/>
+                                <p>Dark Mode</p>
+                            </div> 
+                    }
+                    <div id={mainCSS.signOut} onClick={signOutUser}>
+                        <IoMdExit/>
+                        <p>Sign Out</p>
+                    </div>
+                </div>
             }
         </div>
     );

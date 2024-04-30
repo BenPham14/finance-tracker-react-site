@@ -16,19 +16,17 @@ const Multiselect = ({data, value, setValue, isOpen, setIsOpen, modalOpen}) => {
                 <VscChevronDown style={{color: changePlaceholderColor(value)}}/>
             </div>
             <div className={multiselectCSS.options}  style={{display: !isOpen && "none"}}>
-                {
-                    data.map((dataValue, index) => (
-                        <div key={index}>
-                            <Checkbox 
-                                data={dataValue} 
-                                value={value}
-                                setValue={setValue}
-                                modalOpen={modalOpen}
-                            />
-                            <label htmlFor={dataValue.name}>{dataValue.name}</label>
-                        </div>
-                    ))
-                }
+                {data.map((dataValue, index) => (
+                    <div key={index}>
+                        <Checkbox 
+                            data={dataValue} 
+                            value={value}
+                            setValue={setValue}
+                            modalOpen={modalOpen}
+                        />
+                        <label htmlFor={dataValue.name}>{dataValue.name}</label>
+                    </div>
+                ))}
             </div>
         </div>
     );

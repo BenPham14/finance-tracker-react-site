@@ -22,25 +22,22 @@ const Transactions = ({transactions}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        // limits table to 4 lines
-                        transactions.slice(0,4).map((transaction, index) => (
-                            <tr key={index}>
-                                <td>{transaction.name}</td>
-                                <td id={mainCSS.transactionCategory}>{transaction.category}</td>
-                                <td>{transaction.date}</td>
-                                <td>{transaction.type === "expense" && "-"}${transaction.amount}</td>
-                            </tr>
-                        ))
-                    }
-                    {
-                        transactions.length === 0 &&
-                            <tr>
-                                <td style={{color: "gray"}}>No Transactions</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                    {// limits table to 4 lines
+                    transactions.slice(0,4).map((transaction, index) => (
+                        <tr key={index}>
+                            <td>{transaction.name}</td>
+                            <td id={mainCSS.transactionCategory}>{transaction.category}</td>
+                            <td>{transaction.date}</td>
+                            <td>{transaction.type === "expense" && "-"}${transaction.amount}</td>
+                        </tr>
+                    ))}
+                    {transactions.length === 0 &&
+                        <tr>
+                            <td style={{color: "gray"}}>No Transactions</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     }
                 </tbody>
             </table>

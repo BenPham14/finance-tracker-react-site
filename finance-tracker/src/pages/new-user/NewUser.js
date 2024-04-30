@@ -146,28 +146,24 @@ const NewUser = ({setShowNewUser}) => {
     return (
         <main className={newUserCSS.newUser}>
             <div className={newUserCSS.steps}>
-                {
-                    items.map((item) => (
-                        <>
-                            <p id={item.id} style={{backgroundColor: currentStep >= item.id && '#6C63FF', color: currentStep >= item.id && 'white'}}>{item.id}</p>
-                            <hr/>
-                        </>
-                    ))
-                }
+                {items.map((item) => (
+                    <>
+                        <p id={item.id} style={{backgroundColor: currentStep >= item.id && '#6C63FF', color: currentStep >= item.id && 'white'}}>{item.id}</p>
+                        <hr/>
+                    </>
+                ))}
             </div>
             <form id='new-user' className={newUserCSS.carousel} onSubmit={handleSubmit}>
-                {
-                    items.map((item) => (
-                        <CarouselItem key={item.id}
-                            id={item.id}
-                            title={item.title}
-                            image={item.image}
-                            text={item.text}
-                            custom={item.custom}
-                            currentStep={currentStep}
-                        />
-                    ))
-                }
+                {items.map((item) => (
+                    <CarouselItem key={item.id}
+                        id={item.id}
+                        title={item.title}
+                        image={item.image}
+                        text={item.text}
+                        custom={item.custom}
+                        currentStep={currentStep}
+                    />
+                ))}
             </form>
             <div className={newUserCSS.carouselNav}>
                 <button onClick={decrementStep} style={{backgroundColor: fadeBackButton()}}>Back</button>

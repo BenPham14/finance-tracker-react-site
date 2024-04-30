@@ -48,15 +48,13 @@ const Aside = ({accounts, budgets, transactions}) => {
                     <p>Accounts</p>
                 </div>
                 <div className={`${mainCSS.accountsItems} ${mainCSS.items}`}>
-                    {
-                        accounts.map((account, index) => (
-                            <Account
-                                key={index}
-                                account={account}
-                                transactions={transactions}
-                            />
-                        ))
-                    }
+                    {accounts.map((account, index) => (
+                        <Account
+                            key={index}
+                            account={account}
+                            transactions={transactions}
+                        />
+                    ))}
                 </div>
             </div>
             <div className={mainCSS.budgets}>
@@ -65,15 +63,13 @@ const Aside = ({accounts, budgets, transactions}) => {
                     <p>Budgets</p>
                 </div>
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
-                    {
-                        budgets.map((budget, index) => (
-                            <Budget
-                                key={index}
-                                budget={budget}
-                                transactions={transactions}
-                            />
-                        ))
-                    }
+                    {budgets.map((budget, index) => (
+                        <Budget
+                            key={index}
+                            budget={budget}
+                            transactions={transactions}
+                        />
+                    ))}
                 </div>
             </div>
         </aside>

@@ -52,15 +52,13 @@ const Categories = ({transactions}) => {
                 <p>Categories</p>
             </div>
             <div className={`${mainCSS.categoryItems} ${mainCSS.items}`}>
-                {
-                    categories.map((category, index) => (
-                        <CategoriesItem 
-                            key={index}
-                            category={category}
-                            amount={categoryAmount(category.name)}
-                        />
-                    ))
-                }
+                {categories.map((category, index) => (
+                    <CategoriesItem 
+                        key={index}
+                        category={category}
+                        amount={categoryAmount(category.name)}
+                    />
+                ))}
             </div>
         </section>
     );

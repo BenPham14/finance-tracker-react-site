@@ -30,23 +30,21 @@ const Summary = ({transactions}) => {
                 <p>Summary</p>
             </div>
             <div className={`${mainCSS.summaryItems} ${mainCSS.items}`}>
-                {
-                    data.map((value) => (
-                        <>
-                            <button onClick={() => value.isOpen[1](true)}>
-                                <p>{value.title}</p>
-                            </button>
-                            <SummaryDetails
-                                title={value.title}
-                                transactions={transactions}
-                                isOpen={value.isOpen[0]}
-                                setIsOpen={value.isOpen[1]}
-                                editMode={value.editMode[0]}
-                                setEditMode={value.editMode[1]}
-                            />
-                        </>
-                    ))
-                }
+                {data.map((value) => (
+                    <>
+                        <button onClick={() => value.isOpen[1](true)}>
+                            <p>{value.title}</p>
+                        </button>
+                        <SummaryDetails
+                            title={value.title}
+                            transactions={transactions}
+                            isOpen={value.isOpen[0]}
+                            setIsOpen={value.isOpen[1]}
+                            editMode={value.editMode[0]}
+                            setEditMode={value.editMode[1]}
+                        />
+                    </>
+                ))}
             </div>
         </section>
     );

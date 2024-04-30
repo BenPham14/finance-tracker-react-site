@@ -68,13 +68,11 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
                         value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
                     >
                         <option value="" disabled>Period</option>
-                        {
-                            periodOptions.map((period, index) => {
-                                return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
-                                    return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
-                                })
+                        {periodOptions.map((period, index) => {
+                            return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
+                                return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
                             })
-                        }
+                        })}
                     </select>
                     <Multiselect
                         data={categories}

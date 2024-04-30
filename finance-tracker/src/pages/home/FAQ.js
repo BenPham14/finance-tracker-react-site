@@ -25,11 +25,9 @@ const FAQ = ({faqScroll}) => {
     return (
         <section className={homeCSS.faq} ref={faqScroll}>
             <div className={homeCSS.faqContent}>
-                {
-                    content.map((question, index) => (
-                        <Question key={index} {...question}/>
-                    ))
-                }
+                {content.map((question, index) => (
+                    <Question key={index} {...question}/>
+                ))}
             </div>
         </section>
     );

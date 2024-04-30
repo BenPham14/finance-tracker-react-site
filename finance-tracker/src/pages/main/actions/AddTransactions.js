@@ -84,21 +84,17 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                         value={accountValue} onChange={(e) => setAccountValue(e.target.value)}
                     >
                         <option value="" disabled>Account</option>
-                        {
-                            accounts.map((account, index) => (
-                                <option key={index} value={[account.id, account.name]}>{account.name}</option>
-                            ))
-                        }
+                        {accounts.map((account, index) => (
+                            <option key={index} value={[account.id, account.name]}>{account.name}</option>
+                        ))}
                     </select>
                     <select name='categories' required={typeValue === 'income' ? false : true} style={{color: changePlaceholderColor(categoryValue), display: typeValue === 'income' && 'none'}} 
                         value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)}
                     >
                         <option value="" disabled>Category</option>
-                        {
-                            categories.map((category, index) => (
-                                <option key={index} value={category.name}>{category.name}</option>
-                            ))
-                        }
+                        {categories.map((category, index) => (
+                            <option key={index} value={category.name}>{category.name}</option>
+                        ))}
                     </select>
                 </>
             }

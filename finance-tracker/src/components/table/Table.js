@@ -42,35 +42,29 @@ const Table = ({data, editMode}) => {
                         <th id={tableCSS.category}>Category</th>
                         <th>Date</th>
                         <th>Amount</th>
-                        {
-                            editMode && 
-                                <th></th>
-                        }
+                        {editMode && <th></th>}
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        data.map((value) => (
-                            <tr key={value.id}>
-                                <td>{value.name}</td>
-                                <td id={tableCSS.category}>{value.category}</td>
-                                <td>{value.date}</td>
-                                <td>{value.type === 'expense' && '-'}${value.amount}</td>
-                                {
-                                    editMode &&
-                                        <td id={tableCSS.editButton} onClick={() => showDelete(value)}><FaTrash/></td>
-                                }
-                            </tr>
-                        ))
-                    }
-                    {
-                        data.length === 0 &&
-                            <tr>
-                                <td style={{color: "gray"}}>No Transactions</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                    {data.map((value) => (
+                        <tr key={value.id}>
+                            <td>{value.name}</td>
+                            <td id={tableCSS.category}>{value.category}</td>
+                            <td>{value.date}</td>
+                            <td>{value.type === 'expense' && '-'}${value.amount}</td>
+                            {
+                                editMode &&
+                                    <td id={tableCSS.editButton} onClick={() => showDelete(value)}><FaTrash/></td>
+                            }
+                        </tr>
+                    ))}
+                    {data.length === 0 &&
+                        <tr>
+                            <td style={{color: "gray"}}>No Transactions</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     }
                 </tbody>
             </table>
