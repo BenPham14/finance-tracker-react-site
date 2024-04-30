@@ -1,4 +1,5 @@
 import tableCSS from './table.module.css';
+import deleteCSS from '../../components/delete/delete.module.css';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { FaTrash } from "react-icons/fa6";
@@ -74,11 +75,11 @@ const Table = ({data, editMode}) => {
                 </tbody>
             </table>
 
-            <div className={tableCSS.deleteDialog} style={{display: deleteOpen ? "" : "none"}}>
+            <div className={deleteCSS.deleteDialog} style={{display: deleteOpen ? "" : "none"}}>
                 <p>Are you sure you want to delete: {deleteDocValue.name} ({deleteDocValue.type === 'expense' && '-'}${deleteDocValue.amount})?</p>
                 <div>
-                    <button id={tableCSS.delete} onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
-                    <button id={tableCSS.cancel}onClick={closeDelete}>Cancel</button>
+                    <button id={deleteCSS.delete} onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
+                    <button id={deleteCSS.cancel} onClick={closeDelete}>Cancel</button>
                 </div>
             </div>
         </>

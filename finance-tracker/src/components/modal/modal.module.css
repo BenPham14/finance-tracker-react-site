@@ -98,13 +98,23 @@
     background-color: var(--accent-color);
 }
 
-#save {
+#saveEdit {
     background-color: var(--primary-color);
     color: white;
 }
 
-#cancel {
+#cancelEdit {
     color: var(--secondary-text-color);
+}
+
+#deleteModal {
+    font-size: 0.75rem;
+    color: var(--delete-color);
+}
+
+#deleteModal:hover {
+    color: var(--delete-color-bold);
+    cursor: pointer;
 }
 
 .modal fieldset {

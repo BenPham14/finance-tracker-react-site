@@ -1,0 +1,37 @@
+.deleteDialog {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.deleteDialog div {
+    display: flex;
+    gap: 15px;
+}
+
+.deleteDialog button {
+    width: 100%;
+    text-align: center;
+}
+
+.deleteDialog p {
+    font-weight: bold;
+}
+
+#delete {
+    background-color: var(--delete-color);
+    color: white;
+}
+
+#delete:hover {
+    background-color: var(--delete-color-bold);
+}
+
+#cancel {
+    background-color: var(--cancel-color);
+}
+
+#cancel:hover {
+    background-color: var(--cancel-color-bold);
+}

@@ -1,9 +1,9 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS} from "chart.js/auto";
 
-const Donut = ({data, options}) => {
+const Donut = ({data, width, options}) => {
     return (
-        <Doughnut data={data} options={options}/>
+        <Doughnut data={data} width={width} options={options}/>
     );
 };
 

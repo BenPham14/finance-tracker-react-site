@@ -4,17 +4,19 @@ import modalCSS from "../../../../components/modal/modal.module.css";
 import Table from '../../../../components/table/Table.js';
 import Multiselect from '../../../../components/multiselect/Multiselect.js';
 import { calculateDates, categories, periodOptions } from '../../../../context/context.js';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../config/firebase.js';
 import Donut from "../../../../components/charts/Donut";
 
 const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen}) => {
     const [editMode, setEditMode] = useState(false);
+    const [deleteMode, setDeleteMode] = useState(false);
     const [limitValue, setLimitValue] = useState(data.limit);
     const [categoriesValue, setCategoriesValue] = useState(budgetCategories);
     const [periodValue, setPeriodValue] = useState(data.period);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = doc(db, "budgets", data.docId);
+
     const [chartData, setChartData] = useState({
         labels: ["Spent", "Remaining"],
         datasets: [{
@@ -27,16 +29,17 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
     const chartOptions = {
         plugins: {
             legend: {
-                display: false
+                display: false,
             }
         }
-    }
+    };
 
     const cancelEdit = () => {
         setLimitValue(data.limit)
         setCategoriesValue(budgetCategories);
         setPeriodValue(data.period);
         setCategoriesOpen(false);
+        setDeleteMode(false);
         setEditMode(false);
     };
     
@@ -101,6 +104,13 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
         };
     }, [editMode]);
 
+    const deleteBudget = async (e) => {
+        e.preventDefault();
+        let docRef = doc(db, "budgets", data.docId);
+        await deleteDoc(docRef);
+        closeModal();
+    };
+
     return (
         <Modal
             isOpen={budgetDetailsOpen}
@@ -108,6 +118,9 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
             cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
+            deleteMode={deleteMode}
+            setDeleteMode={setDeleteMode}
+            deleteFn={deleteBudget}
             title={data.name}
             submit={null}
             type={modalCSS.details}
@@ -159,6 +172,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                             <div>
                                 <Donut 
                                     data={chartData}
+                                    width={"90px"}
                                     options={chartOptions}
                                 />
                             </div>
