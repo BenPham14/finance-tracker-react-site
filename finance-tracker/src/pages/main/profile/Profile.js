@@ -26,14 +26,14 @@ const Profile = ({signOutUser, user, darkMode, setTheme}) => {
                         </div>
                     </div>
                     {darkMode ? 
-                            <div id={mainCSS.theme} onClick={setTheme}>
-                                <IoSunny/>
-                                <p>Light Mode</p>
-                            </div> :
-                            <div id={mainCSS.theme} onClick={setTheme}>
-                                <IoMoon/>
-                                <p>Dark Mode</p>
-                            </div> 
+                        <div id={mainCSS.theme} onClick={setTheme}>
+                            <IoSunny/>
+                            <p>Light Mode</p>
+                        </div> :
+                        <div id={mainCSS.theme} onClick={setTheme}>
+                            <IoMoon/>
+                            <p>Dark Mode</p>
+                        </div>
                     }
                     <div id={mainCSS.signOut} onClick={signOutUser}>
                         <IoMdExit/>

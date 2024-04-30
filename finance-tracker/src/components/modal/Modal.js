@@ -40,10 +40,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
         if (editMode) {
             return (
                 <>
-                    {
-                        deleteMode != null &&
-                            <FaTrash onClick={() => setDeleteMode(true)} id={modalCSS.deleteModal}/>
-                    }
+                    {deleteMode != null && <FaTrash onClick={() => setDeleteMode(true)} id={modalCSS.deleteModal}/>}
                     <div className={`${modalCSS.modalSaveCancel} ${cancelColor && modalCSS.cancel}`}>
                         <p id={modalCSS.saveEdit} onClick={() => setEditMode(false)}>Save</p>
                         <p id={modalCSS.cancelEdit} onClick={cancelEdit} onMouseEnter={() => setCancelColor(true)} onMouseLeave={() => setCancelColor(false)}>Cancel</p>
@@ -65,16 +62,15 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
                         <IoMdClose id={modalCSS.headerIcon} onClick={close}/>
                     </div>
                 </div>
-                {
-                    deleteMode ?
-                        <div className={deleteCSS.deleteDialog}>
-                            <p>Are you sure you want to delete: {title}?</p>
-                            <div>
-                                <button id={deleteCSS.delete} onClick={(e) => deleteFn(e)}>Delete</button>
-                                <button id={deleteCSS.cancel} onClick={() => setDeleteMode(false)}>Cancel</button>
-                            </div>
-                        </div> :
-                        content
+                {deleteMode ?
+                    <div className={deleteCSS.deleteDialog}>
+                        <p>Are you sure you want to delete: {title}?</p>
+                        <div>
+                            <button id={deleteCSS.delete} onClick={(e) => deleteFn(e)}>Delete</button>
+                            <button id={deleteCSS.cancel} onClick={() => setDeleteMode(false)}>Cancel</button>
+                        </div>
+                    </div> :
+                    content
                 }
                 {submit !== null && <input type='submit'/>}
             </form>
