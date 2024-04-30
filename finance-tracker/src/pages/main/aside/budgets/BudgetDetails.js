@@ -133,6 +133,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                     <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of $
                                         <input type="number" placeholder="Limit" min="0"
                                             value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
+                                            onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         />
                                     </p>
                                     <div className={modalCSS.budgetCategories}>
@@ -146,16 +147,16 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                         />
                                     </div>
                                     <p>Resets every
-                                    <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
-                                        value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
-                                    >
-                                        <option value="" disabled>Period</option>
-                                        {periodOptions.map((period, index) => {
-                                            return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
-                                                return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
-                                            })
-                                        })}
-                                    </select>
+                                        <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
+                                            value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
+                                        >
+                                            <option value="" disabled>Period</option>
+                                            {periodOptions.map((period, index) => {
+                                                return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
+                                                    return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
+                                                })
+                                            })}
+                                        </select>
                                     </p>
                                 </> :
                                 <>
