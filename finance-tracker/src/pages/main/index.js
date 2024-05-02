@@ -12,6 +12,9 @@ import { convertTimestampToDate } from '../../context/context.js';
 import Cookies from 'universal-cookie';
 import Profile from './profile/Profile.js';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const cookies = new Cookies();
 
 const Main = ({setIsAuth}) => {
@@ -119,7 +122,7 @@ const Main = ({setIsAuth}) => {
                 </header>
 
                 <div className={mainCSS.body}>
-                    <Aside accounts={accounts} budgets={budgets} transactions={transactions}/>
+                    <Aside accounts={accounts} budgets={budgets} transactions={transactions} toast={toast}/>
 
                     <div>
                         <Summary transactions={transactions}/>
@@ -130,6 +133,7 @@ const Main = ({setIsAuth}) => {
                     </div>
                 </div>
             </main>
+            <ToastContainer/>
         </div>
     );
 };

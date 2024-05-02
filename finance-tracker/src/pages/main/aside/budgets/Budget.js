@@ -5,7 +5,7 @@ import { convertTimestampToDate } from "../../../../context/context";
 import BudgetDetails from "./BudgetDetails";
 import mainCSS from "../../main.module.css";
 
-const Budget = ({budget, transactions}) => {
+const Budget = ({budget, transactions, toast}) => {
     const [budgetDetailsOpen, setBudgetDetailsOpen] = useState(false);
     const budgetsRef = doc(db, "budgets", budget.docId);
 
@@ -90,6 +90,7 @@ const Budget = ({budget, transactions}) => {
                 budgetCategories={budget.categories}
                 budgetDetailsOpen={budgetDetailsOpen}
                 setBudgetDetailsOpen={setBudgetDetailsOpen}
+                toast={toast}
             />
         </>
     );

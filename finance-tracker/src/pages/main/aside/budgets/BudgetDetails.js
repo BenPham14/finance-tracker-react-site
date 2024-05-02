@@ -8,7 +8,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../config/firebase.js';
 import Donut from "../../../../components/charts/Donut";
 
-const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen}) => {
+const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
     const [limitValue, setLimitValue] = useState(data.limit);
@@ -109,6 +109,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
         let docRef = doc(db, "budgets", data.docId);
         await deleteDoc(docRef);
         closeModal();
+        toast("Budget deleted");
     };
 
     return (

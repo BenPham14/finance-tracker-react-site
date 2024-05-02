@@ -8,7 +8,7 @@ import Budget from './budgets/Budget';
 import Account from './accounts/Account';
 import { categories } from '../../../context/context.js';
 
-const Aside = ({accounts, budgets, transactions}) => {
+const Aside = ({accounts, budgets, transactions, toast}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);
     const [accountsOpen, setAccountsOpen] = useState(false);
     const [budgetsOpen, setBudgetsOpen] = useState(false);
@@ -68,6 +68,7 @@ const Aside = ({accounts, budgets, transactions}) => {
                             key={index}
                             budget={budget}
                             transactions={transactions}
+                            toast={toast}
                         />
                     ))}
                 </div>
