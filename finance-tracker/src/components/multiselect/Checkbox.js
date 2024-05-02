@@ -23,7 +23,10 @@ const Checkbox = ({data, value, setValue, modalOpen}) => {
     };
 
     return (
-        <div className={multiselectCSS.checkbox} onClick={onCheck}>
+        <div className={multiselectCSS.checkbox} 
+            onClick={onCheck} 
+            onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents default
+        >
             <input type="checkbox" value={data.name} id={data.name} name={data.name} checked={isChecked} readOnly/>
             <FaCheck style={{display: !isChecked && 'none'}}/>
         </div>

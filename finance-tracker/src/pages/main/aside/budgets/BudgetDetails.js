@@ -149,6 +149,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                     <p>Resets every
                                         <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
                                             value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
+                                            onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         >
                                             <option value="" disabled>Period</option>
                                             {periodOptions.map((period, index) => {
