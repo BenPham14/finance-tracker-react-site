@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
 import modalCSS from "../../../components/modal/modal.module.css";
 
-const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen}) => {
+const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen, toast}) => {
     const [typeValue, setTypeValue] = useState("expense");
     const [nameValue, setNameValue] = useState("");
     const [amountValue, setAmountValue] = useState("");
@@ -50,6 +50,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             category: typeValue === 'expense' ? categoryValue : 'Income'
         });
         closeModal();
+        toast.success("Transaction created");
     };
 
     return (

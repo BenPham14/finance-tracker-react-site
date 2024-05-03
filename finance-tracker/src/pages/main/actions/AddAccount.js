@@ -5,7 +5,7 @@ import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import modalCSS from "../../../components/modal/modal.module.css";
 
-const AddAccount = ({accountsOpen, setAccountsOpen}) => {
+const AddAccount = ({accountsOpen, setAccountsOpen, toast}) => {
     const [nameValue, setNameValue] = useState("");
     const accountsRef = collection(db, "accounts");
 
@@ -24,6 +24,7 @@ const AddAccount = ({accountsOpen, setAccountsOpen}) => {
             amount: '0'
         });
         closeModal();
+        toast.success("Account created");
     };
 
     return (

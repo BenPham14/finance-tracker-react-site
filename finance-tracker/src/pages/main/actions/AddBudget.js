@@ -7,7 +7,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import modalCSS from "../../../components/modal/modal.module.css";
 import { calculateDates, periodOptions } from "../../../context/context";
 
-const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
+const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
     const [nameValue, setNameValue] = useState("");
     const [limitValue, setLimitValue] = useState("");
     const [periodValue, setPeriodValue] = useState("");
@@ -47,6 +47,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen}) => {
             categories: categoriesValue
         });
         closeModal();
+        toast.success("Budget created");
     };
 
     return (

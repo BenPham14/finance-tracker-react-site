@@ -133,7 +133,10 @@ const Main = ({setIsAuth}) => {
                     </div>
                 </div>
             </main>
-            <ToastContainer/>
+            <ToastContainer
+                draggable
+                theme='colored'
+            />
         </div>
     );
 };

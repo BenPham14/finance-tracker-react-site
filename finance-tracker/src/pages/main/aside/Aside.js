@@ -27,11 +27,13 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
                         categories={categories} 
                         transactionsOpen={transactionsOpen}
                         setTransactionsOpen={setTransactionsOpen}
+                        toast={toast}
                     />
                     <button onClick={() => setAccountsOpen(true)}>+ Account</button>
                     <AddAccount
                         accountsOpen={accountsOpen}
                         setAccountsOpen={setAccountsOpen}
+                        toast={toast}
                     />
                     <button onClick={() => setBudgetsOpen(true)}>+ Budget</button>
                     <AddBudget
@@ -39,6 +41,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
                         categories={categories}
                         budgetsOpen={budgetsOpen}
                         setBudgetsOpen={setBudgetsOpen}
+                        toast={toast}
                     />
                 </div>
             </div>

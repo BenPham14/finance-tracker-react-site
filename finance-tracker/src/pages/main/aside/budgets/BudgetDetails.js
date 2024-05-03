@@ -109,7 +109,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
         let docRef = doc(db, "budgets", data.docId);
         await deleteDoc(docRef);
         closeModal();
-        toast("Budget deleted");
+        toast.error("Budget deleted");
     };
 
     return (
