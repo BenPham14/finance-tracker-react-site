@@ -106,9 +106,9 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
 
     const deleteBudget = async (e) => {
         e.preventDefault();
+        closeModal();
         let docRef = doc(db, "budgets", data.docId);
         await deleteDoc(docRef);
-        closeModal();
         toast.error("Budget deleted");
     };
 
