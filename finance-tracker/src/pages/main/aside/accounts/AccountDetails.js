@@ -2,17 +2,35 @@ import modalCSS from "../../../../components/modal/modal.module.css";
 import { useState } from 'react';
 import Table from '../../../../components/table/Table.js';
 import Modal from '../../../../components/modal/Modal.js';
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../../config/firebase.js";
 
-const AccountDetails = ({data, amount, title, accountDetailsOpen, setAccountDetailsOpen}) => {
+const AccountDetails = ({data, amount, account, accountDetailsOpen, setAccountDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
+    const [deleteMode, setDeleteMode] = useState(false);
 
     const cancelEdit = () => {
         setEditMode(false);
+        setDeleteMode(false);
     };
 
     const closeModal = () => {
         setAccountDetailsOpen(false);
         cancelEdit();
+    };
+
+    const deleteAccount = async (e) => {
+        e.preventDefault();
+        closeModal();
+
+        let accountsRef = doc(db, "accounts", account.docId);
+        await deleteDoc(accountsRef);
+
+        data.forEach((transaction) => {
+            let transactionsRef = doc(db, "transactions", transaction.docId);
+            deleteDoc(transactionsRef);
+        });
+        toast.error("Account deleted");
     };
 
     return (
@@ -22,10 +40,13 @@ const AccountDetails = ({data, amount, title, accountDetailsOpen, setAccountDeta
             cancel={cancelEdit}
             editMode={editMode}
             setEditMode={setEditMode}
-            title={title}
+            deleteMode={deleteMode}
+            setDeleteMode={setDeleteMode}
+            deleteFn={deleteAccount}
+            title={account.name}
             submit={null}
             type={modalCSS.details}
-            warning={`This will delete ${data.length} transactions connected to this account`}
+            warning={data.length}
             content={
                 <>
                     <p>{amount < 0 && '-'}${Math.abs(amount)} available</p>

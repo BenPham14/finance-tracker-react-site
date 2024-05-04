@@ -56,6 +56,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
                             key={index}
                             account={account}
                             transactions={transactions}
+                            toast={toast}
                         />
                     ))}
                 </div>

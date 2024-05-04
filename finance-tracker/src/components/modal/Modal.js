@@ -38,15 +38,17 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
         };
 
         if (editMode) {
-            return (
-                <>
-                    {deleteMode != null && <FaTrash onClick={() => setDeleteMode(true)} id={modalCSS.deleteModal}/>}
-                    <div className={`${modalCSS.modalSaveCancel} ${cancelColor && modalCSS.cancel}`}>
-                        <p id={modalCSS.saveEdit} onClick={() => setEditMode(false)}>Save</p>
-                        <p id={modalCSS.cancelEdit} onClick={cancelEdit} onMouseEnter={() => setCancelColor(true)} onMouseLeave={() => setCancelColor(false)}>Cancel</p>
-                    </div>
-                </>
-            );
+            if (!deleteMode) {
+                return (
+                    <>
+                        {deleteMode != null && <FaTrash onClick={() => setDeleteMode(true)} id={modalCSS.deleteModal}/>}
+                        <div className={`${modalCSS.modalSaveCancel} ${cancelColor && modalCSS.cancel}`}>
+                            <p id={modalCSS.saveEdit} onClick={() => setEditMode(false)}>Save</p>
+                            <p id={modalCSS.cancelEdit} onClick={cancelEdit} onMouseEnter={() => setCancelColor(true)} onMouseLeave={() => setCancelColor(false)}>Cancel</p>
+                        </div>
+                    </>
+                );
+            }
         } else {
             return <MdEdit id={modalCSS.headerIcon} onClick={() => setEditMode(true)}/>;
         };
@@ -66,7 +68,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
                     <div className={deleteCSS.deleteDialog}>
                         <div className={deleteCSS.deleteInfo}>
                             <p>Are you sure you want to delete: {title}?</p>
-                            {warning !== undefined && <p id={deleteCSS.warning}>WARNING: {warning}</p>}
+                            {warning > 0 && <p id={deleteCSS.warning}>WARNING: This will delete {warning} transactions connected to this account</p>}
                         </div>
                         <div className={deleteCSS.deleteCancelButtons}>
                             <button id={deleteCSS.delete} onClick={(e) => deleteFn(e)}>Delete</button>

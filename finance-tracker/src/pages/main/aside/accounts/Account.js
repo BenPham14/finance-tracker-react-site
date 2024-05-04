@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AccountDetails from "./AccountDetails";
 
-const Account = ({account, transactions}) => {
+const Account = ({account, transactions, toast}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
 
     const accountAmount = (id) => {
@@ -37,9 +37,10 @@ const Account = ({account, transactions}) => {
             <AccountDetails
                 data={filterTransactions(account.id)}
                 amount={accountAmount(account.id)}
-                title={account.name}
+                account={account}
                 accountDetailsOpen={accountDetailsOpen}
                 setAccountDetailsOpen={setAccountDetailsOpen}
+                toast={toast}
             />
         </>
     );
