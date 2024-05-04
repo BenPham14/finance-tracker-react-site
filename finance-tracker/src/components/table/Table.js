@@ -71,7 +71,7 @@ const Table = ({data, editMode}) => {
 
             <div className={deleteCSS.deleteDialog} style={{display: deleteOpen ? "" : "none"}}>
                 <p>Are you sure you want to delete: {deleteDocValue.name} ({deleteDocValue.type === 'expense' && '-'}${deleteDocValue.amount})?</p>
-                <div>
+                <div className={deleteCSS.deleteCancelButtons}>
                     <button id={deleteCSS.delete} onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
                     <button id={deleteCSS.cancel} onClick={closeDelete}>Cancel</button>
                 </div>

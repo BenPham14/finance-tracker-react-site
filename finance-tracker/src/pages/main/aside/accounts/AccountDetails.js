@@ -25,6 +25,7 @@ const AccountDetails = ({data, amount, title, accountDetailsOpen, setAccountDeta
             title={title}
             submit={null}
             type={modalCSS.details}
+            warning={`This will delete ${data.length} transactions connected to this account`}
             content={
                 <>
                     <p>{amount < 0 && '-'}${Math.abs(amount)} available</p>

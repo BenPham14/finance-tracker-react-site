@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io';
 import { FaTrash } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 
-const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDeleteMode, deleteFn, title, submit, type, content}) => {
+const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDeleteMode, deleteFn, title, submit, type, warning, content}) => {
     const modalRef = useRef(null);
     const [cancelColor, setCancelColor] = useState(false);
 
@@ -64,8 +64,11 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
                 </div>
                 {deleteMode ?
                     <div className={deleteCSS.deleteDialog}>
-                        <p>Are you sure you want to delete: {title}?</p>
-                        <div>
+                        <div className={deleteCSS.deleteInfo}>
+                            <p>Are you sure you want to delete: {title}?</p>
+                            {warning !== undefined && <p id={deleteCSS.warning}>WARNING: {warning}</p>}
+                        </div>
+                        <div className={deleteCSS.deleteCancelButtons}>
                             <button id={deleteCSS.delete} onClick={(e) => deleteFn(e)}>Delete</button>
                             <button id={deleteCSS.cancel} onClick={() => setDeleteMode(false)}>Cancel</button>
                         </div>
