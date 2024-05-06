@@ -6,12 +6,14 @@ import Modal from '../../../components/modal/Modal.js';
 import modalCSS from "../../../components/modal/modal.module.css";
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen, toast}) => {
-    const [typeValue, setTypeValue] = useState("expense");
-    const [nameValue, setNameValue] = useState("");
-    const [amountValue, setAmountValue] = useState("");
-    const [dateValue, setDateValue] = useState("");
-    const [accountValue, setAccountValue] = useState("");
-    const [categoryValue, setCategoryValue] = useState("");
+    const [form, setForm] = useState({
+        type: "expense",
+        name: "",
+        amount: "",
+        date: "",
+        account: "",
+        category: ""
+    });
     const transactionsRef = collection(db, "transactions");
 
     const changePlaceholderColor = (value) => {
@@ -21,19 +23,21 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
     };
 
     const changeRadioColor = (value) => {
-        if (value !== typeValue) {
+        if (value !== form.type) {
             return "gray";
         };
     };
 
     const closeModal = () => {
         setTransactionsOpen(false);
-        setTypeValue("expense");
-        setNameValue("");
-        setAmountValue("");
-        setDateValue("");
-        setAccountValue("");
-        setCategoryValue("");
+        setForm({
+            type: "expense",
+            name: "",
+            amount: "",
+            date: "",
+            account: "",
+            category: ""
+        });
     };
 
     const submitTransaction = async (e) => {
@@ -41,13 +45,13 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
         await addDoc(transactionsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
-            type: typeValue,
-            name: nameValue,
-            amount: amountValue,
-            date: new Date(dateValue),
-            accountId: accountValue.split(',')[0],
-            accountName: accountValue.split(',')[1],
-            category: typeValue === 'expense' ? categoryValue : 'Income'
+            type: form.type,
+            name: form.name,
+            amount: form.amount,
+            date: new Date(form.date),
+            accountId: form.account.split(',')[0],
+            accountName: form.account.split(',')[1],
+            category: form.type === 'expense' ? form.category : 'Income'
         });
         closeModal();
         toast.success("Transaction created");
@@ -64,33 +68,33 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                 <>
                     <fieldset>
                         <div>
-                            <input type='radio' id='expense' name='type' value='expense' checked={typeValue === "expense" ? true : false} onChange={(e) => setTypeValue(e.target.value)}/>
+                            <input type='radio' id='expense' name='type' value='expense' checked={form.type === "expense" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
                             <label htmlFor='expense' style={{color: changeRadioColor('expense')}}>Expense</label>
                         </div>
                         <div>
-                            <input type='radio' id='income' name='type' value='income'  checked={typeValue === "income" ? true : false} onChange={(e) => setTypeValue(e.target.value)}/>
+                            <input type='radio' id='income' name='type' value='income'  checked={form.type === "income" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
                             <label htmlFor='income' style={{color: changeRadioColor('income')}}>Income</label>
                         </div>
                     </fieldset>
                     <input type='text' placeholder='Name' required 
-                        value={nameValue} onChange={(e) => setNameValue(e.target.value)}
+                        value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
                     <input type='number' placeholder='Amount' required min="0"
-                        value={amountValue} onChange={(e) => setAmountValue(e.target.value)}
+                        value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}
                     />
-                    <input type='datetime-local' required style={{color: changePlaceholderColor(dateValue)}} 
-                        value={dateValue} onChange={(e) => setDateValue(e.target.value)}
+                    <input type='datetime-local' required style={{color: changePlaceholderColor(form.date)}} 
+                        value={form.date} onChange={(e) => setForm({...form, date: e.target.value})}
                     />
-                    <select name='accounts' required style={{color: changePlaceholderColor(accountValue)}} 
-                        value={accountValue} onChange={(e) => setAccountValue(e.target.value)}
+                    <select name='accounts' required style={{color: changePlaceholderColor(form.account)}} 
+                        value={form.account} onChange={(e) => setForm({...form, account: e.target.value})}
                     >
                         <option value="" disabled>Account</option>
                         {accounts.map((account, index) => (
                             <option key={index} value={[account.id, account.name]}>{account.name}</option>
                         ))}
                     </select>
-                    <select name='categories' required={typeValue === 'income' ? false : true} style={{color: changePlaceholderColor(categoryValue), display: typeValue === 'income' && 'none'}} 
-                        value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)}
+                    <select name='categories' required={form.type === 'income' ? false : true} style={{color: changePlaceholderColor(form.category), display: form.type === 'income' && 'none'}} 
+                        value={form.category} onChange={(e) => setForm({...form, category: e.target.value})}
                     >
                         <option value="" disabled>Category</option>
                         {categories.map((category, index) => (

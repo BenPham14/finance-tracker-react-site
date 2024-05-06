@@ -8,9 +8,11 @@ import modalCSS from "../../../components/modal/modal.module.css";
 import { calculateDates, periodOptions } from "../../../context/context";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
-    const [nameValue, setNameValue] = useState("");
-    const [limitValue, setLimitValue] = useState("");
-    const [periodValue, setPeriodValue] = useState("");
+    const [form, setForm] = useState({
+        name: "",
+        limit: "",
+        period: ""
+    });
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = collection(db, "budgets");
@@ -23,25 +25,27 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
 
     const closeModal = (e) => {
         setBudgetsOpen(false);
-        setNameValue("");
-        setLimitValue("");
-        setPeriodValue("");
+        setForm({
+            name: "",
+            limit: "",
+            period: ""
+        });
         setCategoriesValue([]);
         setCategoriesOpen(false);
     };
 
     const submitBudget = async (e) => {
         e.preventDefault();
-        const dates = calculateDates(periodValue);
+        const dates = calculateDates(form.period);
 
         await addDoc(budgetsRef, {
             uid: auth.currentUser.uid,
             id: uuidv4(),
             createdAt: serverTimestamp(),
-            name: nameValue,
-            limit: limitValue,
+            name: form.name,
+            limit: form.limit,
             amount: '0',
-            period: periodValue,
+            period: form.period,
             periodStart: dates.startDate,
             periodEnd: dates.endDate,
             categories: categoriesValue
@@ -60,13 +64,13 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
             content={
                 <>
                     <input type="text" placeholder="Name" required
-                        value={nameValue} onChange={(e) => setNameValue(e.target.value)}
+                        value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
                     <input type="number" placeholder="Limit" required min="0"
-                        value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
+                        value={form.limit} onChange={(e) => setForm({...form, limit: e.target.value})}
                     />
-                    <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
-                        value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
+                    <select name="period" required style={{color: changePlaceholderColor(form.period)}}
+                        value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}
                     >
                         <option value="" disabled>Period</option>
                         {periodOptions.map((period, index) => {

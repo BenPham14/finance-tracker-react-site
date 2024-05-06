@@ -1,5 +1,5 @@
 import mainCSS from '../main.module.css';
-import { FaBolt, FaLandmark, FaMoneyBillTransfer } from "react-icons/fa6";
+import { FaBolt, FaLandmark, FaMoneyBillTransfer, FaCalculator } from "react-icons/fa6";
 import AddTransactions from '../actions/AddTransactions';
 import { useState } from 'react';
 import AddAccount from '../actions/AddAccount';
@@ -63,7 +63,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
             </div>
             <div className={mainCSS.budgets}>
                 <div className={mainCSS.sectionHeader}>
-                    <FaMoneyBillTransfer/>
+                    <FaCalculator/>
                     <p>Budgets</p>
                 </div>
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
