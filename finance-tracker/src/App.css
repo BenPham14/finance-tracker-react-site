@@ -35,6 +35,7 @@
   --cancel-color-bold: rgb(55, 55, 55);
   --submit-color: gray;
   --submit-text-color: black;
+  --date-input-color: dark;
 }
 
 body:has(.mainBkgDark) {
