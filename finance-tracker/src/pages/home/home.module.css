@@ -18,6 +18,12 @@
     line-height: 1.125;
 }
 
+.hero div > *:nth-child(2),
+.featuresContent p {
+    color: gray;
+    font-size: 1.125rem;
+}
+
 #login {
     align-self: flex-start;
     background-color: #6C63FF;
@@ -108,33 +114,32 @@
     gap: 32px;
 }
 
-.hero div > *:nth-child(2) {
-    color: gray;
-    font-size: 1.125rem;
-}
-
 .hero img {
     width: 100%;
 }
 
 /* ----- Features ----- */
 
-.features,
 .home footer {
     background-color: whitesmoke;
 }
 
-.features {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+.features h3 {
+    /* font-size: calc(100% + 1.5vw); */
+    font-size: 2rem;
+    line-height: 1.125;
+}
+
+.features h4 {
+    margin: 0;
+    /* font-size: 1.125rem; */
+    color: #6C63FF;
 }
 
 .featuresContent {
     display: grid;
     justify-content: center;
-    gap: 20px;
+    gap: 32px;
 }
 
 .featuresContent p {
@@ -144,31 +149,25 @@
 .featuresContent div {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 20px;
+    gap: 16px;
 }
 
 .featuresContent img {
     width: 60px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
 }
 
 .featuresContent span {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
 }
 
 .features span > *:first-child {
-    background-color: #6C63FF;
-    color: white;
-    border-radius: 50%;
-    width: 32px;
+    color: #6C63FF;
+    width: 16px;
     height: auto;
-    padding: 5px;
-    border: 1px solid black;
 }
 
 /* ----- FAQ ----- */
@@ -333,16 +332,26 @@
         display: block;
     }
 
-    .features {
-        gap: 40px;
-    }
-
-    .features h2 {
-        font-size: 1.7rem;
-    }
-
     .featuresContent {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 2fr;
+        row-gap: 128px;
+        column-gap: 64px;
+        align-items: center;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .featuresContent img {
+            scale: 0.8;
+            opacity: 0;
+            animation: fade-in linear forwards;
+            animation-timeline: view();
+            animation-range-start: entry 50%;
+            animation-range-end: entry 125%;
+        }
+    
+        @keyframes fade-in {
+            to {scale: 1; opacity: 1;}
+        }
     }
 
     .home section, 

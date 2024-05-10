@@ -1,32 +1,31 @@
-import { TbPigMoney } from 'react-icons/tb';
 import homeCSS from './home.module.css';
+import mainScreen from '../../assets/main-screen.png';
+import { FaLandmark, FaBucket, FaCalculator, FaChartPie } from "react-icons/fa6";
 
 const Features = ({featuresScroll}) => {
+    const features = [
+        {title: 'Track Accounts', subtitle: 'Accounts',icon: <FaLandmark/>, image: mainScreen, description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'},
+        {title: 'Create Budgets', subtitle: 'Budgets', icon: <FaCalculator/>, image: mainScreen, description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'},
+        {title: 'Categorize Expenses', subtitle: 'Categories', icon: <FaBucket/>, image: mainScreen, description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'},
+        {title: 'Summarize Spending', subtitle: 'Summary', icon: <FaChartPie/>, image: mainScreen, description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.'}
+    ];
+
     return (
         <section className={homeCSS.features} ref={featuresScroll}>
-            <h2>What We Offer</h2>
             <div className={homeCSS.featuresContent}>
-                <div>
-                    <span>
-                        <TbPigMoney/>
-                        <h3>Feature 1</h3>
-                    </span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
-                <div>
-                    <span>
-                        <TbPigMoney/>
-                        <h3>Feature 2</h3>
-                    </span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
-                <div>
-                    <span>
-                        <TbPigMoney/>
-                        <h3>Feature 3</h3>
-                    </span>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
+                {features.map((feature) => (
+                    <>
+                        <div>
+                            <span>
+                                {feature.icon}
+                                <h4>{feature.subtitle}</h4>
+                            </span>
+                            <h3>{feature.title}</h3>
+                            <p>{feature.description}</p>
+                        </div>
+                        <img src={feature.image} alt={feature.title} style={{width: '100%'}}/>  
+                    </>
+                ))}
             </div>
         </section>
     );
