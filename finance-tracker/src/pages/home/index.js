@@ -3,7 +3,7 @@ import homeCSS from './home.module.css';
 import { HiMenuAlt3 } from 'react-icons/hi';
 import { FiArrowUp } from 'react-icons/fi';
 import Hero from './Hero';
-import Features from './Features';
+import Features from './features/Features';
 import FAQ from './FAQ';
 import Login from './Login';
 import Cookies from 'universal-cookie';

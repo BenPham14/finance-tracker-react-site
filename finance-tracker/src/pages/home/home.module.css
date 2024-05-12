@@ -152,12 +152,6 @@
     gap: 16px;
 }
 
-.featuresContent img {
-    width: 60px;
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
-}
-
 .featuresContent span {
     display: flex;
     align-items: center;
@@ -168,6 +162,29 @@
     color: #6C63FF;
     width: 16px;
     height: auto;
+}
+
+.imageDiv {
+    position: relative;
+}
+
+#imageBkg {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+}
+
+#imagePopUp {
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+    padding: 0;
+    position: absolute;
+    width: 50%;
+}
+
+#accountImg #imagePopUp {
+    top: -10%;
+    left: 40%;
 }
 
 /* ----- FAQ ----- */
@@ -340,13 +357,22 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        .featuresContent img {
+        #imageBkg {
             scale: 0.8;
             opacity: 0;
             animation: fade-in linear forwards;
             animation-timeline: view();
             animation-range-start: entry 50%;
             animation-range-end: entry 125%;
+        }
+
+        #accountImg #imagePopUp {
+            scale: 0.8;
+            opacity: 0;
+            animation: fade-in linear forwards;
+            animation-timeline: view();
+            animation-range-start: entry 170%;
+            animation-range-end: entry 200%;
         }
     
         @keyframes fade-in {
