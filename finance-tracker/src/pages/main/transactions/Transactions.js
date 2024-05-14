@@ -18,7 +18,7 @@ const Transactions = ({transactions}) => {
                         <th>Name</th>
                         <th id={mainCSS.transactionCategory}>Category</th>
                         <th>Date</th>
-                        <th>Amount</th>
+                        <th style={{textAlign: 'center'}}>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@ const Transactions = ({transactions}) => {
                             <td>{transaction.name}</td>
                             <td id={mainCSS.transactionCategory}>{transaction.category}</td>
                             <td>{transaction.date}</td>
-                            <td>{transaction.type === "expense" && "-"}${transaction.amount}</td>
+                            <td id={transaction.type === 'expense' ? mainCSS.redCell : mainCSS.greenCell}>{transaction.type === "expense" && "-"}${transaction.amount}</td>
                         </tr>
                     ))}
                     {transactions.length === 0 &&

@@ -239,6 +239,18 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
+#redCell {
+    color: rgb(220, 70, 70);
+    background-color: rgba(220, 70, 70, 0.15);
+    text-align: center;
+}
+
+#greenCell {
+    color: rgb(0, 190, 40);
+    background-color: rgba(0, 190, 40, 0.15);
+    text-align: center;
+}
+
 @media only screen and (min-width: 600px) {
     .body {
         grid-template-columns: 1fr 3fr;
