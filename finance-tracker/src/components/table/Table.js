@@ -41,8 +41,8 @@ const Table = ({data, editMode}) => {
                         <th>Name</th>
                         <th id={tableCSS.category}>Category</th>
                         <th>Date</th>
-                        <th>Amount</th>
-                        {editMode && <th></th>}
+                        <th style={{textAlign: 'center'}}>Amount</th>
+                        {(editMode && data.length > 0) && <th></th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +51,7 @@ const Table = ({data, editMode}) => {
                             <td>{value.name}</td>
                             <td id={tableCSS.category}>{value.category}</td>
                             <td>{value.date}</td>
-                            <td>{value.type === 'expense' && '-'}${value.amount}</td>
+                            <td id={value.type === 'expense' ? tableCSS.redCell : tableCSS.greenCell}>{value.type === 'expense' && '-'}${value.amount}</td>
                             {
                                 editMode &&
                                     <td id={tableCSS.editButton} onClick={() => showDelete(value)}><FaTrash/></td>
