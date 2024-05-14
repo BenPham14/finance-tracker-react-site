@@ -183,8 +183,23 @@
 }
 
 #accountImg #imagePopUp {
-    top: -10%;
+    top: -5%;
     left: 40%;
+}
+
+#budgetImg #imagePopUp {
+    bottom: 10%;
+    right: -2.5%;
+}
+
+#categoriesImg #imagePopUp {
+    top: 10%;
+    left: -2.5%;
+}
+
+#summaryImg #imagePopUp {
+    bottom: -5%;
+    right: 40%;
 }
 
 /* ----- FAQ ----- */
@@ -373,6 +388,33 @@
             animation-timeline: view();
             animation-range-start: entry 170%;
             animation-range-end: entry 200%;
+        }
+
+        #budgetImg #imagePopUp {
+            scale: 0.8;
+            opacity: 0;
+            animation: fade-in linear forwards;
+            animation-timeline: view();
+            animation-range-start: entry 140%;
+            animation-range-end: entry 170%;
+        }
+
+        #categoriesImg #imagePopUp {
+            scale: 0.8;
+            opacity: 0;
+            animation: fade-in linear forwards;
+            animation-timeline: view();
+            animation-range-start: entry 220%;
+            animation-range-end: entry 250%;
+        }
+
+        #summaryImg #imagePopUp {
+            scale: 0.8;
+            opacity: 0;
+            animation: fade-in linear forwards;
+            animation-timeline: view();
+            animation-range-start: entry 110%;
+            animation-range-end: entry 140%;
         }
     
         @keyframes fade-in {
