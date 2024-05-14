@@ -16,6 +16,12 @@ const Budget = ({budget, transactions, toast}) => {
         return Math.ceil(difference / (1000 * 3600 * 24));
     };
 
+    const endsIn = (getDaysUntilReset) => {
+        return (
+            <p>Ends in {getDaysUntilReset} {getDaysUntilReset < 2 ? "day" : "days"}</p>
+        );
+    };
+
     const budgetAmount = (limit, categories) => {
         let amount = limit;
         transactions.forEach((transaction) => {
@@ -80,13 +86,14 @@ const Budget = ({budget, transactions, toast}) => {
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
                     <p>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${Math.abs(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</p>
-                    <p>Ends in {getDaysUntilReset()} {getDaysUntilReset() < 2 ? "day" : "days"}</p>
+                    {endsIn(getDaysUntilReset())}
                 </div>
             </button>
             <BudgetDetails
                 data={budget}
                 amount={budgetAmount(budget.limit, budget.categories)}
                 transactions={filterTransactions(budget.categories)}
+                resetDays={endsIn(getDaysUntilReset())}
                 budgetCategories={budget.categories}
                 budgetDetailsOpen={budgetDetailsOpen}
                 setBudgetDetailsOpen={setBudgetDetailsOpen}

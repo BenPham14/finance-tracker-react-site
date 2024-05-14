@@ -153,7 +153,6 @@
 
 .budget {
     display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 15px;
 }
 
@@ -176,6 +175,7 @@
     gap: 15px;
     align-items: center;
     justify-content: center;
+    padding: 15px;
 }
 
 .budgetDonut > div:first-of-type {
@@ -186,7 +186,10 @@
 }
 
 .budgetLegend {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.75rem;
 }
 
 .budgetLegend div {
@@ -222,10 +225,7 @@
 }
 
 @media only screen and (min-width: 600px) {
-    .budgetLegend {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        font-size: 0.75rem;
+    .budget {
+        grid-template-columns: 1fr 1fr;
     }
 }

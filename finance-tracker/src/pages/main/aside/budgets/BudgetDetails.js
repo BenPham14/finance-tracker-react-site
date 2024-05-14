@@ -8,7 +8,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../config/firebase.js';
 import Donut from "../../../../components/charts/Donut";
 
-const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen, toast}) => {
+const BudgetDetails = ({data, amount, transactions, resetDays, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
     const [limitValue, setLimitValue] = useState(data.limit);
@@ -164,7 +164,7 @@ const BudgetDetails = ({data, amount, transactions, budgetCategories, budgetDeta
                                 <>
                                     <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of ${data.limit}</p>
                                     <p>Categories: {budgetCategories.join(', ')}</p>
-                                    <p>Resets every {periodValue}</p>
+                                    {resetDays}
                                 </>
                             }
                         </div>
