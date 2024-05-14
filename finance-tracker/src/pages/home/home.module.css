@@ -169,6 +169,7 @@
 }
 
 #imageBkg {
+    opacity: 0.8;
     width: 100%;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
@@ -375,7 +376,7 @@
         #imageBkg {
             scale: 0.8;
             opacity: 0;
-            animation: fade-in linear forwards;
+            animation: fade-in-bkg linear forwards;
             animation-timeline: view();
             animation-range-start: entry 50%;
             animation-range-end: entry 125%;
@@ -404,8 +405,8 @@
             opacity: 0;
             animation: fade-in linear forwards;
             animation-timeline: view();
-            animation-range-start: entry 220%;
-            animation-range-end: entry 250%;
+            animation-range-start: entry 200%;
+            animation-range-end: entry 230%;
         }
 
         #summaryImg #imagePopUp {
@@ -419,6 +420,10 @@
     
         @keyframes fade-in {
             to {scale: 1; opacity: 1;}
+        }
+
+        @keyframes fade-in-bkg {
+            to {scale: 1; opacity: 0.8;}
         }
     }
 
