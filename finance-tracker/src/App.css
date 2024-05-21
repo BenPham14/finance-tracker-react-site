@@ -19,6 +19,8 @@
   --delete-color-bold: rgb(255, 70, 70);
   --cancel-color: white;
   --cancel-color-bold: whitesmoke;
+  --save-color:rgb(80, 135, 230);
+  --save-color-bold: rgb(70, 125, 220);
   --submit-color: black;
   --submit-text-color: white;
 }
@@ -33,6 +35,8 @@
   --delete-color-bold: rgb(220, 80, 80);
   --cancel-color: rgb(45, 45, 45);
   --cancel-color-bold: rgb(55, 55, 55);
+  --save-color: rgb(70, 125, 220);
+  --save-color-bold: rgb(80, 135, 230);
   --submit-color: gray;
   --submit-text-color: black;
   --date-input-color: dark;

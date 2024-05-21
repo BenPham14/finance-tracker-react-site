@@ -5,14 +5,17 @@
     position: relative;
 }
 
+.deleteDialog button {
+    text-align: center;
+}
+
 .deleteCancelButtons {
     display: flex;
     gap: 15px;
 }
 
-.deleteDialog button {
+.deleteCancelButtons button {
     width: 100%;
-    text-align: center;
 }
 
 .deleteDialog p {

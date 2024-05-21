@@ -1,41 +1,29 @@
 import tableCSS from './table.module.css';
-import deleteCSS from '../../components/delete/delete.module.css';
-import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { FaTrash } from "react-icons/fa6";
+import { MdEdit } from "react-icons/md";
 import { useEffect, useState } from 'react';
+import EditTransaction from './EditTransaction';
 
 const Table = ({data, editMode}) => {
+    const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleteDocValue, setDeleteDocValue] = useState("");
 
     useEffect(() => {
         if (editMode === false) {
+            setEditOpen(false);
             setDeleteOpen(false);
             setDeleteDocValue("");
         };
     }, [editMode]);
 
     const showDelete = (value) => {
-        setDeleteOpen(true);
+        setEditOpen(true);
         setDeleteDocValue(value);
-    };
-
-    const closeDelete = (e) => {
-        e.preventDefault();
-        setDeleteOpen(false);
-    }
-
-    const deleteTranscation = async (e, docId) => {
-        e.preventDefault();
-        let docRef = doc(db, "transactions", docId);
-        await deleteDoc(docRef);
-        setDeleteOpen(false);
     };
 
     return (
         <>
-            <table className={tableCSS.table} style={{display: deleteOpen ? "none" : ""}}>
+            <table className={tableCSS.table} style={{display: editOpen ? "none" : ""}}>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -52,10 +40,7 @@ const Table = ({data, editMode}) => {
                             <td id={tableCSS.category}>{value.category}</td>
                             <td>{value.date}</td>
                             <td id={value.type === 'expense' ? tableCSS.redCell : tableCSS.greenCell}>{value.type === 'expense' && '-'}${value.amount}</td>
-                            {
-                                editMode &&
-                                    <td id={tableCSS.editButton} onClick={() => showDelete(value)}><FaTrash/></td>
-                            }
+                            {editMode && <td id={tableCSS.editButton} onClick={() => showDelete(value)}><MdEdit/></td>}
                         </tr>
                     ))}
                     {data.length === 0 &&
@@ -69,13 +54,13 @@ const Table = ({data, editMode}) => {
                 </tbody>
             </table>
 
-            <div className={deleteCSS.deleteDialog} style={{display: deleteOpen ? "" : "none"}}>
-                <p>Are you sure you want to delete: {deleteDocValue.name} ({deleteDocValue.type === 'expense' && '-'}${deleteDocValue.amount})?</p>
-                <div className={deleteCSS.deleteCancelButtons}>
-                    <button id={deleteCSS.delete} onClick={(e) => deleteTranscation(e, deleteDocValue.docId)}>Delete</button>
-                    <button id={deleteCSS.cancel} onClick={closeDelete}>Cancel</button>
-                </div>
-            </div>
+            <EditTransaction
+                data={deleteDocValue}
+                isOpen={editOpen}
+                setIsOpen={setEditOpen}
+                deleteOpen={deleteOpen}
+                setDeleteOpen={setDeleteOpen}
+            />
         </>
     );
 };

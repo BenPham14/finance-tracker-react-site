@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CategoryDetails from './CategoryDetails';
 import mainCSS from '../main.module.css';
-import { FaBucket } from "react-icons/fa6";
+import { FaBoxes } from "react-icons/fa";
 import { categories } from '../../../context/context.js';
 
 const CategoriesItem = ({category, amount}) => {
@@ -48,7 +48,7 @@ const Categories = ({transactions}) => {
     return (
         <section className={mainCSS.categories}>
             <div className={mainCSS.sectionHeader}>
-                <FaBucket/>
+                <FaBoxes/>
                 <p>Categories</p>
             </div>
             <div className={`${mainCSS.categoryItems} ${mainCSS.items}`}>

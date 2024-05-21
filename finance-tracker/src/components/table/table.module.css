@@ -37,15 +37,61 @@
 }
 
 #editButton:hover {
-    color: var(--delete-color);
+    color: var(--secondary-text-color);
 }
 
-#editButton:active {
-    color: var(--delete-color-bold);
+.editTransactions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.editTransactions h3 {
+    padding: 10px;
+    color: rgb(70, 125, 220);
+    background-color: rgba(70, 125, 220, 0.15);
+    border-left: 2px solid rgb(80, 125, 220);
+    border-radius: 2px;
+}
+
+.transactionDetails {
+    display: grid;
+    gap: 15px;
+}
+
+.transactionBtns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.transactionBtns div {
+    display: flex;
+    gap: 7.5px;
+}
+
+#cancel {
+    background-color: var(--cancel-color);
+}
+
+#cancel:hover {
+    background-color: var(--cancel-color-bold);
+}
+
+#save {
+    background-color: var(--save-color);
+    color: white;
+}
+
+#save:hover {
+    background-color: var(--save-color-bold);
 }
 
 @media only screen and (min-width: 600px) {
     #category {
         display: table-cell;
+    }
+
+    .transactionDetails {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
