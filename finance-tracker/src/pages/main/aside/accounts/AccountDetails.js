@@ -5,7 +5,7 @@ import Modal from '../../../../components/modal/Modal.js';
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../../config/firebase.js";
 
-const AccountDetails = ({data, amount, account, accountDetailsOpen, setAccountDetailsOpen, toast}) => {
+const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, setAccountDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
 
@@ -52,6 +52,7 @@ const AccountDetails = ({data, amount, account, accountDetailsOpen, setAccountDe
                     <p>{amount < 0 && '-'}${Math.abs(amount)} available</p>
                     <Table 
                         data={data}
+                        accounts={accounts}
                         editMode={editMode}
                     />
                 </>

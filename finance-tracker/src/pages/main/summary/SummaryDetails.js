@@ -6,7 +6,7 @@ import Table from '../../../components/table/Table';
 import { convertTimestampToDate } from "../../../context/context";
 import { categories } from '../../../context/context';
 
-const SummaryDetails = ({title, transactions, isOpen, setIsOpen, editMode, setEditMode}) => {
+const SummaryDetails = ({title, accounts, transactions, isOpen, setIsOpen, editMode, setEditMode}) => {
     const [categoryValues, setCategoryValues] = useState({});
     const [transactionValues, setTransactionValues] = useState([]);
 
@@ -104,6 +104,7 @@ const SummaryDetails = ({title, transactions, isOpen, setIsOpen, editMode, setEd
                     <Column data={data} options={chartOptions}/>
                     <Table
                         data={transactionValues}
+                        accounts={accounts}
                         editMode={editMode}
                     />
                 </>

@@ -125,11 +125,11 @@ const Main = ({setIsAuth}) => {
                     <Aside accounts={accounts} budgets={budgets} transactions={transactions} toast={toast}/>
 
                     <div>
-                        <Summary transactions={transactions}/>
+                        <Summary accounts={accounts} transactions={transactions}/>
 
-                        <Transactions transactions={transactions}/>
+                        <Transactions accounts={accounts} transactions={transactions}/>
 
-                        <Categories transactions={transactions}/>
+                        <Categories accounts={accounts} transactions={transactions}/>
                     </div>
                 </div>
             </main>

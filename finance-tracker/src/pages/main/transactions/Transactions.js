@@ -3,7 +3,7 @@ import TransactionDetails from './TransactionDetails';
 import mainCSS from '../main.module.css';
 import { FaCreditCard } from "react-icons/fa6";
 
-const Transactions = ({transactions}) => {
+const Transactions = ({accounts, transactions}) => {
     const [transactionDetailsOpen, setTransactionDetailsOpen] = useState(false);
     
     return (
@@ -43,6 +43,7 @@ const Transactions = ({transactions}) => {
             </table>
             <TransactionDetails
                 data={transactions}
+                accounts={accounts}
                 transactionDetailsOpen={transactionDetailsOpen}
                 setTransactionDetailsOpen={setTransactionDetailsOpen}
             />

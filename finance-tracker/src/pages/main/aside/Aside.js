@@ -55,6 +55,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
                         <Account
                             key={index}
                             account={account}
+                            accounts={accounts}
                             transactions={transactions}
                             toast={toast}
                         />
@@ -71,6 +72,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
                         <Budget
                             key={index}
                             budget={budget}
+                            accounts={accounts}
                             transactions={transactions}
                             toast={toast}
                         />

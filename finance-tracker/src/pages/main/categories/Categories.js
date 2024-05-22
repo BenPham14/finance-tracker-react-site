@@ -4,7 +4,7 @@ import mainCSS from '../main.module.css';
 import { FaBoxes } from "react-icons/fa";
 import { categories } from '../../../context/context.js';
 
-const CategoriesItem = ({category, amount}) => {
+const CategoriesItem = ({category, amount, accounts}) => {
     const [categoryDetailsOpen, setCategoryDetailsOpen] = useState(false);
     const [categoryDetailsData, setCategoryDetailsData] = useState({});
 
@@ -21,6 +21,7 @@ const CategoriesItem = ({category, amount}) => {
             </button>
             <CategoryDetails
                 data={categoryDetailsData}
+                accounts={accounts}
                 setCategoryDetailsData={setCategoryDetailsData}
                 categoryDetailsOpen={categoryDetailsOpen}
                 setCategoryDetailsOpen={setCategoryDetailsOpen}
@@ -30,7 +31,7 @@ const CategoriesItem = ({category, amount}) => {
     );
 }
 
-const Categories = ({transactions}) => {
+const Categories = ({accounts, transactions}) => {
     const categoryAmount = (name) => {
         let amount = 0;
         transactions.forEach((transaction) => {
@@ -57,6 +58,7 @@ const Categories = ({transactions}) => {
                         key={index}
                         category={category}
                         amount={categoryAmount(category.name)}
+                        accounts={accounts}
                     />
                 ))}
             </div>

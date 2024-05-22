@@ -3,7 +3,7 @@ import { MdEdit } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import EditTransaction from './EditTransaction';
 
-const Table = ({data, editMode}) => {
+const Table = ({data, accounts, editMode}) => {
     const [editOpen, setEditOpen] = useState(false);
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleteDocValue, setDeleteDocValue] = useState("");
@@ -56,6 +56,7 @@ const Table = ({data, editMode}) => {
 
             <EditTransaction
                 data={deleteDocValue}
+                accounts={accounts}
                 isOpen={editOpen}
                 setIsOpen={setEditOpen}
                 deleteOpen={deleteOpen}

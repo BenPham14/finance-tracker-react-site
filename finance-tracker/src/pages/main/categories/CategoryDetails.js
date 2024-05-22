@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { convertTimestampToDate } from "../../../context/context";
 import Table from "../../../components/table/Table";
 
-const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {
+const CategoryDetails = ({data, accounts, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {
     const transactionsRef = collection(db, 'transactions');
     const [transactions, setTransactions] = useState([]);
     const [editMode, setEditMode] = useState(false);
@@ -38,7 +38,12 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
                 const unsubscribe = onSnapshot(queryTransactions, (snapshot) => {
                     let transactions = [];
                     snapshot.forEach((doc) => {
-                        transactions.push({...doc.data(), docId: doc.id, date: convertTimestampToDate(doc.data().date).toLocaleDateString()});
+                        transactions.push({
+                            ...doc.data(), 
+                            docId: doc.id, 
+                            date: convertTimestampToDate(doc.data().date).toLocaleDateString(),
+                            timeStamp: doc.data().date
+                        });
                     });
                     setTransactions(transactions);
                 });
@@ -62,6 +67,7 @@ const CategoryDetails = ({data, setCategoryDetailsData, categoryDetailsOpen, set
                     <p>${Math.abs(data.amount)} spent</p>
                     <Table 
                         data={transactions}
+                        accounts={accounts}
                         editMode={editMode}
                     />
                 </>

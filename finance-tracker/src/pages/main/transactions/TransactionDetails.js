@@ -3,7 +3,7 @@ import Modal from "../../../components/modal/Modal";
 import modalCSS from "../../../components/modal/modal.module.css";
 import Table from "../../../components/table/Table";
 
-const TransactionDetails = ({data, transactionDetailsOpen, setTransactionDetailsOpen}) => {
+const TransactionDetails = ({data, accounts, transactionDetailsOpen, setTransactionDetailsOpen}) => {
     const [editMode, setEditMode] = useState(false);
     
     const cancelEdit = () => {
@@ -28,6 +28,7 @@ const TransactionDetails = ({data, transactionDetailsOpen, setTransactionDetails
             content={
                 <Table 
                     data={data}
+                    accounts={accounts}
                     editMode={editMode}
                 />
             }

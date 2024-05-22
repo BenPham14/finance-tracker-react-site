@@ -3,7 +3,7 @@ import SummaryDetails from "./SummaryDetails.js";
 import { useState } from 'react';
 import { FaChartPie } from "react-icons/fa6";
 
-const Summary = ({transactions}) => {
+const Summary = ({accounts, transactions}) => {
     const [todayDetailsOpen, setTodayDetailsOpen] = useState(false);
     const [todayEditMode, setTodayEditMode] = useState(false);
 
@@ -37,6 +37,7 @@ const Summary = ({transactions}) => {
                         </button>
                         <SummaryDetails
                             title={value.title}
+                            accounts={accounts}
                             transactions={transactions}
                             isOpen={value.isOpen[0]}
                             setIsOpen={value.isOpen[1]}

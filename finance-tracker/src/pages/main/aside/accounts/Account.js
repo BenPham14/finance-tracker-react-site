@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AccountDetails from "./AccountDetails";
 
-const Account = ({account, transactions, toast}) => {
+const Account = ({account, accounts, transactions, toast}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
 
     const accountAmount = (id) => {
@@ -36,6 +36,7 @@ const Account = ({account, transactions, toast}) => {
             </button>
             <AccountDetails
                 data={filterTransactions(account.id)}
+                accounts={accounts}
                 amount={accountAmount(account.id)}
                 account={account}
                 accountDetailsOpen={accountDetailsOpen}
