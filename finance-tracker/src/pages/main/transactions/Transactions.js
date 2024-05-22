@@ -5,6 +5,38 @@ import { FaCreditCard } from "react-icons/fa6";
 
 const Transactions = ({accounts, transactions}) => {
     const [transactionDetailsOpen, setTransactionDetailsOpen] = useState(false);
+
+    const total = () => {
+        let amount = 0;
+        transactions.forEach((transaction) => {
+            if (transaction.type === 'expense') {
+                amount -= parseInt(transaction.amount);
+            } else {
+                amount += parseInt(transaction.amount);
+            };
+        });
+        return amount;
+    };
+
+    const income = () => {
+        let amount = 0;
+        transactions.forEach((transaction) => {
+            if (transaction.type === 'income') {
+                amount += parseInt(transaction.amount);
+            };
+        });
+        return amount;
+    };
+
+    const expenses = () => {
+        let amount = 0;
+        transactions.forEach((transaction) => {
+            if (transaction.type === 'expense') {
+                amount -= parseInt(transaction.amount);
+            };
+        });
+        return amount;
+    };
     
     return (
         <section className={mainCSS.transactions}>
@@ -43,6 +75,9 @@ const Transactions = ({accounts, transactions}) => {
             </table>
             <TransactionDetails
                 data={transactions}
+                total={total()}
+                income={income()}
+                expenses={expenses()}
                 accounts={accounts}
                 transactionDetailsOpen={transactionDetailsOpen}
                 setTransactionDetailsOpen={setTransactionDetailsOpen}

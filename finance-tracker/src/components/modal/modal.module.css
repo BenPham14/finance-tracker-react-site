@@ -246,6 +246,12 @@
     cursor: pointer;
 }
 
+.transactionsInfo {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 @media only screen and (min-width: 600px) {
     .budget {
         grid-template-columns: 1fr 1fr;
