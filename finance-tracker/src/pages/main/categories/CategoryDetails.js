@@ -64,7 +64,10 @@ const CategoryDetails = ({data, accounts, setCategoryDetailsData, categoryDetail
             type={modalCSS.details}
             content={
                 <>
-                    <p>${Math.abs(data.amount)} spent</p>
+                    <div className={modalCSS.detailsInfo}>
+                        <p id={modalCSS.label}>Spent</p>
+                        <p id={modalCSS.data}>${Math.abs(data.amount)}</p>
+                    </div>
                     <Table 
                         data={transactions}
                         accounts={accounts}

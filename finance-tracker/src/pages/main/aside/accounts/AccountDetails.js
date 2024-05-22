@@ -49,7 +49,11 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
             warning={data.length}
             content={
                 <>
-                    <p>{amount < 0 && '-'}${Math.abs(amount)} available</p>
+                    {/* <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}> */}
+                    <div className={modalCSS.detailsInfo}>
+                        <p id={modalCSS.label}>Available</p>
+                        <p id={modalCSS.data}>{amount < 0 && '-'}${Math.abs(amount)}</p>
+                    </div>
                     <Table 
                         data={data}
                         accounts={accounts}
