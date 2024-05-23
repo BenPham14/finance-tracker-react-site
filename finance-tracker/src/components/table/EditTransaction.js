@@ -1,6 +1,6 @@
 import tableCSS from './table.module.css';
 import deleteCSS from '../../components/delete/delete.module.css';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { categories } from '../../context/context';
 import { useEffect, useState } from 'react';
@@ -10,25 +10,27 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
         type: '',
         name: '',
         amount: '',
-        date: '',
-        account: '',
+        timeStamp: '',
+        accountId: '',
+        accountName: '',
         category: ''
     });
 
-    const setFormData = () => {
-        const convertTimestamp = (timestamp) => {
-            if (timestamp !== undefined) {
-                const miliseconds = (data.timeStamp.seconds + (data.timeStamp.nanoseconds)*0.00000001)*1000
-                return new Date(new Date(miliseconds).toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0];
-            };
+    const convertTimestamp = (timestamp) => {
+        if (timestamp !== undefined) {
+            const miliseconds = (data.timeStamp.seconds + (data.timeStamp.nanoseconds)*0.00000001)*1000
+            return new Date(new Date(miliseconds).toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0];
         };
+    };
 
+    const setFormData = () => {
         setForm({
             type: data.type,
             name: data.name,
             amount: data.amount,
-            date: convertTimestamp(data.timeStamp),
-            account: data.accountName,
+            timeStamp: convertTimestamp(data.timeStamp),
+            accountId: data.accountId,
+            accountName: data.accountName,
             category: data.category
         });
     };
@@ -74,15 +76,40 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
         };
     };
 
+    const updateTransaction = async (e) => {
+        e.preventDefault();
+
+        const transactionsRef = doc(db, "transactions", data.docId);
+        let diff = {};
+
+        Object.keys(form).forEach((key) => {
+            if (form[key] !== data[key]) {
+                diff[key] = form[key];
+            };
+        });
+        
+        if (form.timeStamp !== convertTimestamp(data.timeStamp)) {
+            diff.date = new Date(form.timeStamp);
+        };
+
+        delete diff.timeStamp;
+
+        if (Object.keys(diff).length > 0) {
+            await updateDoc(transactionsRef, diff);
+        };
+
+        closeEdit(e);
+    };
+
     return (
-        <div className={tableCSS.editTransactions} style={{display: isOpen ? "" : "none"}}>
+        <div className={tableCSS.editTransactions}>
             <h3>Edit Transaction</h3>
             {!deleteOpen ?
                 <>
                     <div className={tableCSS.transactionDetails}>
                         <input type='text' placeholder='Name' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} onKeyDown={preventEnter}/>
                         <input type='text' placeholder='Amount' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})} onKeyDown={preventEnter}/>
-                        <input type='datetime-local'  style={{color: changePlaceholderColor(form.date)}} value={form.date} onChange={(e) => setForm({...form, date: e.target.value})} onKeyDown={preventEnter}/>
+                        <input type='datetime-local'  style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})} onKeyDown={preventEnter}/>
                         <select name='type' 
                             value={form.type} onChange={(e) => setForm({...form, type: e.target.value})} 
                             onKeyDown={preventEnter}
@@ -91,8 +118,8 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                             <option value='income'>Income</option>
                             <option value='expense'>Expense</option>
                         </select>
-                        <select name='accounts' required style={{color: changePlaceholderColor(form.account)}} 
-                            value={form.account} onChange={(e) => setForm({...form, account: e.target.value})}
+                        <select name='accounts' style={{color: changePlaceholderColor(form.accountId)}} 
+                            value={[form.accountId, form.accountName]} onChange={(e) => setForm({...form, accountId: e.target.value.split(',')[0], accountName: e.target.value.split(',')[1]})}
                             onKeyDown={preventEnter}
                         >
                             <option value="" disabled>Account</option>
@@ -116,7 +143,7 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                         <button id={deleteCSS.delete} onClick={openDelete}>Delete</button>
                         <div>
                             <button id={tableCSS.cancel} onClick={closeEdit}>Cancel</button>
-                            <button id={tableCSS.save} onClick={closeEdit}>Save</button>
+                            <button id={tableCSS.save} onClick={updateTransaction}>Save</button>
                         </div>
                     </div>
                 </> :
