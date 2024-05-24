@@ -86,6 +86,15 @@
     background-color: var(--save-color-bold);
 }
 
+#delete {
+    background-color: var(--delete-color);
+    color: white;
+}
+
+#delete:hover {
+    background-color: var(--delete-color-bold);
+}
+
 @media only screen and (min-width: 600px) {
     #category {
         display: table-cell;
