@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io';
 import { FaTrash } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 
-const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDeleteMode, deleteFn, title, submit, type, warning, content}) => {
+const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDeleteMode, deleteFn, title, type, warning, content}) => {
     const modalRef = useRef(null);
     const [cancelColor, setCancelColor] = useState(false);
 
@@ -56,7 +56,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
 
     return (
         <dialog ref={modalRef} className={`${modalCSS.modal} ${type}`}>
-            <form onSubmit={submit}>
+            <div className={modalCSS.modalContent}>
                 <div className={modalCSS.modalHeader}>
                     <h3>{title}</h3>
                     <div className={modalCSS.modalHeaderButtons}>
@@ -77,8 +77,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
                     </div> :
                     content
                 }
-                {submit !== null && <input type='submit'/>}
-            </form>
+            </div>
         </dialog>
     );
 };

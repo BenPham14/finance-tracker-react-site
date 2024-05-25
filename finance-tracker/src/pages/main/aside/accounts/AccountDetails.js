@@ -44,7 +44,6 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
             setDeleteMode={setDeleteMode}
             deleteFn={deleteAccount}
             title={account.name}
-            submit={null}
             type={modalCSS.details}
             warning={data.length}
             content={

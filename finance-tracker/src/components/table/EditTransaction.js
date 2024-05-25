@@ -94,11 +94,11 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
             <h3>Edit Transaction</h3>
             {!deleteOpen ?
                 <>
-                    <div className={tableCSS.transactionDetails}>
-                        <input type='text' placeholder='Name' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} onKeyDown={preventEnter}/>
-                        <input type='text' placeholder='Amount' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})} onKeyDown={preventEnter}/>
-                        <input type='datetime-local'  style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})} onKeyDown={preventEnter}/>
-                        <select name='type' 
+                    <form className={tableCSS.transactionDetails} id='updateTransaction' onSubmit={updateTransaction}>
+                        <input required type='text' placeholder='Name' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})} onKeyDown={preventEnter}/>
+                        <input required type='text' placeholder='Amount' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})} onKeyDown={preventEnter}/>
+                        <input required type='datetime-local'  style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})} onKeyDown={preventEnter}/>
+                        <select required name='type' 
                             value={form.type} onChange={(e) => setForm({...form, type: e.target.value})} 
                             onKeyDown={preventEnter}
                         >
@@ -106,7 +106,7 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                             <option value='income'>Income</option>
                             <option value='expense'>Expense</option>
                         </select>
-                        <select name='accounts' style={{color: changePlaceholderColor(form.accountId)}} 
+                        <select required name='accounts' style={{color: changePlaceholderColor(form.accountId)}} 
                             value={[form.accountId, form.accountName]} onChange={(e) => setForm({...form, accountId: e.target.value.split(',')[0], accountName: e.target.value.split(',')[1]})}
                             onKeyDown={preventEnter}
                         >
@@ -117,7 +117,7 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                                 ))
                             }
                         </select>
-                        <select name='categories' 
+                        <select required name='categories' 
                             value={form.category} onChange={(e) => setForm({...form, category: e.target.value})} 
                             onKeyDown={preventEnter}
                         >
@@ -126,14 +126,15 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                                 <option key={index} value={category.name}>{category.name}</option>
                             ))}
                         </select>
-                    </div>
+                    </form>
+
                     <div className={tableCSS.transactionBtns}>
-                        <button id={tableCSS.delete} onClick={openDelete}>Delete</button>
-                        <div>
-                            <button id={tableCSS.cancel} onClick={closeEdit}>Cancel</button>
-                            <button id={tableCSS.save} onClick={updateTransaction}>Save</button>
+                            <button id={tableCSS.delete} onClick={openDelete}>Delete</button>
+                            <div>
+                                <button id={tableCSS.cancel} onClick={closeEdit}>Cancel</button>
+                                <button id={tableCSS.save} form='updateTransaction' type='submit'>Save</button>
+                            </div>
                         </div>
-                    </div>
                 </> :
                 <DeleteTransaction
                     data={data}

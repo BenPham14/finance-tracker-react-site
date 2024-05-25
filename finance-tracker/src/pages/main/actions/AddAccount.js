@@ -32,14 +32,14 @@ const AddAccount = ({accountsOpen, setAccountsOpen, toast}) => {
             isOpen={accountsOpen}
             close={closeModal}
             title={"Account"}
-            submit={submitAccount}
             type={modalCSS.action}
             content={
-                <>
+                <form onSubmit={submitAccount}>
                     <input type="text" placeholder="Name" required
                         value={nameValue} onChange={(e) => setNameValue(e.target.value)}
                     />
-                </>
+                    <input type='submit'/>
+                </form>
             }
         />
     );

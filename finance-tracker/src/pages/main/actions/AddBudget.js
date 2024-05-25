@@ -59,10 +59,9 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
             isOpen={budgetsOpen}
             close={closeModal}
             title={"Budget"}
-            submit={submitBudget}
             type={modalCSS.action}
             content={
-                <>
+                <form onSubmit={submitBudget}>
                     <input type="text" placeholder="Name" required
                         value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
@@ -87,7 +86,8 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
                         setIsOpen={setCategoriesOpen}
                         modalOpen={budgetsOpen}
                     />
-                </>
+                    <input type='submit'/>
+                </form>
             }
         />
     );

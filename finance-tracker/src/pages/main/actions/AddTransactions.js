@@ -62,10 +62,9 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             isOpen={transactionsOpen}
             close={closeModal}
             title={"Transaction"}
-            submit={submitTransaction}
             type={modalCSS.action}
             content={
-                <>
+                <form onSubmit={submitTransaction}>
                     <fieldset>
                         <div>
                             <input type='radio' id='expense' name='type' value='expense' checked={form.type === "expense" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
@@ -101,7 +100,8 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                             <option key={index} value={category.name}>{category.name}</option>
                         ))}
                     </select>
-                </>
+                    <input type='submit'/>
+                </form>
             }
         />
     );

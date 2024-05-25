@@ -23,7 +23,8 @@
     max-width: 560px;
 }
 
-.modal form {
+.modalContent,
+.modalContent form {
     display: flex;
     flex-direction: column;
     gap: 15px;

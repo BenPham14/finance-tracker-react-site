@@ -123,7 +123,6 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
             setDeleteMode={setDeleteMode}
             deleteFn={deleteBudget}
             title={data.name}
-            submit={null}
             type={modalCSS.details}
             content={
                 <>
