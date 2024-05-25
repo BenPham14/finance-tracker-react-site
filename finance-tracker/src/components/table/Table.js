@@ -57,7 +57,6 @@ const Table = ({data, accounts, editMode}) => {
                 <EditTransaction
                     data={deleteDocValue}
                     accounts={accounts}
-                    isOpen={editOpen}
                     setIsOpen={setEditOpen}
                     deleteOpen={deleteOpen}
                     setDeleteOpen={setDeleteOpen}

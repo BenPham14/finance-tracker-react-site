@@ -5,7 +5,7 @@ import { categories } from '../../context/context';
 import { useEffect, useState } from 'react';
 import DeleteTransaction from './DeleteTransaction';
 
-const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDeleteOpen}) => {
+const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen}) => {
     const [form, setForm] = useState({
         type: '',
         name: '',
@@ -31,7 +31,7 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
             timeStamp: convertTimestamp(data.timeStamp),
             accountId: data.accountId,
             accountName: data.accountName,
-            category: data.category
+            category: data.category !== 'Income' ? data.category : ''
         });
     };
 
@@ -58,9 +58,9 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
         };
     };
 
-    const preventEnter = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
+    const changeRadioColor = (value) => {
+        if (value !== form.type) {
+            return "gray";
         };
     };
 
@@ -75,11 +75,18 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                 diff[key] = form[key];
             };
         });
-        
+
+        // If type changes to income then set category to Income
+        if (form.type === 'income' && data.type === 'income') {
+            delete diff.category;
+        } else if (diff.type === 'income') {
+            diff.category = 'Income';
+        };
+
+        // Convert timestamp to date. If date changes then set new date in Firestore
         if (form.timeStamp !== convertTimestamp(data.timeStamp)) {
             diff.date = new Date(form.timeStamp);
         };
-
         delete diff.timeStamp;
 
         if (Object.keys(diff).length > 0) {
@@ -95,16 +102,19 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
             {!deleteOpen ?
                 <>
                     <form className={tableCSS.transactionDetails} id='updateTransaction' onSubmit={updateTransaction}>
+                        <fieldset>
+                            <div>
+                                <input type='radio' id='expense' name='type' value='expense' checked={form.type === "expense" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
+                                <label htmlFor='expense' style={{color: changeRadioColor('expense')}}>Expense</label>
+                            </div>
+                            <div>
+                                <input type='radio' id='income' name='type' value='income'  checked={form.type === "income" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
+                                <label htmlFor='income' style={{color: changeRadioColor('income')}}>Income</label>
+                            </div>
+                        </fieldset>
                         <input required type='text' placeholder='Name' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}/>
                         <input required type='text' placeholder='Amount' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}/>
                         <input required type='datetime-local'  style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})}/>
-                        <select required name='type' 
-                            value={form.type} onChange={(e) => setForm({...form, type: e.target.value})}
-                        >
-                            <option value="" disabled>Type</option>
-                            <option value='income'>Income</option>
-                            <option value='expense'>Expense</option>
-                        </select>
                         <select required name='accounts' style={{color: changePlaceholderColor(form.accountId)}} 
                             value={[form.accountId, form.accountName]} onChange={(e) => setForm({...form, accountId: e.target.value.split(',')[0], accountName: e.target.value.split(',')[1]})}
                         >
@@ -115,14 +125,16 @@ const EditTransaction = ({data, accounts, isOpen, setIsOpen, deleteOpen, setDele
                                 ))
                             }
                         </select>
-                        <select required name='categories' 
-                            value={form.category} onChange={(e) => setForm({...form, category: e.target.value})}
-                        >
-                            <option value="" disabled>Category</option>
-                            {categories.map((category, index) => (
-                                <option key={index} value={category.name}>{category.name}</option>
-                            ))}
-                        </select>
+                        {form.type === 'expense' && 
+                            <select required name='categories' style={{color: changePlaceholderColor(form.category)}}
+                                value={form.category} onChange={(e) => setForm({...form, category: e.target.value})}
+                            >
+                                <option value="" disabled>Category</option>
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category.name}>{category.name}</option>
+                                ))}
+                            </select>
+                        }
                     </form>
 
                     <div className={tableCSS.transactionBtns}>

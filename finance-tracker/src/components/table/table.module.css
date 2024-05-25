@@ -54,10 +54,10 @@
     border-radius: 2px;
 }
 
-.transactionDetails {
+/* .transactionDetails {
     display: grid;
     gap: 15px;
-}
+} */
 
 .transactionBtns {
     display: flex;
@@ -100,7 +100,7 @@
         display: table-cell;
     }
 
-    .transactionDetails {
+    /* .transactionDetails {
         grid-template-columns: repeat(2, 1fr);
-    }
+    } */
 }
