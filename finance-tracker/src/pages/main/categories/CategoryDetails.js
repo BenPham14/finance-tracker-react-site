@@ -4,7 +4,7 @@ import modalCSS from "../../../components/modal/modal.module.css";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth, db } from "../../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { convertTimestampToDate } from "../../../context/context";
+import { convertTimestampToDate } from "../../../context/helper.js";
 import Table from "../../../components/table/Table";
 
 const CategoryDetails = ({data, accounts, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {

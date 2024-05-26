@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "../../../../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { convertTimestampToDate } from "../../../../context/context";
+import { convertTimestampToDate } from "../../../../context/helper.js";
 import BudgetDetails from "./BudgetDetails";
 import mainCSS from "../../main.module.css";
 

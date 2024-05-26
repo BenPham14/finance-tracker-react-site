@@ -1,7 +1,8 @@
 import tableCSS from './table.module.css';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import { categories } from '../../context/context';
+import { categories } from '../../context/data.js';
+import { changePlaceholderColor, changeRadioColor } from '../../context/helper.js';
 import { useEffect, useState } from 'react';
 import DeleteTransaction from './DeleteTransaction';
 
@@ -52,18 +53,6 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
         setDeleteOpen(true);
     };
 
-    const changePlaceholderColor = (value) => {
-        if (value === "") {
-            return "gray";
-        };
-    };
-
-    const changeRadioColor = (value) => {
-        if (value !== form.type) {
-            return "gray";
-        };
-    };
-
     const updateTransaction = async (e) => {
         e.preventDefault();
 
@@ -105,11 +94,11 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
                         <fieldset>
                             <div>
                                 <input type='radio' id='expense' name='type' value='expense' checked={form.type === "expense" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
-                                <label htmlFor='expense' style={{color: changeRadioColor('expense')}}>Expense</label>
+                                <label htmlFor='expense' style={{color: changeRadioColor('expense', form.type)}}>Expense</label>
                             </div>
                             <div>
                                 <input type='radio' id='income' name='type' value='income'  checked={form.type === "income" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
-                                <label htmlFor='income' style={{color: changeRadioColor('income')}}>Income</label>
+                                <label htmlFor='income' style={{color: changeRadioColor('income', form.type)}}>Income</label>
                             </div>
                         </fieldset>
                         <input required type='text' placeholder='Name' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}/>

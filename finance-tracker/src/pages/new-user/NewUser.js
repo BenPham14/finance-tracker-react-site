@@ -10,7 +10,8 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
 import Multiselect from "../../components/multiselect/Multiselect";
-import { categories, calculateDates, periodOptions } from '../../context/context';
+import { calculateDates } from '../../context/helper.js';
+import { categories, periodOptions } from '../../context/data.js';
 
 const NewUser = ({setShowNewUser}) => {
     const accountId = uuidv4();

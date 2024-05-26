@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CategoryDetails from './CategoryDetails';
 import mainCSS from '../main.module.css';
 import { FaBoxes } from "react-icons/fa";
-import { categories } from '../../../context/context.js';
+import { categories } from '../../../context/data.js';
 
 const CategoriesItem = ({category, amount, accounts}) => {
     const [categoryDetailsOpen, setCategoryDetailsOpen] = useState(false);

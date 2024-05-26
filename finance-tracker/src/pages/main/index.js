@@ -8,7 +8,7 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 import { auth, db } from '../../config/firebase';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { convertTimestampToDate } from '../../context/context.js';
+import { convertTimestampToDate } from '../../context/helper.js';
 import Cookies from 'universal-cookie';
 import Profile from './profile/Profile.js';
 

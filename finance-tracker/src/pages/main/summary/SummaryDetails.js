@@ -3,8 +3,8 @@ import Column from '../../../components/charts/Bar';
 import Modal from '../../../components/modal/Modal';
 import modalCSS from "../../../components/modal/modal.module.css";
 import Table from '../../../components/table/Table';
-import { convertTimestampToDate } from "../../../context/context";
-import { categories } from '../../../context/context';
+import { convertTimestampToDate } from "../../../context/helper.js";
+import { categories } from '../../../context/data.js';
 
 const SummaryDetails = ({title, accounts, transactions, isOpen, setIsOpen, editMode, setEditMode}) => {
     const [categoryValues, setCategoryValues] = useState({});

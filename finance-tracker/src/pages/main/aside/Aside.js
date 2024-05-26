@@ -6,7 +6,7 @@ import AddAccount from '../actions/AddAccount';
 import AddBudget from '../actions/AddBudget';
 import Budget from './budgets/Budget';
 import Account from './accounts/Account';
-import { categories } from '../../../context/context.js';
+import { categories } from '../../../context/data.js';
 
 const Aside = ({accounts, budgets, transactions, toast}) => {
     const [transactionsOpen, setTransactionsOpen] = useState(false);

@@ -5,7 +5,8 @@ import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import modalCSS from "../../../components/modal/modal.module.css";
-import { calculateDates, periodOptions } from "../../../context/context";
+import { calculateDates } from "../../../context/helper.js";
+import { periodOptions } from "../../../context/data.js";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
     const [form, setForm] = useState({

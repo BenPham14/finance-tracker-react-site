@@ -4,6 +4,7 @@ import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
 import modalCSS from "../../../components/modal/modal.module.css";
+import { changePlaceholderColor, changeRadioColor } from '../../../context/helper.js';
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen, toast}) => {
     const [form, setForm] = useState({
@@ -15,18 +16,6 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
         category: ""
     });
     const transactionsRef = collection(db, "transactions");
-
-    const changePlaceholderColor = (value) => {
-        if (value === "") {
-            return "gray";
-        };
-    };
-
-    const changeRadioColor = (value) => {
-        if (value !== form.type) {
-            return "gray";
-        };
-    };
 
     const closeModal = () => {
         setTransactionsOpen(false);
@@ -68,11 +57,11 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                     <fieldset>
                         <div>
                             <input type='radio' id='expense' name='type' value='expense' checked={form.type === "expense" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
-                            <label htmlFor='expense' style={{color: changeRadioColor('expense')}}>Expense</label>
+                            <label htmlFor='expense' style={{color: changeRadioColor('expense', form.type)}}>Expense</label>
                         </div>
                         <div>
                             <input type='radio' id='income' name='type' value='income'  checked={form.type === "income" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
-                            <label htmlFor='income' style={{color: changeRadioColor('income')}}>Income</label>
+                            <label htmlFor='income' style={{color: changeRadioColor('income', form.type)}}>Income</label>
                         </div>
                     </fieldset>
                     <input type='text' placeholder='Name' required 
