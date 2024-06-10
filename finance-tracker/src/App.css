@@ -11,7 +11,8 @@
 
 #light {
   --secondary-color: white;
-  --accent-color: whitesmoke;
+  --accent-color: rgb(244, 246, 251);
+  /* --accent-color: whitesmoke; */
   --background-color: white;
   --primary-text-color: black;
   --secondary-text-color: gray;

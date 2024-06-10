@@ -1,5 +1,5 @@
-import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
 import homeCSS from './home.module.css';
+import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
 
 const Hero = ({setLoginOpen}) => {
     return (
@@ -10,7 +10,10 @@ const Hero = ({setLoginOpen}) => {
                     Track your expenses effortlessly and save more money with Finance Tracker, 
                     the smart and simple app that helps you manage your finances.
                 </p>
-                <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
+                <div className={homeCSS.heroBtns}>
+                    <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
+                    <button id={homeCSS.demo}>Try demo</button>
+                </div>
             </div>
             <img src={hero} alt="hero"/>
         </section>
