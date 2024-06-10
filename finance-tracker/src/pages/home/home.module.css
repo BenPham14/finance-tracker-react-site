@@ -199,7 +199,7 @@
 }
 
 #summaryImg #imagePopUp {
-    bottom: -5%;
+    bottom: -10%;
     right: 40%;
 }
 
@@ -382,40 +382,34 @@
             animation-range-end: entry 125%;
         }
 
-        #accountImg #imagePopUp {
-            scale: 0.8;
-            opacity: 0;
-            animation: fade-in linear forwards;
-            animation-timeline: view();
-            animation-range-start: entry 170%;
-            animation-range-end: entry 200%;
-        }
-
-        #budgetImg #imagePopUp {
-            scale: 0.8;
-            opacity: 0;
-            animation: fade-in linear forwards;
-            animation-timeline: view();
-            animation-range-start: entry 140%;
-            animation-range-end: entry 170%;
-        }
-
-        #categoriesImg #imagePopUp {
-            scale: 0.8;
-            opacity: 0;
-            animation: fade-in linear forwards;
-            animation-timeline: view();
-            animation-range-start: entry 200%;
-            animation-range-end: entry 230%;
-        }
-
+        #accountImg #imagePopUp,
+        #budgetImg #imagePopUp,
+        #categoriesImg #imagePopUp,
         #summaryImg #imagePopUp {
             scale: 0.8;
             opacity: 0;
             animation: fade-in linear forwards;
             animation-timeline: view();
-            animation-range-start: entry 110%;
-            animation-range-end: entry 140%;
+        }
+
+        #accountImg #imagePopUp {
+            animation-range-start: entry 160%;
+            animation-range-end: entry 210%;
+        }
+
+        #budgetImg #imagePopUp {
+            animation-range-start: entry 120%;
+            animation-range-end: entry 170%;
+        }
+
+        #categoriesImg #imagePopUp {
+            animation-range-start: entry 190%;
+            animation-range-end: entry 240%;
+        }
+
+        #summaryImg #imagePopUp {
+            animation-range-start: entry 80%;
+            animation-range-end: entry 130%;
         }
     
         @keyframes fade-in {

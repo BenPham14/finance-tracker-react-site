@@ -99,7 +99,6 @@ const SummaryDetails = ({title, accounts, transactions, isOpen, setIsOpen, editM
             type={modalCSS.details}
             content={
                 <>
-                    <p>Add line chart of spending</p>
                     <Column data={data} options={chartOptions}/>
                     <Table
                         data={transactionValues}
