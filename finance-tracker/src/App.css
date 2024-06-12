@@ -19,7 +19,7 @@
   --delete-color: rgb(255, 90, 90);
   --delete-color-bold: rgb(255, 70, 70);
   --cancel-color: white;
-  --cancel-color-bold: whitesmoke;
+  --cancel-color-bold: rgb(244, 246, 251);
   --save-color:rgb(80, 135, 230);
   --save-color-bold: rgb(70, 125, 220);
   --submit-color: black;

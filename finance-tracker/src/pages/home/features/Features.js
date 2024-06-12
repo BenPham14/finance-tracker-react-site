@@ -26,7 +26,7 @@ const Features = ({featuresScroll}) => {
             subtitle: 'Budgets', 
             icon: <FaCalculator/>, 
             image: {bkg: budgetBkg, popup: budgetPopUp}, 
-            description: "Make budgeting intuitive and clear with our built-in budgeting tool, ensuring you're always in control of your budgeting goals."
+            description: "Make budgeting intuitive and clear with our built-in budgeting tool, ensuring you're always in control of your financial goals."
         },
         {
             className: homeCSS.categoriesImg, 

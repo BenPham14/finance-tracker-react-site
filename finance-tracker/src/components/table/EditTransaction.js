@@ -91,6 +91,7 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
             {!deleteOpen ?
                 <>
                     <form className={tableCSS.transactionDetails} id='updateTransaction' onSubmit={updateTransaction}>
+                        <p>Type</p>
                         <fieldset>
                             <div>
                                 <input type='radio' id='expense' name='type' value='expense' checked={form.type === "expense" ? true : false} onChange={(e) => setForm({...form, type: e.target.value})}/>
@@ -101,9 +102,13 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
                                 <label htmlFor='income' style={{color: changeRadioColor('income', form.type)}}>Income</label>
                             </div>
                         </fieldset>
-                        <input required type='text' placeholder='Name' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}/>
-                        <input required type='text' placeholder='Amount' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}/>
-                        <input required type='datetime-local'  style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})}/>
+                        <p>Name</p>
+                        <input required type='text' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}/>
+                        <p>Amount</p>
+                        <input required type='text' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}/>
+                        <p>Date</p>
+                        <input required type='datetime-local' style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})}/>
+                        <p>Account</p>
                         <select required name='accounts' style={{color: changePlaceholderColor(form.accountId)}} 
                             value={[form.accountId, form.accountName]} onChange={(e) => setForm({...form, accountId: e.target.value.split(',')[0], accountName: e.target.value.split(',')[1]})}
                         >
@@ -115,14 +120,17 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
                             }
                         </select>
                         {form.type === 'expense' && 
-                            <select required name='categories' style={{color: changePlaceholderColor(form.category)}}
-                                value={form.category} onChange={(e) => setForm({...form, category: e.target.value})}
-                            >
-                                <option value="" disabled>Category</option>
-                                {categories.map((category, index) => (
-                                    <option key={index} value={category.name}>{category.name}</option>
-                                ))}
-                            </select>
+                            <>
+                                <p>Category</p>
+                                <select required name='categories' style={{color: changePlaceholderColor(form.category)}}
+                                    value={form.category} onChange={(e) => setForm({...form, category: e.target.value})}
+                                >
+                                    <option value="" disabled>Category</option>
+                                    {categories.map((category, index) => (
+                                        <option key={index} value={category.name}>{category.name}</option>
+                                    ))}
+                                </select>
+                            </>
                         }
                     </form>
 
