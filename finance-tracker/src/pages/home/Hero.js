@@ -1,5 +1,6 @@
 import homeCSS from './home.module.css';
-import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
+// import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
+import hero from '../../assets/main.png';
 
 const Hero = ({setLoginOpen}) => {
     return (

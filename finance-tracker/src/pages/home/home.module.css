@@ -8,6 +8,10 @@
     max-width: 1360px;
 }
 
+.home {
+    overflow-x: clip;
+}
+
 .home section, 
 .home footer {
     padding: 40px 0;
@@ -119,6 +123,8 @@
 
 .hero img {
     width: 100%;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 40px 0px;
 }
 
 .hero .heroBtns {
@@ -385,6 +391,11 @@
     .hero {
         grid-template-columns: 1fr 1fr;
         /* height: 80vh; */
+    }
+
+    .hero img {
+        width: 150%;
+        /* transform: perspective(2000px) rotate3D(0, 1, 0.1, -10deg); */
     }
 
     .hero .heroBtns {
