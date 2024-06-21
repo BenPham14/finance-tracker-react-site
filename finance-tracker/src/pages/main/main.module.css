@@ -221,12 +221,6 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.accountsItems button p:not(:first-of-type),
-.budgetDescription,
-.categoryItems button p:not(:first-of-type) {
-    font-size: 0.75rem;
-}
-
 .budgetDescription {
     display: flex;
     flex-direction: column;

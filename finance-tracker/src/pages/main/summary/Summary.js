@@ -27,7 +27,7 @@ const Summary = ({accounts, transactions}) => {
         <section className={mainCSS.summary}>
             <div className={mainCSS.sectionHeader}>
                 <FaChartPie/>
-                <p>Summary</p>
+                <h3>Summary</h3>
             </div>
             <div className={`${mainCSS.summaryItems} ${mainCSS.items}`}>
                 {data.map((value) => (

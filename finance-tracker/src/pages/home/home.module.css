@@ -36,13 +36,24 @@
     color: white;
     border-radius: 30px;
     padding: 4px 20px;
-    box-shadow: black 4px 4px 0 0;
-    cursor: pointer;
+    transition: 0.2s;
 }
 
-#login:active {
-    box-shadow: black 2px 2px 0 0;
-    transform: translate(2px, 2px);
+#login:hover,
+#google:hover,
+#signIn:hover {
+    box-shadow: black 4px 4px 0 0;
+    cursor: pointer;
+    transform: translate(-4px, -4px);
+}
+
+#login:active,
+#google:active,
+#signIn:active {
+    /* box-shadow: black 2px 2px 0 0;
+    transform: translate(2px, 2px); */
+    transform: translate(0);
+    box-shadow: none;
 }
 
 /* ----- Header ----- */
@@ -54,8 +65,9 @@
     padding-top: 20px;
 }
 
-.home nav > * {
+.home nav > *:hover {
     cursor: pointer;
+    color: gray;
 }
 
 .rightLinks {
@@ -95,7 +107,7 @@
 .dropDown {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     position: absolute;
     top: 36px;
     right: 96px;
@@ -156,7 +168,7 @@
     background-color: whitesmoke;
 }
 
-.features h3 {
+.features h2 {
     /* font-size: calc(100% + 1.5vw); */
     font-size: 2rem;
     line-height: 1.125;
@@ -289,23 +301,43 @@
     align-items: center;
     background-color: white;
     padding: 20px;
-    border: 2px solid black;
+    /* border: 2px solid black; */
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
     border-radius: 10px;
     max-width: 300px;
     width: 80%;
 }
 
-#google {
+.login::backdrop {
+    background-color: black;
+    opacity: 0.4;
+}
+
+.loginHeader {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 5px;
-    background-color: whitesmoke;
-    border: 1px solid black;
-    border-radius: 20px;
+    justify-content: space-between;
+    padding: 12px 20px;
+    margin: -20px -20px 20px ;
+    border-bottom: 0.5px solid gray;
+}
+
+.login h5 {
+    color: rgb(255, 90, 90);
+}
+
+#loginClose {
     cursor: pointer;
+    border-radius: 50%;
+    padding: 5px;
+    width: auto;
+    height: auto;
+    margin-right: -5px;
+}
+
+#loginClose:hover {
+    background-color: whitesmoke;
 }
 
 #signIn {
@@ -315,17 +347,29 @@
     border-radius: 20px;
     /* box-shadow: black 4px 4px 0 0; */
     padding: 5px;
-    margin: 5px 0;
-    cursor: pointer;
+    transition: 0.2s;
+}
+
+#google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 5px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
 #divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
-    margin: 10px 0;
+    margin: 12px 0;
 }
 
 #divider span {
@@ -346,11 +390,7 @@
 
 .login form {
     width: 100%;
-    gap: 10px;
-}
-
-.login label {
-    gap: 5px;
+    gap: 12px;
 }
 
 .login input {
@@ -363,13 +403,6 @@
     font-size: 0.75rem;
 }
 
-#loginClose {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
 @media only screen and (min-width: 600px) {
     .mobile #login {
         display: none;
@@ -378,7 +411,7 @@
     .rightLinks {
         display: flex;
         align-items: center;
-        gap: 30px;
+        gap: 28px;
     }
 
     .menuIcon,

@@ -56,7 +56,7 @@ const Features = ({featuresScroll}) => {
                                 {feature.icon}
                                 <h4>{feature.subtitle}</h4>
                             </span>
-                            <h3>{feature.title}</h3>
+                            <h2>{feature.title}</h2>
                             <p>{feature.description}</p>
                         </div>
                         <Image

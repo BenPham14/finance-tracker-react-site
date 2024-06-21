@@ -4,13 +4,8 @@ import Login from './Login';
 import Hero from './Hero';
 import Features from './features/Features';
 import FAQ from './FAQ';
-import Cookies from 'universal-cookie';
 import { useEffect, useRef, useState } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
-import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../../config/firebase';
-
-const cookies = new Cookies();
 
 const Home = ({setIsAuth}) => {
     const [showUpButton, setShowUpButton] = useState(false);
@@ -29,16 +24,6 @@ const Home = ({setIsAuth}) => {
         };
     }, []);
 
-    const signInWithGoogle = async () => {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            cookies.set('auth-token', result.user.refreshToken);
-            setIsAuth(true);
-        } catch(err) {
-            console.log(err);
-        };
-    };
-
     const handleScrollToTop = () => {
         window.scrollTo({top: '0', behavior: 'smooth'})
     };
@@ -53,7 +38,7 @@ const Home = ({setIsAuth}) => {
             <Login 
                 loginOpen={loginOpen} 
                 setLoginOpen={setLoginOpen}
-                signInWithGoogle={signInWithGoogle}
+                setIsAuth={setIsAuth}
             />
             <Hero setLoginOpen={setLoginOpen}/>
             <Features featuresScroll={featuresScroll}/>

@@ -18,7 +18,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
             <div>
                 <div className={mainCSS.sectionHeader}>
                     <FaBolt/>
-                    <p>Actions</p>
+                    <h3>Actions</h3>
                 </div>
                 <div className={`${mainCSS.actionsItems} ${mainCSS.items}`}>
                     <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
@@ -48,7 +48,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
             <div className={mainCSS.accounts}>
                 <div className={mainCSS.sectionHeader}>
                     <FaLandmark/>
-                    <p>Accounts</p>
+                    <h3>Accounts</h3>
                 </div>
                 <div className={`${mainCSS.accountsItems} ${mainCSS.items}`}>
                     {accounts.map((account, index) => (
@@ -65,7 +65,7 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
             <div className={mainCSS.budgets}>
                 <div className={mainCSS.sectionHeader}>
                     <FaCalculator/>
-                    <p>Budgets</p>
+                    <h3>Budgets</h3>
                 </div>
                 <div className={`${mainCSS.budgetsItems} ${mainCSS.items}`}>
                     {budgets.map((budget, index) => (

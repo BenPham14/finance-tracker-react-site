@@ -18,7 +18,7 @@ const Budget = ({budget, accounts, transactions, toast}) => {
 
     const endsIn = (getDaysUntilReset) => {
         return (
-            <p>Ends in {getDaysUntilReset} {getDaysUntilReset < 2 ? "day" : "days"}</p>
+            <h5>Ends in {getDaysUntilReset} {getDaysUntilReset < 2 ? "day" : "days"}</h5>
         );
     };
 
@@ -85,7 +85,7 @@ const Budget = ({budget, accounts, transactions, toast}) => {
             <button onClick={() => setBudgetDetailsOpen(true)}>
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
-                    <p>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${Math.abs(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</p>
+                    <h5>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${Math.abs(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</h5>
                     {endsIn(getDaysUntilReset())}
                 </div>
             </button>

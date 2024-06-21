@@ -42,7 +42,7 @@ const Transactions = ({accounts, transactions}) => {
         <section className={mainCSS.transactions}>
             <div className={mainCSS.sectionHeader}>
                 <FaCreditCard/>
-                <p>Transactions</p>
+                <h3>Transactions</h3>
             </div>
             <table id={mainCSS.homeTable} onClick={() => setTransactionDetailsOpen(true)}>
                 <thead>

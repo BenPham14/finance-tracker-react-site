@@ -17,7 +17,7 @@ const CategoriesItem = ({category, amount, accounts}) => {
         <>
             <button onClick={() => openCategoryDetails(category.id, category.name, amount)}>
                 <p>{category.name}</p>
-                <p>{amount < 0 && '-'}${Math.abs(amount)}</p>
+                <h5>{amount < 0 && '-'}${Math.abs(amount)}</h5>
             </button>
             <CategoryDetails
                 data={categoryDetailsData}
@@ -50,7 +50,7 @@ const Categories = ({accounts, transactions}) => {
         <section className={mainCSS.categories}>
             <div className={mainCSS.sectionHeader}>
                 <FaBoxes/>
-                <p>Categories</p>
+                <h3>Categories</h3>
             </div>
             <div className={`${mainCSS.categoryItems} ${mainCSS.items}`}>
                 {categories.map((category, index) => (
