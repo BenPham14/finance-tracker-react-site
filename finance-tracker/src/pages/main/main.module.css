@@ -76,6 +76,19 @@
     border-radius: 50%;
 }
 
+.profile img,
+.profileImage,
+.defaultProfile {
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
+}
+
+.profileInfo img,
+.defaultProfile {
+    width: auto;
+    height: 48px;
+}
+
 .profileImage:hover {
     filter: brightness(80%);
     transition: 0.2s linear;
@@ -84,11 +97,6 @@
 
 #profileOpen {
     border: 2px solid var(--primary-color);
-}
-
-.profile img {
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
 }
 
 .profile {
@@ -131,10 +139,6 @@
 
 .profileInfo p:last-of-type {
     font-size: 0.8125rem;
-}
-
-.profileInfo img {
-    height: 48px;
 }
 
 .main button {
