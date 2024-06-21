@@ -132,6 +132,10 @@
     padding: 7.5px 30px 15px 30px;
 }
 
+.profileInfo p {
+    text-wrap: nowrap;
+}
+
 .profileInfo p:first-of-type {
     font-size: 0.875rem;
     font-weight: bold;
