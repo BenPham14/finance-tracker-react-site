@@ -35,7 +35,7 @@
     border: 2px solid black;
     color: white;
     border-radius: 30px;
-    padding: 4px 20px;
+    padding: 0.25rem 1.25rem;
     transition: 0.2s;
 }
 
@@ -114,7 +114,7 @@
     text-align: center;
     background-color: white;
     border: 2px solid black;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 20px;
 }
 
@@ -147,14 +147,16 @@
 
 .hero #login {
     font-size: 1rem;
-    padding: 8px 40px;
+    padding: 0.5rem 2.5rem;
     /* margin-top: 20px; */
 }
 .hero #demo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     border: none;
     background-color: white;
     color: black;
-    text-decoration: underline;
 }
 
 .hero #demo:hover {
@@ -220,7 +222,7 @@
 }
 
 #imagePopUp {
-    border-radius: 10px;
+    border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
     padding: 0;
     position: absolute;
@@ -251,7 +253,7 @@
 
 .faqQuestion {
     border-top: 2px solid black;
-    padding: 20px;
+    padding: 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -304,7 +306,7 @@
     /* border: 2px solid black; */
     border: none;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
-    border-radius: 10px;
+    border-radius: 12px;
     max-width: 300px;
     width: 80%;
 }
@@ -340,24 +342,27 @@
 #loginClose {
     cursor: pointer;
     border-radius: 50%;
-    padding: 5px;
+    padding: 4px;
     width: auto;
     height: auto;
-    margin-right: -5px;
+    margin-right: -4px;
 }
 
 #loginClose:hover {
     background-color: whitesmoke;
 }
 
+#signIn,
+#google {
+    border-radius: 20px;
+    padding: 0.25rem;
+    transition: 0.2s;
+}
+
 #signIn {
     background-color: #6C63FF;
     color: white;
     border: 2px solid black;
-    border-radius: 20px;
-    /* box-shadow: black 4px 4px 0 0; */
-    padding: 5px;
-    transition: 0.2s;
 }
 
 #google {
@@ -366,10 +371,8 @@
     justify-content: center;
     gap: 12px;
     width: 100%;
-    padding: 5px;
     background-color: whitesmoke;
     border: 1px solid black;
-    border-radius: 20px;
     transition: 0.2s;
 }
 
@@ -404,9 +407,9 @@
 }
 
 .login input {
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid gray;
-    padding: 5px;
+    padding: 0.5rem;
 }
 
 .login a {

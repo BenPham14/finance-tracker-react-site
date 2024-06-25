@@ -1,6 +1,7 @@
 import homeCSS from './home.module.css';
 // import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
 import hero from '../../assets/main.png';
+import { IoArrowForwardOutline } from "react-icons/io5";
 
 const Hero = ({setLoginOpen}) => {
     return (
@@ -13,7 +14,11 @@ const Hero = ({setLoginOpen}) => {
                 </p>
                 <div className={homeCSS.heroBtns}>
                     <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
-                    <button id={homeCSS.demo}>Try demo</button>
+                    <button id={homeCSS.demo}>
+                        Try demo
+                        <IoArrowForwardOutline />
+                    </button>
+                    
                 </div>
             </div>
             <img src={hero} alt="hero"/>

@@ -99,7 +99,8 @@ const Login = ({loginOpen, setLoginOpen, setIsAuth}) => {
                     setErrorMsg("The email or password is incorrect. Please try again.");
                     break;
                 case 'auth/too-many-requests':
-                    setErrorMsg("Too many failed login attempts. Please try again later.")
+                    setErrorMsg("Too many failed login attempts. Please try again later.");
+                    break;
                 default:
                     console.error(err);
                     break;
@@ -144,7 +145,7 @@ const Login = ({loginOpen, setLoginOpen, setIsAuth}) => {
                     </>
                 }
                 {(showPasswordInput || showCreateInputs || errorMsg === "This email is already associated with a Google account. Please continue with Google below.") &&
-                    <button className={homeCSS.loginReset} onClick={resetForm}>Use another account</button>
+                    <button type='button' className={homeCSS.loginReset} onClick={resetForm}>Use another account</button>
                 }
                 {errorMsg !== "" &&
                     <h5>{errorMsg}</h5>
