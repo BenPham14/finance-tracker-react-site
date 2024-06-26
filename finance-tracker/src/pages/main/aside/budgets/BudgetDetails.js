@@ -82,35 +82,55 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
         const dates = calculateDates(periodValue);
         
         if (editMode === false) {
+            updateBudget(dates);
+        };
+    }, [editMode]);
+
+    const updateBudget = async (dates) => {
+        try {
             const difference = categoriesValue.filter((e) => !budgetCategories.includes(e));
             const len = budgetCategories.length - categoriesValue.length;
             // Update categories in firestore if new value different from old value, and if new is not empty
             if ((limitValue !== data.limit && limitValue > 0)) {
-                updateDoc(budgetsRef, {
+                await updateDoc(budgetsRef, {
                     limit: limitValue
-                })
+                });
             };
             if ((len > 0 || difference.length > 0) && categoriesValue.length > 0) {
-                updateDoc(budgetsRef, {
+                await updateDoc(budgetsRef, {
                     categories: categoriesValue,
                 });
             };
             if (periodValue !== "" && periodValue !== data.period) {
-                updateDoc(budgetsRef, {
+                await updateDoc(budgetsRef, {
                     period: periodValue,
                     periodStart: dates.startDate,
                     periodEnd: dates.endDate
                 });
             };
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                toast.error("Cannot make changes in demo mode");
+            };
         };
-    }, [editMode]);
+    };
 
     const deleteBudget = async (e) => {
         e.preventDefault();
+
+        try {
+            let docRef = doc(db, "budgets", data.docId);
+            await deleteDoc(docRef);
+            toast.error("Budget deleted");
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                toast.error("Cannot make changes in demo mode");
+            };
+        };
+        
         closeModal();
-        let docRef = doc(db, "budgets", data.docId);
-        await deleteDoc(docRef);
-        toast.error("Budget deleted");
     };
 
     return (
@@ -164,7 +184,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                 <>
                                     <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of ${data.limit}</p>
                                     <p>Categories: {budgetCategories.join(', ')}</p>
-                                    {resetDays}
+                                    <p>{resetDays}</p>
                                 </>
                             }
                         </div>

@@ -2,7 +2,7 @@ import mainCSS from '../main.module.css';
 import { IoMdExit } from "react-icons/io";
 import { IoMoon, IoSunny, IoPersonCircle } from "react-icons/io5";
 
-const ProfileMenu = ({profileMenuOpen, signOutUser, user, darkMode, setTheme}) => {
+const ProfileMenu = ({profileMenuOpen, signOutUser, user, darkMode, setTheme, isDemoUser}) => {
     return (
         <>
             {profileMenuOpen &&
@@ -16,7 +16,7 @@ const ProfileMenu = ({profileMenuOpen, signOutUser, user, darkMode, setTheme}) =
                         }
                         <div>
                             {user.displayName && <p>{user.displayName}</p>}
-                            <p>{user.email}</p>
+                            {!isDemoUser && <p>{user.email}</p>}
                         </div>
                     </div>
                     {darkMode ? 

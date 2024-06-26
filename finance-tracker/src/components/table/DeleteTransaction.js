@@ -10,8 +10,15 @@ const DeleteTransaction = ({data, setIsOpen, setDeleteOpen}) => {
 
     const deleteTranscation = async (e, docId) => {
         e.preventDefault();
-        let docRef = doc(db, "transactions", docId);
-        await deleteDoc(docRef);
+
+        try {
+            let docRef = doc(db, "transactions", docId);
+            await deleteDoc(docRef);
+        } catch (err) {
+            console.error(err);
+        };
+
+        setDeleteOpen(false);
         setIsOpen(false);
     };
 

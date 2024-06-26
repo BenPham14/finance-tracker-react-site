@@ -31,19 +31,28 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
 
     const submitTransaction = async (e) => {
         e.preventDefault();
-        await addDoc(transactionsRef, {
-            uid: auth.currentUser.uid,
-            id: uuidv4(),
-            type: form.type,
-            name: form.name,
-            amount: form.amount,
-            date: new Date(form.date),
-            accountId: form.account.split(',')[0],
-            accountName: form.account.split(',')[1],
-            category: form.type === 'expense' ? form.category : 'Income'
-        });
+
+        try {
+            await addDoc(transactionsRef, {
+                uid: auth.currentUser.uid,
+                id: uuidv4(),
+                type: form.type,
+                name: form.name,
+                amount: form.amount,
+                date: new Date(form.date),
+                accountId: form.account.split(',')[0],
+                accountName: form.account.split(',')[1],
+                category: form.type === 'expense' ? form.category : 'Income'
+            });
+            toast.success("Transaction created");
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                toast.error("Cannot make changes in demo mode");
+            };
+        };
+
         closeModal();
-        toast.success("Transaction created");
     };
 
     return (

@@ -3,7 +3,7 @@ import mainCSS from '../main.module.css';
 import { IoPersonCircle } from "react-icons/io5";
 import ProfileMenu from './ProfileMenu.js';
 
-const Profile = ({signOutUser, user, darkMode, setTheme}) => {
+const Profile = ({signOutUser, user, darkMode, setTheme, isDemoUser}) => {
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
     return (
@@ -29,6 +29,7 @@ const Profile = ({signOutUser, user, darkMode, setTheme}) => {
                 user={user}
                 darkMode={darkMode}
                 setTheme={setTheme}
+                isDemoUser={isDemoUser}
             />
         </div>
     );

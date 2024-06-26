@@ -19,14 +19,19 @@ const cookies = new Cookies();
 
 const Main = ({setIsAuth}) => {
     const [darkMode, setDarkMode] = useState(false);
+
     const [accounts, setAccounts] = useState([]);
-    const accountsRef = collection(db, 'accounts');
     const [budgets, setBudgets] = useState([]);
+    const [transactions, setTransactions] = useState([]);
+
+    const accountsRef = collection(db, 'accounts');
     const budgetsRef = collection(db, 'budgets');
     const transactionsRef = collection(db, "transactions");
-    const [transactions, setTransactions] = useState([]);
+    const usersRef = collection(db, "users");
+    
     const [showNewUser, setShowNewUser] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [isDemoUser, setIsDemoUser] = useState(false);
 
     useEffect(() => {
         setDarkMode(JSON.parse(localStorage.getItem("darkMode")));
@@ -77,13 +82,24 @@ const Main = ({setIsAuth}) => {
                         });
                     });
                     setTransactions(transactions);
-                })
+                });
+
+                const queryUsers = query(
+                    usersRef,
+                    where("__name__", "==", user.uid)
+                );
+                const unsubscribe4 = onSnapshot(queryUsers, (snapshot) => {
+                    snapshot.forEach((doc) => {
+                        setIsDemoUser(true);
+                    });
+                });
 
                 setIsLoading(false);
                 return () => {
                     unsubscribe1();
                     unsubscribe2();
                     unsubscribe3();
+                    unsubscribe4();
                 };
             }
         })
@@ -117,9 +133,16 @@ const Main = ({setIsAuth}) => {
                             user={auth.currentUser}
                             darkMode={darkMode}
                             setTheme={setTheme}
+                            isDemoUser={isDemoUser}
                         />
                     </div>
                 </header>
+
+                {isDemoUser &&
+                    <div className={mainCSS.demoBanner}>
+                        <p>You are currently in demo mode and will not be able to make changes. To make changes, <span onClick={signOutUser}>return to the home page</span> and log-in or create an account.</p>
+                    </div>
+                }
 
                 <div className={mainCSS.body}>
                     <Aside accounts={accounts} budgets={budgets} transactions={transactions} toast={toast}/>

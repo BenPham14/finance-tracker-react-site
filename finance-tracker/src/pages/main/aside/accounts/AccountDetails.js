@@ -21,16 +21,24 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
 
     const deleteAccount = async (e) => {
         e.preventDefault();
+
+        try {
+            let accountsRef = doc(db, "accounts", account.docId);
+            await deleteDoc(accountsRef);
+
+            data.forEach((transaction) => {
+                let transactionsRef = doc(db, "transactions", transaction.docId);
+                deleteDoc(transactionsRef);
+            });
+            toast.error("Account deleted");
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                toast.error("Cannot make changes in demo mode");
+            };
+        };
+
         closeModal();
-
-        let accountsRef = doc(db, "accounts", account.docId);
-        await deleteDoc(accountsRef);
-
-        data.forEach((transaction) => {
-            let transactionsRef = doc(db, "transactions", transaction.docId);
-            deleteDoc(transactionsRef);
-        });
-        toast.error("Account deleted");
     };
 
     return (

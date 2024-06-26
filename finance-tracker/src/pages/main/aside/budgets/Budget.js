@@ -17,9 +17,7 @@ const Budget = ({budget, accounts, transactions, toast}) => {
     };
 
     const endsIn = (getDaysUntilReset) => {
-        return (
-            <h5>Ends in {getDaysUntilReset} {getDaysUntilReset < 2 ? "day" : "days"}</h5>
-        );
+        return `Ends in ${getDaysUntilReset} ${getDaysUntilReset < 2 ? "day" : "days"}`;
     };
 
     const budgetAmount = (limit, categories) => {
@@ -54,31 +52,39 @@ const Budget = ({budget, accounts, transactions, toast}) => {
 
     // If days until reset is < 1 then updateDoc with new budget end date
     useEffect(() => {
-        if (getDaysUntilReset() < 1) {
-            let startDate = convertTimestampToDate(budget.periodEnd);
-            let endDate = convertTimestampToDate(budget.periodEnd);
-            let number = budget.period.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
-
-            if (budget.period.includes("day")) {
-                endDate.setDate(endDate.getDate() + parseInt(number));
-            } else if (budget.period.includes("week")) {
-                endDate.setDate(endDate.getDate() + (parseInt(number)*7));
-            } else if (budget.period.includes("month")) {
-                endDate.setDate(endDate.getDate() + (parseInt(number)*30));
-            } else if (budget.period.includes("year")) {
-                endDate.setDate(endDate.getDate() + (parseInt(number)*365));
-            };
-
-            // Set time to 12:00AM
-            startDate.setHours(0,0,0,0);
-            endDate.setHours(0,0,0,0);
-
-            updateDoc(budgetsRef, {
-                periodStart: startDate,
-                periodEnd: endDate
-            });
-        };
+        updatePeriod();
     }, [getDaysUntilReset()]);
+
+    const updatePeriod = async () => {
+        try {
+            if (getDaysUntilReset() < 1) {
+                let startDate = convertTimestampToDate(budget.periodEnd);
+                let endDate = convertTimestampToDate(budget.periodEnd);
+                let number = budget.period.replace(/[^0-9]/g, ''); // Keep only number value in string like 2 day(s) becomes 2
+    
+                if (budget.period.includes("day")) {
+                    endDate.setDate(endDate.getDate() + parseInt(number));
+                } else if (budget.period.includes("week")) {
+                    endDate.setDate(endDate.getDate() + (parseInt(number)*7));
+                } else if (budget.period.includes("month")) {
+                    endDate.setDate(endDate.getDate() + (parseInt(number)*30));
+                } else if (budget.period.includes("year")) {
+                    endDate.setDate(endDate.getDate() + (parseInt(number)*365));
+                };
+    
+                // Set time to 12:00AM
+                startDate.setHours(0,0,0,0);
+                endDate.setHours(0,0,0,0);
+    
+                await updateDoc(budgetsRef, {
+                    periodStart: startDate,
+                    periodEnd: endDate
+                });
+            };
+        } catch (err) {
+            console.error(err);
+        };
+    };
 
     return (
         <>
@@ -86,7 +92,7 @@ const Budget = ({budget, accounts, transactions, toast}) => {
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
                     <h5>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${Math.abs(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</h5>
-                    {endsIn(getDaysUntilReset())}
+                    <h5>{endsIn(getDaysUntilReset())}</h5>
                 </div>
             </button>
             <BudgetDetails

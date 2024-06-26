@@ -16,15 +16,24 @@ const AddAccount = ({accountsOpen, setAccountsOpen, toast}) => {
 
     const submitAccount = async (e) => {
         e.preventDefault();
-        await addDoc(accountsRef, {
-            uid: auth.currentUser.uid,
-            id: uuidv4(),
-            createdAt: serverTimestamp(),
-            name: nameValue,
-            amount: '0'
-        });
+        
+        try { 
+            await addDoc(accountsRef, {
+                uid: auth.currentUser.uid,
+                id: uuidv4(),
+                createdAt: serverTimestamp(),
+                name: nameValue,
+                amount: '0'
+            });
+            toast.success("Account created");
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                toast.error("Cannot make changes in demo mode");
+            };
+        };
+
         closeModal();
-        toast.success("Account created");
     };
 
     return (

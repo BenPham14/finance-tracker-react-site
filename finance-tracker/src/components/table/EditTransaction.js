@@ -56,30 +56,34 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
     const updateTransaction = async (e) => {
         e.preventDefault();
 
-        const transactionsRef = doc(db, "transactions", data.docId);
-        let diff = {};
-
-        Object.keys(form).forEach((key) => {
-            if (form[key] !== data[key]) {
-                diff[key] = form[key];
+        try {
+            const transactionsRef = doc(db, "transactions", data.docId);
+            let diff = {};
+    
+            Object.keys(form).forEach((key) => {
+                if (form[key] !== data[key]) {
+                    diff[key] = form[key];
+                };
+            });
+    
+            // If type changes to income then set category to Income
+            if (form.type === 'income' && data.type === 'income') {
+                delete diff.category;
+            } else if (diff.type === 'income') {
+                diff.category = 'Income';
             };
-        });
-
-        // If type changes to income then set category to Income
-        if (form.type === 'income' && data.type === 'income') {
-            delete diff.category;
-        } else if (diff.type === 'income') {
-            diff.category = 'Income';
-        };
-
-        // Convert timestamp to date. If date changes then set new date in Firestore
-        if (form.timeStamp !== convertTimestamp(data.timeStamp)) {
-            diff.date = new Date(form.timeStamp);
-        };
-        delete diff.timeStamp;
-
-        if (Object.keys(diff).length > 0) {
-            await updateDoc(transactionsRef, diff);
+    
+            // Convert timestamp to date. If date changes then set new date in Firestore
+            if (form.timeStamp !== convertTimestamp(data.timeStamp)) {
+                diff.date = new Date(form.timeStamp);
+            };
+            delete diff.timeStamp;
+    
+            if (Object.keys(diff).length > 0) {
+                await updateDoc(transactionsRef, diff);
+            };
+        } catch (err) {
+            console.error(err);
         };
 
         closeEdit(e);

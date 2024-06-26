@@ -37,22 +37,30 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
 
     const submitBudget = async (e) => {
         e.preventDefault();
-        const dates = calculateDates(form.period);
 
-        await addDoc(budgetsRef, {
-            uid: auth.currentUser.uid,
-            id: uuidv4(),
-            createdAt: serverTimestamp(),
-            name: form.name,
-            limit: form.limit,
-            amount: '0',
-            period: form.period,
-            periodStart: dates.startDate,
-            periodEnd: dates.endDate,
-            categories: categoriesValue
-        });
+        try {
+            const dates = calculateDates(form.period);
+            await addDoc(budgetsRef, {
+                uid: auth.currentUser.uid,
+                id: uuidv4(),
+                createdAt: serverTimestamp(),
+                name: form.name,
+                limit: form.limit,
+                amount: '0',
+                period: form.period,
+                periodStart: dates.startDate,
+                periodEnd: dates.endDate,
+                categories: categoriesValue
+            });
+            toast.success("Budget created");
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                toast.error("Cannot make changes in demo mode");
+            };
+        };
+
         closeModal();
-        toast.success("Budget created");
     };
 
     return (
