@@ -34,13 +34,17 @@ const Home = ({setIsAuth}) => {
                 setLoginOpen={setLoginOpen}
                 featuresScroll={featuresScroll}
                 faqScroll={faqScroll}
+                setIsAuth={setIsAuth}
             />
             <Login 
                 loginOpen={loginOpen} 
                 setLoginOpen={setLoginOpen}
                 setIsAuth={setIsAuth}
             />
-            <Hero setLoginOpen={setLoginOpen}/>
+            <Hero 
+                setLoginOpen={setLoginOpen}
+                setIsAuth={setIsAuth}
+            />
             <Features featuresScroll={featuresScroll}/>
             <FAQ faqScroll={faqScroll}/>
             <footer>

@@ -1,10 +1,15 @@
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { email, password } from '../../../config/demo-account';
+import { auth } from '../../../config/firebase';
 import homeCSS from '../home.module.css';
 import Dropdown from './Dropdown';
 import { useState } from 'react';
 import { HiMenuAlt3 } from 'react-icons/hi';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 
-const Header = ({setLoginOpen, featuresScroll, faqScroll}) => {
+const Header = ({setLoginOpen, featuresScroll, faqScroll, setIsAuth}) => {
     const [toggle, setToggle] = useState(false);
 
     const scrollIntoFeatures = () => {
@@ -15,6 +20,12 @@ const Header = ({setLoginOpen, featuresScroll, faqScroll}) => {
     const scrollIntoFAQ = () => {
         faqScroll.current.scrollIntoView({behavior: 'smooth'});
         setToggle(false);
+    };
+
+    const signIn = async () => {
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        cookies.set('auth-token', result.user.refreshToken);
+        setIsAuth(true);
     };
 
     return (
@@ -32,7 +43,7 @@ const Header = ({setLoginOpen, featuresScroll, faqScroll}) => {
             <nav className={homeCSS.rightLinks}>
                 <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
                 <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
-                <button id={homeCSS.demo}>Try demo</button>
+                <button id={homeCSS.demo} onClick={signIn}>Try demo</button>
                 <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
             </nav>
         </header>
