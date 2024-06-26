@@ -41,7 +41,6 @@ const AddAccount = ({accountsOpen, setAccountsOpen, toast}) => {
             isOpen={accountsOpen}
             close={closeModal}
             title={"Account"}
-            type={modalCSS.action}
             content={
                 <form onSubmit={submitAccount}>
                     <input type="text" placeholder="Name" required

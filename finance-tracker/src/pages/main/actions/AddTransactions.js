@@ -60,7 +60,6 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             isOpen={transactionsOpen}
             close={closeModal}
             title={"Transaction"}
-            type={modalCSS.action}
             content={
                 <form onSubmit={submitTransaction}>
                     <fieldset>

@@ -68,7 +68,6 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
             isOpen={budgetsOpen}
             close={closeModal}
             title={"Budget"}
-            type={modalCSS.action}
             content={
                 <form onSubmit={submitBudget}>
                     <input type="text" placeholder="Name" required

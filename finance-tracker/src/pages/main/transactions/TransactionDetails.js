@@ -23,7 +23,7 @@ const TransactionDetails = ({data, total, income, expenses, accounts, transactio
             editMode={editMode}
             setEditMode={setEditMode}
             title={"Transactions"}
-            type={modalCSS.details}
+            type={'transactions'}
             content={
                 <>
                     <div className={modalCSS.transactionsInfo}>

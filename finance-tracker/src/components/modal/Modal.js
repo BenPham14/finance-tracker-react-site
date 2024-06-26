@@ -5,7 +5,7 @@ import { IoMdClose } from 'react-icons/io';
 import { FaTrash } from "react-icons/fa6";
 import { MdEdit } from "react-icons/md";
 
-const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDeleteMode, deleteFn, title, type, warning, content}) => {
+const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDeleteMode, deleteFn, title, changeTitle, type, warning, content}) => {
     const modalRef = useRef(null);
     const [cancelColor, setCancelColor] = useState(false);
 
@@ -33,7 +33,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
     };
 
     const showEditModeButtons = () => {
-        if (type === modalCSS.action) {
+        if (type === undefined) {
             return;
         };
 
@@ -55,10 +55,13 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
     };
 
     return (
-        <dialog ref={modalRef} className={`${modalCSS.modal} ${type}`}>
+        <dialog ref={modalRef} className={`${modalCSS.modal} ${type ? modalCSS.details : modalCSS.action}`}>
             <div className={modalCSS.modalContent}>
                 <div className={modalCSS.modalHeader}>
-                    <h3>{title}</h3>
+                    {(editMode && (type === 'accounts' || type === 'budgets')) ?
+                        <input type='text' placeholder="Title" value={title} onChange={(e) => changeTitle(e.target.value)}/> :
+                        <h3>{title}</h3>
+                    }
                     <div className={modalCSS.modalHeaderButtons}>
                         {showEditModeButtons()}
                         <IoMdClose id={modalCSS.headerIcon} onClick={close}/>

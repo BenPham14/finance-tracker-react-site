@@ -12,9 +12,12 @@ import Donut from "../../../../components/charts/Donut";
 const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetCategories, budgetDetailsOpen, setBudgetDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
-    const [limitValue, setLimitValue] = useState(data.limit);
+    const [form, setForm] = useState({
+        limit: data.limit,
+        period: data.period
+    });
+    const [titleValue, setTitleValue] = useState(data.name);
     const [categoriesValue, setCategoriesValue] = useState(budgetCategories);
-    const [periodValue, setPeriodValue] = useState(data.period);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const budgetsRef = doc(db, "budgets", data.docId);
 
@@ -36,9 +39,12 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
     };
 
     const cancelEdit = () => {
-        setLimitValue(data.limit)
+        setForm({
+            limit: data.limit,
+            period: data.period
+        });
+        setTitleValue(data.name);
         setCategoriesValue(budgetCategories);
-        setPeriodValue(data.period);
         setCategoriesOpen(false);
         setDeleteMode(false);
         setEditMode(false);
@@ -79,10 +85,11 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
     }, [amount]);
 
     useEffect(() => {
-        const dates = calculateDates(periodValue);
+        const dates = calculateDates(form.period);
         
         if (editMode === false) {
             updateBudget(dates);
+            setCategoriesOpen(false);
         };
     }, [editMode]);
 
@@ -90,20 +97,35 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
         try {
             const difference = categoriesValue.filter((e) => !budgetCategories.includes(e));
             const len = budgetCategories.length - categoriesValue.length;
+
             // Update categories in firestore if new value different from old value, and if new is not empty
-            if ((limitValue !== data.limit && limitValue > 0)) {
+            if ((titleValue !== data.name && titleValue !== '')) {
                 await updateDoc(budgetsRef, {
-                    limit: limitValue
+                    name: titleValue
                 });
+            } else {
+                setTitleValue(data.name);
             };
+
+            if ((form.limit !== data.limit && form.limit > 0)) {
+                await updateDoc(budgetsRef, {
+                    limit: form.limit
+                });
+            } else {
+                setForm({...form, limit: data.limit});
+            };
+
             if ((len > 0 || difference.length > 0) && categoriesValue.length > 0) {
                 await updateDoc(budgetsRef, {
                     categories: categoriesValue,
                 });
+            } else {
+                setCategoriesValue(budgetCategories);
             };
-            if (periodValue !== "" && periodValue !== data.period) {
+
+            if (form.period !== "" && form.period !== data.period) {
                 await updateDoc(budgetsRef, {
-                    period: periodValue,
+                    period: form.period,
                     periodStart: dates.startDate,
                     periodEnd: dates.endDate
                 });
@@ -111,6 +133,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
         } catch (err) {
             console.error(err);
             if (err.code == "permission-denied") {
+                cancelEdit();
                 toast.error("Cannot make changes in demo mode");
             };
         };
@@ -143,8 +166,9 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
             deleteMode={deleteMode}
             setDeleteMode={setDeleteMode}
             deleteFn={deleteBudget}
-            title={data.name}
-            type={modalCSS.details}
+            title={titleValue}
+            changeTitle={setTitleValue}
+            type={'budgets'}
             content={
                 <>
                     <div className={modalCSS.budget}>
@@ -153,7 +177,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                 <>
                                     <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of $
                                         <input type="number" placeholder="Limit" min="0"
-                                            value={limitValue} onChange={(e) => setLimitValue(e.target.value)}
+                                            value={form.limit} onChange={(e) => setForm({...form, limit: e.target.value})}
                                             onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         />
                                     </p>
@@ -168,8 +192,8 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                         />
                                     </div>
                                     <p>Resets every
-                                        <select name="period" required style={{color: changePlaceholderColor(periodValue)}}
-                                            value={periodValue} onChange={(e) => setPeriodValue(e.target.value)}
+                                        <select name="period" required style={{color: changePlaceholderColor(form.period)}}
+                                            value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}
                                             onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         >
                                             <option value="" disabled>Period</option>

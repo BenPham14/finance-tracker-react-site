@@ -1,13 +1,15 @@
 import modalCSS from "../../../../components/modal/modal.module.css";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Table from '../../../../components/table/Table.js';
 import Modal from '../../../../components/modal/Modal.js';
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../config/firebase.js";
 
 const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, setAccountDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
     const [deleteMode, setDeleteMode] = useState(false);
+    const [titleValue, setTitleValue] = useState(account.name);
+    const accountsRef = doc(db, "accounts", account.docId);
 
     const cancelEdit = () => {
         setEditMode(false);
@@ -17,6 +19,30 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
     const closeModal = () => {
         setAccountDetailsOpen(false);
         cancelEdit();
+    };
+
+    useEffect(() => {
+        if (editMode === false) {
+            updateAccount();
+        };
+    }, [editMode]); 
+
+    const updateAccount = async () => {
+        try {
+            if ((titleValue !== account.name && titleValue !== '')) {
+                await updateDoc(accountsRef, {
+                    name: titleValue
+                });
+            } else {
+                setTitleValue(account.name);
+            };
+        } catch (err) {
+            console.error(err);
+            if (err.code == "permission-denied") {
+                setTitleValue(account.name);
+                toast.error("Cannot make changes in demo mode");
+            };
+        };
     };
 
     const deleteAccount = async (e) => {
@@ -51,12 +77,12 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
             deleteMode={deleteMode}
             setDeleteMode={setDeleteMode}
             deleteFn={deleteAccount}
-            title={account.name}
-            type={modalCSS.details}
+            title={titleValue}
+            changeTitle={setTitleValue}
+            type={"accounts"}
             warning={data.length}
             content={
                 <>
-                    {/* <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap'}}> */}
                     <div className={modalCSS.detailsInfo}>
                         <p id={modalCSS.label}>Available</p>
                         <p id={modalCSS.data}>{amount < 0 && '-'}${Math.abs(amount)}</p>

@@ -96,7 +96,7 @@ const SummaryDetails = ({title, accounts, transactions, isOpen, setIsOpen, editM
             editMode={editMode}
             setEditMode={setEditMode}
             title={title}
-            type={modalCSS.details}
+            type={'summary'}
             content={
                 <>
                     <Column data={data} options={chartOptions}/>

@@ -60,7 +60,7 @@ const CategoryDetails = ({data, accounts, setCategoryDetailsData, categoryDetail
             editMode={editMode}
             setEditMode={setEditMode}
             title={data.title}
-            type={modalCSS.details}
+            type={'categories'}
             content={
                 <>
                     <div className={modalCSS.detailsInfo}>
