@@ -55,7 +55,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
             toast.success("Budget created");
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 toast.error("Cannot make changes in demo mode");
             };
         };

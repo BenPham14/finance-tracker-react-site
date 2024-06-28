@@ -96,7 +96,7 @@
 }
 
 #profileOpen {
-    border: 2px solid var(--primary-color);
+    border: 2px solid rgb(var(--primary-color));
 }
 
 .profile {
@@ -242,23 +242,23 @@
 }
 
 #redCell {
-    color: rgb(220, 70, 70);
-    background-color: rgba(220, 70, 70, 0.15);
+    color: rgb(var(--delete-color));
+    background-color: rgba(var(--delete-color), 0.15);
     text-align: center;
 }
 
 #greenCell {
-    color: rgb(0, 190, 40);
-    background-color: rgba(0, 190, 40, 0.15);
+    color: rgb(var(--green-color));
+    background-color: rgba(var(--green-color), 0.15);
     text-align: center;
 }
 
 .demoBanner {
     font-size: 0.875rem;
     padding: 10px;
-    color: rgb(220, 70, 70);
-    background-color: rgba(220, 70, 70, 0.15);
-    border-left: 2px solid rgb(220, 80, 80);
+    color: rgb(var(--primary-color));
+    background-color: rgba(var(--primary-color), 0.15);
+    border-left: 2px solid rgb(var(--primary-color));
     border-radius: 2px;
     margin: -15px 0 15px 0;
 }

@@ -29,7 +29,7 @@
 }
 
 #delete {
-    background-color: var(--delete-color);
+    background-color: rgb(var(--delete-color));
     color: white;
 }
 
@@ -47,8 +47,8 @@
 
 #warning {
     padding: 10px;
-    color: rgb(220, 70, 70);
-    background-color: rgba(220, 70, 70, 0.15);
-    border-left: 2px solid rgb(220, 80, 80);
+    color: rgb(var(--delete-color));
+    background-color: rgba(var(--delete-color), 0.15);
+    border-left: 2px solid rgb(var(--delete-color));
     border-radius: 2px;
 }

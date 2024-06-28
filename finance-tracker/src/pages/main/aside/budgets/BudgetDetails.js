@@ -132,7 +132,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
             };
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 cancelEdit();
                 toast.error("Cannot make changes in demo mode");
             };
@@ -148,7 +148,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
             toast.error("Budget deleted");
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 toast.error("Cannot make changes in demo mode");
             };
         };

@@ -47,7 +47,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
             toast.success("Transaction created");
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 toast.error("Cannot make changes in demo mode");
             };
         };

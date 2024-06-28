@@ -28,7 +28,7 @@ const AddAccount = ({accountsOpen, setAccountsOpen, toast}) => {
             toast.success("Account created");
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 toast.error("Cannot make changes in demo mode");
             };
         };

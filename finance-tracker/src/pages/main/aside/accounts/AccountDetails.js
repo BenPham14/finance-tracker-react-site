@@ -38,7 +38,7 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
             };
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 setTitleValue(account.name);
                 toast.error("Cannot make changes in demo mode");
             };
@@ -59,7 +59,7 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
             toast.error("Account deleted");
         } catch (err) {
             console.error(err);
-            if (err.code == "permission-denied") {
+            if (err.code === "permission-denied") {
                 toast.error("Cannot make changes in demo mode");
             };
         };
