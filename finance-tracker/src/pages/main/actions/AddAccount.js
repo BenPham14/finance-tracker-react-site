@@ -3,7 +3,6 @@ import Modal from "../../../components/modal/Modal";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import modalCSS from "../../../components/modal/modal.module.css";
 
 const AddAccount = ({accountsOpen, setAccountsOpen, toast}) => {
     const [nameValue, setNameValue] = useState("");

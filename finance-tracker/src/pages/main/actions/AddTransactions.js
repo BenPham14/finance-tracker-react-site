@@ -3,7 +3,6 @@ import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
-import modalCSS from "../../../components/modal/modal.module.css";
 import { changePlaceholderColor, changeRadioColor } from '../../../context/helper.js';
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen, toast}) => {

@@ -4,7 +4,6 @@ import Multiselect from "../../../components/multiselect/Multiselect";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import modalCSS from "../../../components/modal/modal.module.css";
 import { calculateDates } from "../../../context/helper.js";
 import { periodOptions } from "../../../context/data.js";
 
