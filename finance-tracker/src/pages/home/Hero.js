@@ -1,6 +1,7 @@
 import homeCSS from './home.module.css';
 // import hero from '../../assets/undraw_investor_update_re_qnuu.svg';
 import hero from '../../assets/main.png';
+import mobile from '../../assets/main-mobile.png';
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase';
@@ -18,7 +19,7 @@ const Hero = ({setLoginOpen, setIsAuth}) => {
 
     return (
         <section className={homeCSS.hero}>
-            <div>
+            <div className={homeCSS.info}>
                 <h1>Finances Made Easy</h1>
                 <p>
                     Track your expenses effortlessly and save more money with Finance Tracker, 
@@ -33,7 +34,10 @@ const Hero = ({setLoginOpen, setIsAuth}) => {
                     
                 </div>
             </div>
-            <img src={hero} alt="hero"/>
+            <div className={homeCSS.images}>
+                <img src={hero} alt="hero" id={homeCSS.desktop}/>
+                <img src={mobile} alt="mobile" id={homeCSS.mobile}/>
+            </div>
         </section>
     );
 };
