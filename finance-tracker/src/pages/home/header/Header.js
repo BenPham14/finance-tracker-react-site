@@ -42,7 +42,7 @@ const Header = ({setLoginOpen, featuresScroll, faqScroll, setIsAuth}) => {
             </div>
             <nav className={homeCSS.rightLinks}>
                 <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
-                <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
+                {/* <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button> */}
                 <button id={homeCSS.demo} onClick={signIn}>Try demo</button>
                 <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
             </nav>

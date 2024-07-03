@@ -6,6 +6,7 @@ import Features from './features/Features';
 import FAQ from './FAQ';
 import { useEffect, useRef, useState } from 'react';
 import { FiArrowUp } from 'react-icons/fi';
+import { FaGithub } from "react-icons/fa6";
 
 const Home = ({setIsAuth}) => {
     const [showUpButton, setShowUpButton] = useState(false);
@@ -46,10 +47,13 @@ const Home = ({setIsAuth}) => {
                 setIsAuth={setIsAuth}
             />
             <Features featuresScroll={featuresScroll}/>
-            <FAQ faqScroll={faqScroll}/>
+            {/* <FAQ faqScroll={faqScroll}/> */}
             <footer>
                 <div>
-                    Footer
+                    <p>Benjamin Pham &copy; 2023</p>
+                    <a href='https://github.com/BenPham14/finance-tracker-react-site' target="_blank">
+                        <FaGithub id={homeCSS.github}/>
+                    </a>
                 </div>
             </footer>
             <FiArrowUp 

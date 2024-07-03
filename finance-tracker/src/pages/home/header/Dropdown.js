@@ -5,7 +5,7 @@ const Dropdown = ({toggle, scrollIntoFeatures, scrollIntoFAQ}) => {
     return (
         <nav className={homeCSS.dropDown}>
             <button id={homeCSS.link} onClick={scrollIntoFeatures}>Features</button>
-            <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button>
+            {/* <button id={homeCSS.link} onClick={scrollIntoFAQ}>FAQ</button> */}
             <button id={homeCSS.demo}>Try demo</button>
         </nav>
     );

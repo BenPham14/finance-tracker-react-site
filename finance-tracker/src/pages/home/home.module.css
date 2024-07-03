@@ -144,12 +144,12 @@
 
 .hero #mobile {
     position: absolute;
-    border-radius: 24px;
-    width: 30%;
+    border-radius: 20px;
+    width: 28%;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 40px 0px;
     border: 5px solid whitesmoke;
-    bottom: -40px;
-    left: 40px;
+    bottom: -10%;
+    left: 4%;
 }
 
 .hero .heroBtns {
@@ -180,9 +180,7 @@
 
 /* ----- Features ----- */
 
-.home footer {
-    background-color: whitesmoke;
-}
+
 
 .features h2 {
     /* font-size: calc(100% + 1.5vw); */
@@ -430,6 +428,22 @@
     font-size: 0.75rem;
 }
 
+/* ----- Footer ----- */
+
+.home footer {
+    background-color: whitesmoke;
+}
+
+.home footer > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home #github {
+    cursor: pointer;
+}
+
 @media only screen and (min-width: 600px) {
     .mobile #login {
         display: none;
@@ -460,8 +474,8 @@
 
     .hero #mobile {
         width: 40%;
-        border-radius: 28px;
-        border: 10px solid whitesmoke;
+        bottom: -8%;
+        left: 6%;
     }
 
     .hero .heroBtns {
@@ -531,6 +545,10 @@
 }
 
 @media only screen and (min-width: 1200px) {
+    .hero #mobile {
+        border-radius: 28px;
+        border: 10px solid whitesmoke;
+    }
     .home h1 {
         font-size: 5.5rem;
     }
