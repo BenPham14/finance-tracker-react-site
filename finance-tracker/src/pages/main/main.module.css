@@ -293,8 +293,9 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 180px 10px 10px 80px;
+    padding: 0px 10px 10px 0px;
     border-radius: 10px 10px 30px 10px;
+    transition: 0.2s linear;
 }
 
 .main .mobileActionsClosed {
@@ -302,6 +303,7 @@
 }
 
 .main .mobileActionsBkg {
+    padding: 180px 10px 10px 80px;
     background-color: rgba(var(--primary-color), 0.20);
 }
 
