@@ -54,6 +54,13 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
         closeModal();
     };
 
+    const validateNumInput = (text) => {
+        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
+        if (validated) {
+            setForm({...form, amount: text});
+        };
+    };
+
     return (
         <Modal
             isOpen={transactionsOpen}
@@ -75,7 +82,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                         value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
                     <input type='number' placeholder='Amount' required min="0" step="0.01"
-                        value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}
+                        value={form.amount} onChange={(e) => validateNumInput(e.target.value)}
                     />
                     <input type='datetime-local' required style={{color: changePlaceholderColor(form.date)}} 
                         value={form.date} onChange={(e) => setForm({...form, date: e.target.value})}
