@@ -37,7 +37,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                 id: uuidv4(),
                 type: form.type,
                 name: form.name,
-                amount: form.amount,
+                amount: parseFloat(form.amount).toFixed(2).replace(/\.00$/, ''),
                 date: new Date(form.date),
                 accountId: form.account.split(',')[0],
                 accountName: form.account.split(',')[1],
@@ -74,7 +74,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                     <input type='text' placeholder='Name' required 
                         value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
-                    <input type='number' placeholder='Amount' required min="0"
+                    <input type='number' placeholder='Amount' required min="0" step="0.01"
                         value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}
                     />
                     <input type='datetime-local' required style={{color: changePlaceholderColor(form.date)}} 

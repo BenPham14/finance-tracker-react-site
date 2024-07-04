@@ -33,6 +33,10 @@ const calculateDates = (periodValue) => {
     };
 };
 
+const displayAmounts = (amount) => {
+    return Math.abs(amount).toFixed(2).replace(/\.00$/, '');
+};
+
 const changePlaceholderColor = (value) => {
     if (value === "") {
         return "gray";
@@ -45,4 +49,4 @@ const changeRadioColor = (value, type) => {
     };
 };
 
-export { convertDateFormat, convertTimestampToDate, calculateDates, changePlaceholderColor, changeRadioColor };
+export { convertDateFormat, convertTimestampToDate, calculateDates, displayAmounts, changePlaceholderColor, changeRadioColor };

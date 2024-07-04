@@ -4,7 +4,7 @@ import modalCSS from "../../../components/modal/modal.module.css";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { auth, db } from "../../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { convertTimestampToDate } from "../../../context/helper.js";
+import { convertTimestampToDate, displayAmounts } from "../../../context/helper.js";
 import Table from "../../../components/table/Table";
 
 const CategoryDetails = ({data, accounts, setCategoryDetailsData, categoryDetailsOpen, setCategoryDetailsOpen}) => {
@@ -65,7 +65,7 @@ const CategoryDetails = ({data, accounts, setCategoryDetailsData, categoryDetail
                 <>
                     <div className={modalCSS.detailsInfo}>
                         <p id={modalCSS.label}>Spent</p>
-                        <p id={modalCSS.data}>${Math.abs(data.amount)}</p>
+                        <p id={modalCSS.data}>${displayAmounts(data.amount)}</p>
                     </div>
                     <Table 
                         data={transactions}

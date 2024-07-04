@@ -80,7 +80,7 @@ const SummaryDetails = ({title, accounts, transactions, isOpen, setIsOpen, editM
                 t.push(transaction);
                 // Set category values to display in chart
                 if (transaction.category !== "Income") {
-                    c[transaction.category] = parseInt(c[transaction.category]) + parseInt(transaction.amount);
+                    c[transaction.category] = parseFloat(c[transaction.category]) + parseFloat(transaction.amount);
                 };
             };
         });

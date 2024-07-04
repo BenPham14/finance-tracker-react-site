@@ -44,7 +44,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
                 id: uuidv4(),
                 createdAt: serverTimestamp(),
                 name: form.name,
-                limit: form.limit,
+                limit: parseFloat(form.limit).toFixed(2).replace(/\.00$/, ''),
                 amount: '0',
                 period: form.period,
                 periodStart: dates.startDate,
@@ -72,7 +72,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
                     <input type="text" placeholder="Name" required
                         value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
-                    <input type="number" placeholder="Limit" required min="0"
+                    <input type="number" placeholder="Limit" required min="0" step="0.01"
                         value={form.limit} onChange={(e) => setForm({...form, limit: e.target.value})}
                     />
                     <select name="period" required style={{color: changePlaceholderColor(form.period)}}

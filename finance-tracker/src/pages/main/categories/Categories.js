@@ -3,6 +3,7 @@ import CategoryDetails from './CategoryDetails';
 import mainCSS from '../main.module.css';
 import { FaBoxes } from "react-icons/fa";
 import { categories } from '../../../context/data.js';
+import { displayAmounts } from '../../../context/helper.js';
 
 const CategoriesItem = ({category, amount, accounts}) => {
     const [categoryDetailsOpen, setCategoryDetailsOpen] = useState(false);
@@ -17,7 +18,7 @@ const CategoriesItem = ({category, amount, accounts}) => {
         <>
             <button onClick={() => openCategoryDetails(category.id, category.name, amount)}>
                 <p>{category.name}</p>
-                <h5>{amount < 0 && '-'}${Math.abs(amount)}</h5>
+                <h5>{amount < 0 && '-'}${displayAmounts(amount)}</h5>
             </button>
             <CategoryDetails
                 data={categoryDetailsData}
@@ -37,9 +38,9 @@ const Categories = ({accounts, transactions}) => {
         transactions.forEach((transaction) => {
             if (transaction.category === name) {
                 if (transaction.type === 'expense') {
-                    amount -= parseInt(transaction.amount);
+                    amount -= parseFloat(transaction.amount);
                 } else {
-                    amount += parseInt(transaction.amount);
+                    amount += parseFloat(transaction.amount);
                 };
             };
         });

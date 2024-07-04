@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AccountDetails from "./AccountDetails";
+import { displayAmounts } from "../../../../context/helper";
 
 const Account = ({account, accounts, transactions, toast}) => {
     const [accountDetailsOpen, setAccountDetailsOpen] = useState(false);
@@ -9,9 +10,9 @@ const Account = ({account, accounts, transactions, toast}) => {
         transactions.forEach((transaction) => {
             if (transaction.accountId === id) {
                 if (transaction.type === 'expense') {
-                    amount -= parseInt(transaction.amount);
+                    amount -= parseFloat(transaction.amount);
                 } else {
-                    amount += parseInt(transaction.amount);
+                    amount += parseFloat(transaction.amount);
                 };
             };
         });
@@ -32,7 +33,7 @@ const Account = ({account, accounts, transactions, toast}) => {
         <>
             <button onClick={() => setAccountDetailsOpen(true)}>
                 <p>{account.name}</p>
-                <h5>{accountAmount(account.id) < 0 && "-"}${Math.abs(accountAmount(account.id))}</h5>
+                <h5>{accountAmount(account.id) < 0 && "-"}${displayAmounts(accountAmount(account.id))}</h5>
             </button>
             <AccountDetails
                 data={filterTransactions(account.id)}

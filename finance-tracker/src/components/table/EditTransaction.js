@@ -109,7 +109,7 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
                         <p>Name</p>
                         <input required type='text' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}/>
                         <p>Amount</p>
-                        <input required type='text' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}/>
+                        <input required type='number' step='0.01' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}/>
                         <p>Date</p>
                         <input required type='datetime-local' style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})}/>
                         <p>Account</p>

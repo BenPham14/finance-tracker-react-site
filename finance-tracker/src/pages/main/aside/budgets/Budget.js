@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "../../../../config/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { convertTimestampToDate } from "../../../../context/helper.js";
+import { convertTimestampToDate, displayAmounts } from "../../../../context/helper.js";
 import BudgetDetails from "./BudgetDetails";
 import mainCSS from "../../main.module.css";
 
@@ -27,9 +27,9 @@ const Budget = ({budget, accounts, transactions, toast}) => {
                 if (convertTimestampToDate(transaction.timeStamp) >= convertTimestampToDate(budget.periodStart) 
                 && convertTimestampToDate(transaction.timeStamp) < convertTimestampToDate(budget.periodEnd)) {
                     if (transaction.type === 'expense') {
-                        amount -= parseInt(transaction.amount);
+                        amount -= parseFloat(transaction.amount);
                     } else {
-                        amount += parseInt(transaction.amount);
+                        amount += parseFloat(transaction.amount);
                     };
                 };
             };
@@ -91,7 +91,7 @@ const Budget = ({budget, accounts, transactions, toast}) => {
             <button onClick={() => setBudgetDetailsOpen(true)}>
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
-                    <h5>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${Math.abs(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</h5>
+                    <h5>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${displayAmounts(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</h5>
                     <h5>{endsIn(getDaysUntilReset())}</h5>
                 </div>
             </button>

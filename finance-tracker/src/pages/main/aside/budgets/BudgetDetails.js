@@ -3,7 +3,7 @@ import Modal from '../../../../components/modal/Modal.js';
 import modalCSS from "../../../../components/modal/modal.module.css";
 import Table from '../../../../components/table/Table.js';
 import Multiselect from '../../../../components/multiselect/Multiselect.js';
-import { calculateDates } from '../../../../context/helper.js';
+import { calculateDates, displayAmounts } from '../../../../context/helper.js';
 import { categories, periodOptions } from '../../../../context/data.js';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../config/firebase.js';
@@ -109,7 +109,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
 
             if ((form.limit !== data.limit && form.limit > 0)) {
                 await updateDoc(budgetsRef, {
-                    limit: form.limit
+                    limit: parseFloat(form.limit).toFixed(2).replace(/\.00$/, '')
                 });
             } else {
                 setForm({...form, limit: data.limit});
@@ -175,7 +175,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                         <div className={modalCSS.budgetDetails}>
                             {editMode ?
                                 <>
-                                    <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of $
+                                    <p>{amount < 0 && '-'}${displayAmounts(amount)} remaining of $
                                         <input type="number" placeholder="Limit" min="0"
                                             value={form.limit} onChange={(e) => setForm({...form, limit: e.target.value})}
                                             onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
@@ -206,7 +206,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                     </p>
                                 </> :
                                 <>
-                                    <p>{amount < 0 && '-'}${Math.abs(amount)} remaining of ${data.limit}</p>
+                                    <p>{amount < 0 && '-'}${displayAmounts(amount)} remaining of ${data.limit}</p>
                                     <p>Categories: {budgetCategories.join(', ')}</p>
                                     <p>{resetDays}</p>
                                 </>

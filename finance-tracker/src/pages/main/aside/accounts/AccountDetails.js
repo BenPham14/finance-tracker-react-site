@@ -4,6 +4,7 @@ import Table from '../../../../components/table/Table.js';
 import Modal from '../../../../components/modal/Modal.js';
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../config/firebase.js";
+import { displayAmounts } from "../../../../context/helper.js";
 
 const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, setAccountDetailsOpen, toast}) => {
     const [editMode, setEditMode] = useState(false);
@@ -85,7 +86,7 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
                 <>
                     <div className={modalCSS.detailsInfo}>
                         <p id={modalCSS.label}>Available</p>
-                        <p id={modalCSS.data}>{amount < 0 && '-'}${Math.abs(amount)}</p>
+                        <p id={modalCSS.data}>{amount < 0 && '-'}${displayAmounts(amount)}</p>
                     </div>
                     <Table 
                         data={data}

@@ -10,9 +10,9 @@ const Transactions = ({accounts, transactions}) => {
         let amount = 0;
         transactions.forEach((transaction) => {
             if (transaction.type === 'expense') {
-                amount -= parseInt(transaction.amount);
+                amount -= parseFloat(transaction.amount);
             } else {
-                amount += parseInt(transaction.amount);
+                amount += parseFloat(transaction.amount);
             };
         });
         return amount;
@@ -22,7 +22,7 @@ const Transactions = ({accounts, transactions}) => {
         let amount = 0;
         transactions.forEach((transaction) => {
             if (transaction.type === 'income') {
-                amount += parseInt(transaction.amount);
+                amount += parseFloat(transaction.amount);
             };
         });
         return amount;
@@ -32,7 +32,7 @@ const Transactions = ({accounts, transactions}) => {
         let amount = 0;
         transactions.forEach((transaction) => {
             if (transaction.type === 'expense') {
-                amount -= parseInt(transaction.amount);
+                amount -= parseFloat(transaction.amount);
             };
         });
         return amount;
