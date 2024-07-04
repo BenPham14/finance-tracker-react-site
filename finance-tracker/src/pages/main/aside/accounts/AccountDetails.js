@@ -86,7 +86,7 @@ const AccountDetails = ({data, accounts, amount, account, accountDetailsOpen, se
                 <>
                     <div className={modalCSS.detailsInfo}>
                         <p id={modalCSS.label}>Available</p>
-                        <p id={modalCSS.data}>{amount < 0 && '-'}${displayAmounts(amount)}</p>
+                        <p id={modalCSS.data}>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))}</p>
                     </div>
                     <Table 
                         data={data}

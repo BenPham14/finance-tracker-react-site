@@ -10,7 +10,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
 import Multiselect from "../../components/multiselect/Multiselect";
-import { calculateDates } from '../../context/helper.js';
+import { calculateDates, changePlaceholderColor } from '../../context/helper.js';
 import { categories, periodOptions } from '../../context/data.js';
 
 const NewUser = ({setShowNewUser}) => {
@@ -24,12 +24,6 @@ const NewUser = ({setShowNewUser}) => {
     const [categoriesValue, setCategoriesValue] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-
-    const changePlaceholderColor = (value) => {
-        if (value === "") {
-            return "gray";
-        };
-    };
 
     const items = [
         {

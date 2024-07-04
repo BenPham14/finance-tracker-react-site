@@ -30,16 +30,16 @@ const TransactionDetails = ({data, total, income, expenses, accounts, transactio
                     <div className={modalCSS.transactionsInfo}>
                         <div className={modalCSS.detailsInfo}>
                             <p id={modalCSS.label}>Total</p>
-                            <p id={modalCSS.data}>{total < 0 && '-'}${displayAmounts(total)}</p>
+                            <p id={modalCSS.data}>{total < 0 && '-'}${displayAmounts(Math.abs(total))}</p>
                         </div>
                         <div style={{border: '0.5px solid gray', margin: '5px 0'}}></div>
                         <div className={modalCSS.detailsInfo}>
                             <p id={modalCSS.label}>Income</p>
-                            <p id={modalCSS.data}>${displayAmounts(income)}</p>
+                            <p id={modalCSS.data}>${displayAmounts(Math.abs(income))}</p>
                         </div>
                         <div className={modalCSS.detailsInfo}>
                             <p id={modalCSS.label}>Expenses</p>
-                            <p id={modalCSS.data}>{expenses < 0 && '-'}${displayAmounts(expenses)}</p>
+                            <p id={modalCSS.data}>{expenses < 0 && '-'}${displayAmounts(Math.abs(expenses))}</p>
                         </div>
                     </div>
                     <Table 

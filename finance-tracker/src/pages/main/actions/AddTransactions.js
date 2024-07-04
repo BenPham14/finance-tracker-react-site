@@ -3,7 +3,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../../config/firebase.js';
 import {v4 as uuidv4} from 'uuid';
 import Modal from '../../../components/modal/Modal.js';
-import { changePlaceholderColor, changeRadioColor } from '../../../context/helper.js';
+import { changePlaceholderColor, changeRadioColor, displayAmounts } from '../../../context/helper.js';
 
 const AddTransactions = ({accounts, categories, transactionsOpen, setTransactionsOpen, toast}) => {
     const [form, setForm] = useState({
@@ -37,7 +37,7 @@ const AddTransactions = ({accounts, categories, transactionsOpen, setTransaction
                 id: uuidv4(),
                 type: form.type,
                 name: form.name,
-                amount: parseFloat(form.amount).toFixed(2).replace(/\.00$/, ''),
+                amount: displayAmounts(parseFloat(form.amount)),
                 date: new Date(form.date),
                 accountId: form.account.split(',')[0],
                 accountName: form.account.split(',')[1],

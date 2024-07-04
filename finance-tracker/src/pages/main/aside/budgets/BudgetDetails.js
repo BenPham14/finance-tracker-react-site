@@ -55,12 +55,6 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
         cancelEdit();
     };
 
-    const changePlaceholderColor = (value) => {
-        if (value === "") {
-            return "gray";
-        };
-    };
-
     useEffect(() => {
         let limit = data.limit;
         let remaining = amount;
@@ -107,9 +101,10 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                 setTitleValue(data.name);
             };
 
-            if ((form.limit !== data.limit && form.limit > 0)) {
+            const limit = displayAmounts(parseFloat(form.limit));
+            if ((limit !== data.limit && limit > 0)) {
                 await updateDoc(budgetsRef, {
-                    limit: parseFloat(form.limit).toFixed(2).replace(/\.00$/, '')
+                    limit: limit
                 });
             } else {
                 setForm({...form, limit: data.limit});
@@ -156,6 +151,13 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
         closeModal();
     };
 
+    const validateNumInput = (text) => {
+        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
+        if (validated) {
+            setForm({...form, limit: text});
+        };
+    };
+
     return (
         <Modal
             isOpen={budgetDetailsOpen}
@@ -175,9 +177,9 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                         <div className={modalCSS.budgetDetails}>
                             {editMode ?
                                 <>
-                                    <p>{amount < 0 && '-'}${displayAmounts(amount)} remaining of $
-                                        <input type="number" placeholder="Limit" min="0"
-                                            value={form.limit} onChange={(e) => setForm({...form, limit: e.target.value})}
+                                    <p>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))} remaining of $
+                                        <input type="number" placeholder="Limit" min="0" step="0.01"
+                                            value={form.limit} onChange={(e) => validateNumInput(e.target.value)}
                                             onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         />
                                     </p>
@@ -192,8 +194,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                         />
                                     </div>
                                     <p>Resets every
-                                        <select name="period" required style={{color: changePlaceholderColor(form.period)}}
-                                            value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}
+                                        <select name="period" required value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}
                                             onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         >
                                             <option value="" disabled>Period</option>
@@ -206,7 +207,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                     </p>
                                 </> :
                                 <>
-                                    <p>{amount < 0 && '-'}${displayAmounts(amount)} remaining of ${data.limit}</p>
+                                    <p>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))} remaining of ${data.limit}</p>
                                     <p>Categories: {budgetCategories.join(', ')}</p>
                                     <p>{resetDays}</p>
                                 </>

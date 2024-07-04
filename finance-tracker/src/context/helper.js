@@ -34,7 +34,7 @@ const calculateDates = (periodValue) => {
 };
 
 const displayAmounts = (amount) => {
-    return Math.abs(amount).toFixed(2).replace(/\.00$/, '');
+    return amount.toFixed(2).replace(/\.00$/, '');
 };
 
 const changePlaceholderColor = (value) => {

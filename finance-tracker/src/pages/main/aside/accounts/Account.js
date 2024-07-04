@@ -33,7 +33,7 @@ const Account = ({account, accounts, transactions, toast}) => {
         <>
             <button onClick={() => setAccountDetailsOpen(true)}>
                 <p>{account.name}</p>
-                <h5>{accountAmount(account.id) < 0 && "-"}${displayAmounts(accountAmount(account.id))}</h5>
+                <h5>{accountAmount(account.id) < 0 && "-"}${displayAmounts(Math.abs(accountAmount(account.id)))}</h5>
             </button>
             <AccountDetails
                 data={filterTransactions(account.id)}

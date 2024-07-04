@@ -2,7 +2,7 @@ import tableCSS from './table.module.css';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { categories } from '../../context/data.js';
-import { changePlaceholderColor, changeRadioColor } from '../../context/helper.js';
+import { changePlaceholderColor, changeRadioColor, displayAmounts } from '../../context/helper.js';
 import { useEffect, useState } from 'react';
 import DeleteTransaction from './DeleteTransaction';
 
@@ -72,6 +72,14 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
             } else if (diff.type === 'income') {
                 diff.category = 'Income';
             };
+
+            // If amount is same, or convert number to 2 decimals and get rid of .00
+            const amount = displayAmounts(parseFloat(form.amount));
+            if (amount === data.amount) {
+                delete diff.amount;
+            } else {
+                diff.amount = amount;
+            };
     
             // Convert timestamp to date. If date changes then set new date in Firestore
             if (form.timeStamp !== convertTimestamp(data.timeStamp)) {
@@ -87,6 +95,13 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
         };
 
         closeEdit(e);
+    };
+
+    const validateNumInput = (text) => {
+        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
+        if (validated) {
+            setForm({...form, amount: text});
+        };
     };
 
     return (
@@ -109,7 +124,7 @@ const EditTransaction = ({data, accounts, setIsOpen, deleteOpen, setDeleteOpen})
                         <p>Name</p>
                         <input required type='text' value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}/>
                         <p>Amount</p>
-                        <input required type='number' step='0.01' value={form.amount} onChange={(e) => setForm({...form, amount: e.target.value})}/>
+                        <input required type='number' step='0.01' value={form.amount} onChange={(e) => validateNumInput(e.target.value)}/>
                         <p>Date</p>
                         <input required type='datetime-local' style={{color: changePlaceholderColor(form.date)}} value={form.timeStamp} onChange={(e) => setForm({...form, timeStamp: e.target.value})}/>
                         <p>Account</p>

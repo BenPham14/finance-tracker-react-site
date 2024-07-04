@@ -4,7 +4,7 @@ import Multiselect from "../../../components/multiselect/Multiselect";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { calculateDates } from "../../../context/helper.js";
+import { calculateDates, displayAmounts } from "../../../context/helper.js";
 import { periodOptions } from "../../../context/data.js";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
@@ -44,7 +44,7 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
                 id: uuidv4(),
                 createdAt: serverTimestamp(),
                 name: form.name,
-                limit: parseFloat(form.limit).toFixed(2).replace(/\.00$/, ''),
+                limit: displayAmounts(parseFloat(form.limit)),
                 amount: '0',
                 period: form.period,
                 periodStart: dates.startDate,

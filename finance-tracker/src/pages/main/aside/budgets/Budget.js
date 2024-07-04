@@ -91,7 +91,7 @@ const Budget = ({budget, accounts, transactions, toast}) => {
             <button onClick={() => setBudgetDetailsOpen(true)}>
                 <p>{budget.name}</p>
                 <div className={mainCSS.budgetDescription}>
-                    <h5>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${displayAmounts(budgetAmount(budget.limit, budget.categories))} remaining of ${budget.limit}</h5>
+                    <h5>{budgetAmount(budget.limit, budget.categories) < 0 && "-"}${displayAmounts(Math.abs(budgetAmount(budget.limit, budget.categories)))} remaining of ${budget.limit}</h5>
                     <h5>{endsIn(getDaysUntilReset())}</h5>
                 </div>
             </button>

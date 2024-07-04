@@ -18,7 +18,7 @@ const CategoriesItem = ({category, amount, accounts}) => {
         <>
             <button onClick={() => openCategoryDetails(category.id, category.name, amount)}>
                 <p>{category.name}</p>
-                <h5>{amount < 0 && '-'}${displayAmounts(amount)}</h5>
+                <h5>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))}</h5>
             </button>
             <CategoryDetails
                 data={categoryDetailsData}
