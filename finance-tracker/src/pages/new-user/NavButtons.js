@@ -1,6 +1,7 @@
 import newUserCSS from './newUser.module.css';
+import { IoMdExit } from "react-icons/io";
 
-const NavButtons = ({data, items, currentStep, setCurrentStep}) => {
+const NavButtons = ({data, items, currentStep, setCurrentStep, signOutUser}) => {
     const decrementStep = () => {
         if (currentStep > 1) {
             setCurrentStep(currentStep - 1);
@@ -40,6 +41,7 @@ const NavButtons = ({data, items, currentStep, setCurrentStep}) => {
     };
     return (
         <div className={newUserCSS.carouselNav}>
+            <IoMdExit id={newUserCSS.signOut} onClick={signOutUser}/>
             <button onClick={decrementStep} style={{backgroundColor: fadeBackButton()}}>Back</button>
             <button onClick={incrementStep} style={{backgroundColor: fadeNextButton(), display: hideNextButton()}}>Next</button>
             <button type='submit' form='new-user' style={{display: showFinishButton()}}>Finish</button>

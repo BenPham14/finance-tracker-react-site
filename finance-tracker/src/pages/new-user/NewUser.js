@@ -10,10 +10,10 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
 import Multiselect from "../../components/multiselect/Multiselect";
-import { calculateDates, changePlaceholderColor } from '../../context/helper.js';
+import { calculateDates, changePlaceholderColor, displayAmounts } from '../../context/helper.js';
 import { categories, periodOptions } from '../../context/data.js';
 
-const NewUser = ({setShowNewUser}) => {
+const NewUser = ({setShowNewUser, signOutUser}) => {
     const accountId = uuidv4();
     const [data, setData] = useState({
         account: "",
@@ -45,7 +45,9 @@ const NewUser = ({setShowNewUser}) => {
             custom: 
                 <div className={newUserCSS.budget}>
                     <input placeholder="Name" value={data.budget} onChange={(e) => setData({...data, budget: e.target.value})}/>
-                    <input placeholder="Limit" type="number" min={1} value={data.limit} onChange={(e) => setData({...data, limit: e.target.value})}/>
+                    <input placeholder="Limit" type="number" min={1} step="0.01"
+                        value={data.limit} onChange={(e) => validateNumInput(e.target.value)}
+                    />
                     <select name="period" required style={{color: changePlaceholderColor(data.period)}}
                         value={data.period} onChange={(e) => setData({...data, period: e.target.value})}
                     >
@@ -95,7 +97,7 @@ const NewUser = ({setShowNewUser}) => {
             id: uuidv4(),
             createdAt: serverTimestamp(),
             name: data.budget,
-            limit: data.limit,
+            limit: displayAmounts(parseFloat(data.limit)),
             amount: '0',
             period: data.period,
             periodStart: dates.startDate,
@@ -112,6 +114,13 @@ const NewUser = ({setShowNewUser}) => {
         });
         setCategoriesValue([]);
         setCategoriesOpen(false);
+    };
+
+    const validateNumInput = (text) => {
+        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
+        if (validated) {
+            setData({...data, limit: text});
+        };
     };
 
     return (
@@ -141,6 +150,7 @@ const NewUser = ({setShowNewUser}) => {
                 items={items}
                 currentStep={currentStep}
                 setCurrentStep={setCurrentStep}
+                signOutUser={signOutUser}
             />
         </main>
     );

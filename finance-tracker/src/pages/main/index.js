@@ -117,7 +117,7 @@ const Main = ({setIsAuth}) => {
     };
 
     if (!isLoading && showNewUser) {
-        return <NewUser setShowNewUser={setShowNewUser}/>;
+        return <NewUser setShowNewUser={setShowNewUser} signOutUser={signOutUser}/>;
     } else if (isLoading) {
         return <h1 className={mainCSS.loading} id={darkMode ? "dark" : "light"}>Loading...</h1>;
     };
