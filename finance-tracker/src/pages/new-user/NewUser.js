@@ -10,7 +10,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../../config/firebase';
 import {v4 as uuidv4} from 'uuid';
 import Multiselect from "../../components/multiselect/Multiselect";
-import { calculateDates, changePlaceholderColor, displayAmounts } from '../../context/helper.js';
+import { calculateDates, changePlaceholderColor, displayAmounts, validateNumInput } from '../../context/helper.js';
 import { categories, periodOptions } from '../../context/data.js';
 
 const NewUser = ({setShowNewUser, signOutUser}) => {
@@ -46,7 +46,7 @@ const NewUser = ({setShowNewUser, signOutUser}) => {
                 <div className={newUserCSS.budget}>
                     <input placeholder="Name" value={data.budget} onChange={(e) => setData({...data, budget: e.target.value})}/>
                     <input placeholder="Limit" type="number" min={1} step="0.01"
-                        value={data.limit} onChange={(e) => validateNumInput(e.target.value)}
+                        value={data.limit} onChange={(e) => validateNumInput(e.target.value, data, setData, "limit")}
                     />
                     <select name="period" required style={{color: changePlaceholderColor(data.period)}}
                         value={data.period} onChange={(e) => setData({...data, period: e.target.value})}
@@ -114,13 +114,6 @@ const NewUser = ({setShowNewUser, signOutUser}) => {
         });
         setCategoriesValue([]);
         setCategoriesOpen(false);
-    };
-
-    const validateNumInput = (text) => {
-        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
-        if (validated) {
-            setData({...data, limit: text});
-        };
     };
 
     return (

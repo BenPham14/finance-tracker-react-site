@@ -3,8 +3,8 @@ import Modal from "../../../components/modal/Modal";
 import Multiselect from "../../../components/multiselect/Multiselect";
 import { auth, db } from "../../../config/firebase";
 import {v4 as uuidv4} from 'uuid';
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { calculateDates, displayAmounts } from "../../../context/helper.js";
+import { addDoc, collection, limit, serverTimestamp } from "firebase/firestore";
+import { calculateDates, displayAmounts, validateNumInput } from "../../../context/helper.js";
 import { periodOptions } from "../../../context/data.js";
 
 const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
@@ -62,13 +62,6 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
         closeModal();
     };
 
-    const validateNumInput = (text) => {
-        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
-        if (validated) {
-            setForm({...form, limit: text});
-        };
-    };
-
     return (
         <Modal
             isOpen={budgetsOpen}
@@ -80,7 +73,10 @@ const AddBudget = ({categories, budgetsOpen, setBudgetsOpen, toast}) => {
                         value={form.name} onChange={(e) => setForm({...form, name: e.target.value})}
                     />
                     <input type="number" placeholder="Limit" required min="0" step="0.01"
-                        value={form.limit} onChange={(e) => validateNumInput(e.target.value)}
+                        value={form.limit} 
+                        onChange={(e) => 
+                            validateNumInput(e.target.value, form, setForm, "limit")
+                        }
                     />
                     <select name="period" required style={{color: changePlaceholderColor(form.period)}}
                         value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}

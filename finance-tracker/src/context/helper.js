@@ -37,6 +37,13 @@ const displayAmounts = (amount) => {
     return amount.toFixed(2).replace(/\.00$/, '');
 };
 
+const validateNumInput = (text, form, setForm, keyName) => {
+    const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
+    if (validated) {
+        setForm({...form, [keyName]: text});
+    };
+};
+
 const changePlaceholderColor = (value) => {
     if (value === "") {
         return "gray";
@@ -49,4 +56,4 @@ const changeRadioColor = (value, type) => {
     };
 };
 
-export { convertDateFormat, convertTimestampToDate, calculateDates, displayAmounts, changePlaceholderColor, changeRadioColor };
+export { convertDateFormat, convertTimestampToDate, calculateDates, displayAmounts, validateNumInput, changePlaceholderColor, changeRadioColor };

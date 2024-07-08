@@ -3,7 +3,7 @@ import Modal from '../../../../components/modal/Modal.js';
 import modalCSS from "../../../../components/modal/modal.module.css";
 import Table from '../../../../components/table/Table.js';
 import Multiselect from '../../../../components/multiselect/Multiselect.js';
-import { calculateDates, displayAmounts } from '../../../../context/helper.js';
+import { calculateDates, displayAmounts, validateNumInput } from '../../../../context/helper.js';
 import { categories, periodOptions } from '../../../../context/data.js';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../../config/firebase.js';
@@ -151,13 +151,6 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
         closeModal();
     };
 
-    const validateNumInput = (text) => {
-        const validated = text.match(/^(\d*\.{0,1}\d{0,2}$)/);
-        if (validated) {
-            setForm({...form, limit: text});
-        };
-    };
-
     return (
         <Modal
             isOpen={budgetDetailsOpen}
@@ -179,7 +172,7 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                 <>
                                     <p>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))} remaining of $
                                         <input type="number" placeholder="Limit" min="0" step="0.01"
-                                            value={form.limit} onChange={(e) => validateNumInput(e.target.value)}
+                                            value={form.limit} onChange={(e) => validateNumInput(e.target.value, form, setForm, "limit")}
                                             onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
                                         />
                                     </p>
