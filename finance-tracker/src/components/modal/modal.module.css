@@ -47,15 +47,18 @@
 
 .modal select {
     cursor: pointer;
+    /* border-radius: 0;
+    appearance: none; */
 }
 
 .modal input[type="submit"] {
     border: none;
     background-color: var(--submit-color);
     color: var(--submit-text-color);
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 0.875rem;
 }
 
 .modal input::placeholder {
@@ -88,6 +91,19 @@
 .modalHeaderButtons {
     gap: 10px;
     font-size: 1rem;
+}
+
+#headerIcon {
+    border-radius: 20px;
+    padding: 5px;
+    width: auto;
+    height: auto;
+    margin: -5px;
+}
+
+#headerIcon:hover {
+    background-color: var(--accent-color);
+    cursor: pointer;
 }
 
 .modalSaveCancel {
@@ -237,19 +253,6 @@
 
 #spent span {
     background-color: black;
-}
-
-#headerIcon {
-    border-radius: 20px;
-    padding: 5px;
-    width: auto;
-    height: auto;
-    margin: -5px;
-}
-
-#headerIcon:hover {
-    background-color: var(--accent-color);
-    cursor: pointer;
 }
 
 .transactionsInfo {

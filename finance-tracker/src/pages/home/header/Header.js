@@ -37,6 +37,7 @@ const Header = ({setLoginOpen, featuresScroll, faqScroll, setIsAuth}) => {
                     toggle={toggle} 
                     scrollIntoFeatures={scrollIntoFeatures}
                     scrollIntoFAQ={scrollIntoFAQ}
+                    signIn={signIn}
                 />
                 <button id={homeCSS.login} onClick={() => setLoginOpen(true)}>Login</button>
             </div>

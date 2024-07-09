@@ -18,10 +18,6 @@
     width: 100%;
 }
 
-.deleteDialog p {
-    font-weight: bold;
-}
-
 .deleteInfo {
     display: flex;
     flex-direction: column;

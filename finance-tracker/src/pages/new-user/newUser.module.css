@@ -86,13 +86,20 @@
     border: none;
     border: 2px solid black;
     border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: 0.2s;
+}
+
+.carouselNav button:hover {
     box-shadow: black 4px 4px 0 0;
     cursor: pointer;
+    transform: translate(-4px, -4px);
 }
 
 .carouselNav button:active {
-    box-shadow: black 2px 2px 0 0;
-    transform: translate(2px, 2px);
+    transform: translate(0);
+    box-shadow: none;
 }
 
 .carouselNav #signOut {

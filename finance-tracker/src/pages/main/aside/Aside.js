@@ -1,7 +1,7 @@
 import mainCSS from '../main.module.css';
 import { FaBolt, FaLandmark, FaCalculator, FaPlus } from "react-icons/fa6";
 import AddTransactions from '../actions/AddTransactions';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddAccount from '../actions/AddAccount';
 import AddBudget from '../actions/AddBudget';
 import Budget from './budgets/Budget';
@@ -14,6 +14,18 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
     const [budgetsOpen, setBudgetsOpen] = useState(false);
 
     const [mobileActionsOpen, setMobileActionsOpen] = useState(false);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 599) {
+                setMobileActionsOpen(false);
+            };
+        };
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <>

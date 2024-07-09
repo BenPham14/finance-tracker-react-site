@@ -80,5 +80,5 @@ h6 {
 
 table {
   border-collapse: collapse;
-  text-wrap: nowrap;
+  white-space: nowrap;
 }

@@ -71,7 +71,7 @@
 
 .profileIcons > *,
 .profileImage {
-    width: 25px;
+    width: auto;
     height: 25px;
     border-radius: 50%;
 }
@@ -90,8 +90,7 @@
 }
 
 .profileImage:hover {
-    filter: brightness(80%);
-    transition: 0.2s linear;
+    transition: 0.2s;
     cursor: pointer;
 }
 
@@ -133,7 +132,7 @@
 }
 
 .profileInfo p {
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .profileInfo p:first-of-type {
@@ -180,7 +179,7 @@
 #homeTable td {
     padding: 10px 0;
     border-bottom: 0.5px solid gray;
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 #homeTable th {
@@ -295,7 +294,7 @@
     right: 20px;
     padding: 0px 10px 10px 0px;
     border-radius: 10px 10px 30px 10px;
-    transition: 0.2s linear;
+    /* transition: 0.2s linear; */
 }
 
 .main .mobileActionsClosed {
@@ -315,6 +314,7 @@
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
+    align-self: center;
 }
 
 @media only screen and (min-width: 600px) {
@@ -334,6 +334,10 @@
     .main #mobileActionsIcon {
         background-color: var(--secondary-color);
         color: var(--primary-text-color);
+    }
+
+    .main .actions button {
+        font-weight: bold;
     }
 
     .main .actions button:hover {

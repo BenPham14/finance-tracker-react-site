@@ -17,7 +17,11 @@ const Home = ({setIsAuth}) => {
     useEffect(() => {
         // When the page is at a certain location, show return to top button
         const handleScollButtonVisibility = () => {
-            window.scrollY > 300 ? setShowUpButton(true) : setShowUpButton(false);
+            if (window.scrollY > 300) {
+                setShowUpButton(true);
+            } else {
+                setShowUpButton(false);
+            };
         };
         window.addEventListener('scroll', handleScollButtonVisibility);
         return () => {
