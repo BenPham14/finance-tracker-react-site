@@ -167,64 +167,71 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
             content={
                 <>
                     <div className={modalCSS.budget}>
-                        <div className={modalCSS.budgetDetails}>
-                            {editMode ?
-                                <>
-                                    <p>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))} remaining of $
-                                        <input type="number" placeholder="Limit" min="0" step="0.01"
-                                            value={form.limit} onChange={(e) => validateNumInput(e.target.value, form, setForm, "limit")}
-                                            onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
-                                        />
-                                    </p>
-                                    <div className={modalCSS.budgetCategories}>
-                                        <Multiselect
-                                            data={categories}
-                                            value={categoriesValue}
-                                            setValue={setCategoriesValue}
-                                            isOpen={categoriesOpen}
-                                            setIsOpen={setCategoriesOpen}
-                                            modalOpen={budgetDetailsOpen}
+                        {editMode ?
+                            <div className={modalCSS.budgetDetailsEdit}>
+                                <p>Limit</p>
+                                <input type="number" placeholder="Limit" min="0" step="0.01"
+                                    value={form.limit} onChange={(e) => validateNumInput(e.target.value, form, setForm, "limit")}
+                                    onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
+                                />
+                                <p>Period</p>
+                                <select name="period" required value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}
+                                    onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
+                                >
+                                    <option value="" disabled>Period</option>
+                                    {periodOptions.map((period, index) => {
+                                        return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
+                                            return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
+                                            })
+                                            })}
+                                </select>
+                                <p>Categories</p>
+                                <Multiselect
+                                    data={categories}
+                                    value={categoriesValue}
+                                    setValue={setCategoriesValue}
+                                    isOpen={categoriesOpen}
+                                    setIsOpen={setCategoriesOpen}
+                                    modalOpen={budgetDetailsOpen}
+                                    hideLabel={true}
+                                />
+                            </div> :
+                            <>
+                                <div className={modalCSS.budgetDonut}>
+                                    <div>
+                                        <Donut 
+                                            data={chartData}
+                                            width={"90px"}
+                                            options={chartOptions}
                                         />
                                     </div>
-                                    <p>Resets every
-                                        <select name="period" required value={form.period} onChange={(e) => setForm({...form, period: e.target.value})}
-                                            onKeyDown={(e) => {e.key === 'Enter' && e.preventDefault();}} // prevents error
-                                        >
-                                            <option value="" disabled>Period</option>
-                                            {periodOptions.map((period, index) => {
-                                                return Array.from({length: period.count}, (_, i) => i + 1).map((c) => {
-                                                    return <option key={index + '-' + c} value={`${c} ${period.name}`}>{c} {period.name}</option>
-                                                })
-                                            })}
-                                        </select>
-                                    </p>
-                                </> :
-                                <>
-                                    <p>{amount < 0 && '-'}${displayAmounts(Math.abs(amount))} remaining of ${data.limit}</p>
-                                    <p>Categories: {budgetCategories.join(', ')}</p>
-                                    <p>{resetDays}</p>
-                                </>
-                            }
-                        </div>
-                        <div className={modalCSS.budgetDonut}>
-                            <div>
-                                <Donut 
-                                    data={chartData}
-                                    width={"90px"}
-                                    options={chartOptions}
-                                />
-                            </div>
-                            <div className={modalCSS.budgetLegend}>
-                                <div id={modalCSS.remaining} style={{display: amount <= 0 && "none"}}>
-                                    <span></span>
-                                    <p>Remaining</p>
+                                    <div className={modalCSS.budgetLegend}>
+                                        <div id={modalCSS.remaining}>
+                                            <span></span>
+                                            <p>Remaining ({amount < 0 && '-'}${displayAmounts(Math.abs(amount))})</p>
+                                        </div>
+                                        <div id={modalCSS.spent}>
+                                            <span></span>
+                                            <p>Spent (${data.limit-amount})</p>
+                                        </div>
+                                        <div id={modalCSS.limit}>
+                                            <span></span>
+                                            <p>Limit (${data.limit})</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id={modalCSS.spent} style={{display: data.limit-amount <= 0 && "none"}}>
-                                    <span></span>
-                                    <p>Spent</p>
+                                <div className={modalCSS.budgetDetails}>
+                                    <div>
+                                        <p>Categories</p>
+                                        <p>{budgetCategories.join(', ')}</p>
+                                    </div>
+                                    <div>
+                                        <p>Ends in</p>
+                                        <p>{resetDays}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </>
+                        }
                     </div>
                     <Table 
                         data={transactions}

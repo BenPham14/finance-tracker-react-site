@@ -2,20 +2,26 @@ import multiselectCSS from "./multiselect.module.css";
 import Checkbox from "./Checkbox";
 import { VscChevronDown } from "react-icons/vsc";
 
-const Multiselect = ({data, value, setValue, isOpen, setIsOpen, modalOpen}) => {
+const Multiselect = ({data, value, setValue, isOpen, setIsOpen, modalOpen, hideLabel}) => {
     const changePlaceholderColor = (value) => {
         if (value === "" || value.length === 0) {
             return "gray";
         };
     };
 
+    const label = () => {
+        if (hideLabel !== true) {
+            return "Categories:"
+        };
+    };
+
     return (
         <div className={multiselectCSS.optionsDiv}>
             <div className={multiselectCSS.optionsSelected} onClick={() => setIsOpen(!isOpen)}>
-                <p style={{color: changePlaceholderColor(value)}}>Categories: {value.length}</p>
+                <p style={{color: changePlaceholderColor(value)}}>{label()} {value.length}</p>
                 <VscChevronDown style={{color: changePlaceholderColor(value)}}/>
             </div>
-            <div className={multiselectCSS.options}  style={{display: !isOpen && "none"}}>
+            <div className={multiselectCSS.options} style={{display: !isOpen && "none"}}>
                 {data.map((dataValue, index) => (
                     <div key={index}>
                         <Checkbox 

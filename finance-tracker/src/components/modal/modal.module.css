@@ -55,6 +55,7 @@
     border: none;
     background-color: var(--submit-color);
     color: var(--submit-text-color);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px;
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
@@ -190,23 +191,35 @@
     background-color: var(--accent-color);
 }
 
-.budgetCategories {
-    display: flex;
-    justify-content: center;
-}
-
 .budget {
     display: grid;
     gap: 15px;
 }
 
+.transactionsInfo,
 .budgetDetails {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.budgetDetails > *,
+.budgetDetails div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 0.5px solid gray;
+    border-radius: 10px;
+    padding: 5px 5px 5px 10px;
+}
+
+.budgetDetails div p:last-of-type {
+    border: 0.5px solid gray;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: var(--accent-color);
+    text-align: center;
+}
+
 .budgetDonut {
     text-align: center;
     border: 0.5px solid gray;
@@ -255,14 +268,24 @@
     background-color: black;
 }
 
-.transactionsInfo {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+#limit span {
+    border: 1px solid var(--secondary-text-color);
 }
 
-@media only screen and (min-width: 600px) {
+.budgetDetailsEdit {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+
+.budgetDetailsEdit > p {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* @media only screen and (min-width: 600px) {
     .budget {
         grid-template-columns: 1fr 1fr;
     }
-}
+} */
