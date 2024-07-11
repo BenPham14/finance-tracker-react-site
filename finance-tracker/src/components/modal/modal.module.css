@@ -221,18 +221,13 @@
 }
 
 .budgetDonut {
-    text-align: center;
-    border: 0.5px solid gray;
-    border-radius: 5px;
-    padding: 5px 15px;
-}
-
-.budgetDonut {
     display: flex;
     gap: 15px;
     align-items: center;
     justify-content: center;
     padding: 15px;
+    border: 0.5px solid gray;
+    border-radius: 10px;
 }
 
 .budgetDonut > div:first-of-type {
