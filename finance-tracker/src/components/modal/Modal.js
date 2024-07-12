@@ -59,7 +59,7 @@ const Modal = ({isOpen, close, cancel, editMode, setEditMode, deleteMode, setDel
             <div className={modalCSS.modalContent}>
                 <div className={modalCSS.modalHeader}>
                     {(editMode && (type === 'accounts' || type === 'budgets')) ?
-                        <input type='text' placeholder="Title" value={title} style={{width: title.length + "ch", minWidth: "4ch"}} onChange={(e) => changeTitle(e.target.value)}/> :
+                        <input type='text' placeholder="Title" value={title} style={{width: (title.length+1) + "ch", minWidth: "5ch"}} onChange={(e) => changeTitle(e.target.value)}/> :
                         <h3>{title}</h3>
                     }
                     <div className={modalCSS.modalHeaderButtons}>

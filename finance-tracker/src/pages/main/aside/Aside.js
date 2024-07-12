@@ -37,28 +37,28 @@ const Aside = ({accounts, budgets, transactions, toast}) => {
                     </div>
                     <div className={`${mainCSS.actionsItems} ${mainCSS.items} ${!mobileActionsOpen && mainCSS.mobileActionsClosed}`}>
                         <button onClick={() => setTransactionsOpen(true)}>+ Transaction</button>
-                        <AddTransactions 
-                            accounts={accounts}
-                            categories={categories} 
-                            transactionsOpen={transactionsOpen}
-                            setTransactionsOpen={setTransactionsOpen}
-                            toast={toast}
-                        />
-                        <button onClick={() => setAccountsOpen(true)}>+ Account</button>
-                        <AddAccount
-                            accountsOpen={accountsOpen}
-                            setAccountsOpen={setAccountsOpen}
-                            toast={toast}
-                        />
+                        <button onClick={() => setAccountsOpen(true)}>+ Account</button> 
                         <button onClick={() => setBudgetsOpen(true)}>+ Budget</button>
-                        <AddBudget
-                            accounts={accounts}
-                            categories={categories}
-                            budgetsOpen={budgetsOpen}
-                            setBudgetsOpen={setBudgetsOpen}
-                            toast={toast}
-                        />
                     </div>
+                    <AddTransactions 
+                        accounts={accounts}
+                        categories={categories} 
+                        transactionsOpen={transactionsOpen}
+                        setTransactionsOpen={setTransactionsOpen}
+                        toast={toast}
+                    />
+                    <AddAccount
+                        accountsOpen={accountsOpen}
+                        setAccountsOpen={setAccountsOpen}
+                        toast={toast}
+                    />
+                    <AddBudget
+                        accounts={accounts}
+                        categories={categories}
+                        budgetsOpen={budgetsOpen}
+                        setBudgetsOpen={setBudgetsOpen}
+                        toast={toast}
+                    />
                 </div>
                 <div className={mainCSS.accounts}>
                     <div className={mainCSS.sectionHeader}>
