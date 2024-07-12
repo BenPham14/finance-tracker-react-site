@@ -178,7 +178,7 @@
 #homeTable th,
 #homeTable td {
     padding: 10px 0;
-    border-bottom: 0.5px solid gray;
+    border-bottom: 1px solid var(--border-color);
     white-space: nowrap;
 }
 
@@ -208,7 +208,7 @@
 .items,
 #homeTable {
     gap: 15px;
-    border-top: 0.5px solid gray;
+    border-top: 1px solid var(--border-color);
     padding-top: 15px;
 }
 
@@ -350,7 +350,7 @@
     }
 
     .main .actionsItems {
-        border-top: 0.5px solid gray;
+        border-top: 1px solid var(--border-color);
     }
 
     .main .mobileActions {

@@ -84,7 +84,7 @@
     padding: 10px 20px;
     margin: -20px;
     margin-bottom: 0px;
-    border-bottom: 0.5px solid gray;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .modalHeader input[type="text"] {
@@ -112,7 +112,7 @@
 .modalSaveCancel {
     font-size: 0.625rem;
     padding: 2px;
-    border: 0.5px solid gray;
+    border: 1px solid var(--border-color);
     border-radius: 20px;
 }
 
@@ -174,23 +174,16 @@
 .detailsInfo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    border: 0.5px solid var(--secondary-text-color);
-    width: fit-content; 
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.detailsInfo #label {
-    margin-left: 5px;
+    gap: 5px;
 }
 
 .detailsInfo #data {
     width: fit-content;
-    border: 0.5px solid gray;
-    padding: 5px 10px;
+    border: 1px solid var(--border-color);
+    padding: 2.5px 5px;
     border-radius: 5px;
     background-color: var(--accent-color);
+    text-align: center;
 }
 
 .budget {
@@ -201,25 +194,8 @@
 .transactionsInfo,
 .budgetDetails {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
-}
-
-.budgetDetails div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 0.5px solid gray;
-    border-radius: 10px;
-    padding: 5px 5px 5px 10px;
-}
-
-.budgetDetails div p:last-of-type {
-    border: 0.5px solid gray;
-    border-radius: 5px;
-    padding: 5px 10px;
-    background-color: var(--accent-color);
-    text-align: center;
 }
 
 .budgetDonut {
@@ -228,7 +204,7 @@
     align-items: center;
     justify-content: center;
     padding: 15px;
-    border: 0.5px solid gray;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
 }
 

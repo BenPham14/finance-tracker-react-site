@@ -221,13 +221,13 @@ const BudgetDetails = ({data, amount, accounts, transactions, resetDays, budgetC
                                     </div>
                                 </div>
                                 <div className={modalCSS.budgetDetails}>
-                                    <div>
-                                        <p>Categories</p>
-                                        <p>{budgetCategories.join(', ')}</p>
+                                    <div className={modalCSS.detailsInfo}>
+                                        <p id={modalCSS.label}>Categories</p>
+                                        <p id={modalCSS.data}>{budgetCategories.join(', ')}</p>
                                     </div>
-                                    <div>
-                                        <p>Ends in</p>
-                                        <p>{resetDays}</p>
+                                    <div className={modalCSS.detailsInfo}>
+                                        <p id={modalCSS.label}>Ends in</p>
+                                        <p id={modalCSS.data}>{resetDays}</p>
                                     </div>
                                 </div>
                             </>

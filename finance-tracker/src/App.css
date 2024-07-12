@@ -26,6 +26,7 @@
   --save-color-bold: rgb(70, 125, 220);
   --submit-color: black;
   --submit-text-color: white;
+  --border-color: rgb(200, 200, 200);
 }
 
 #dark {
@@ -45,6 +46,7 @@
   --submit-color: gray;
   --submit-text-color: black;
   --date-input-color: dark;
+  --border-color: rgb(100, 100, 100);
 }
 
 body:has(.mainBkgDark) {
