@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins');
+@font-face {
+  font-family: Poppins;
+  src: url(./fonts/Poppins-Regular.ttf);
+}
 
 * {
     box-sizing: border-box;
-    font-family: Poppins;
+    font-family: Poppins, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
 }
 
 /* :root {
