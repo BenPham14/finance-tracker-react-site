@@ -65,6 +65,7 @@ const NewUser = ({setShowNewUser, signOutUser}) => {
                         isOpen={categoriesOpen}
                         setIsOpen={setCategoriesOpen}
                         modalOpen={true}
+                        type={"new user"}
                     />
                 </div>
         },

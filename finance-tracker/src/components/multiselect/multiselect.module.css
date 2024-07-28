@@ -1,5 +1,6 @@
 .optionsDiv {
     font-size: 0.875rem;
+    position: relative;
 }
 
 .optionsSelected {
@@ -12,7 +13,7 @@
 }
 
 .options {
-    position: fixed;
+    /* -- position: absolute/fixed decided in Multiselect.js -- */
     background-color: rgba(49, 46, 53, 0.85);
     backdrop-filter: blur(10px);
     padding: 5px 10px;

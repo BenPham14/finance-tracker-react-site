@@ -2,7 +2,7 @@ import multiselectCSS from "./multiselect.module.css";
 import Checkbox from "./Checkbox";
 import { VscChevronDown } from "react-icons/vsc";
 
-const Multiselect = ({data, value, setValue, isOpen, setIsOpen, modalOpen, hideLabel}) => {
+const Multiselect = ({data, value, setValue, isOpen, setIsOpen, modalOpen, hideLabel, type}) => {
     const changePlaceholderColor = (value) => {
         if (value === "" || value.length === 0) {
             return "gray";
@@ -21,7 +21,13 @@ const Multiselect = ({data, value, setValue, isOpen, setIsOpen, modalOpen, hideL
                 <p style={{color: changePlaceholderColor(value)}}>{label()} {value.length}</p>
                 <VscChevronDown style={{color: changePlaceholderColor(value)}}/>
             </div>
-            <div className={multiselectCSS.options} style={{display: !isOpen && "none"}}>
+            <div 
+                className={multiselectCSS.options} 
+                style={{
+                    display: !isOpen && "none", 
+                    position: type === "new user" ? "absolute" : "fixed"
+                }}
+            >
                 {data.map((dataValue, index) => (
                     <div key={index}>
                         <Checkbox 
