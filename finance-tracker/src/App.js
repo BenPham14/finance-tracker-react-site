@@ -1,9 +1,9 @@
-import Home from './pages/home/index.js';
 import './App.css';
 import { HashRouter, Route, Routes } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { useState } from 'react';
-import Main from './pages/main/index.js';
+import Home from './pages/home/Home.js';
+import Main from './pages/main/Main.js';
+import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 

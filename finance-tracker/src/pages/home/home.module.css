@@ -515,8 +515,8 @@
         }
 
         #accountImg #imagePopUp {
-            animation-range-start: entry 160%;
-            animation-range-end: entry 210%;
+            animation-range-start: entry 170%;
+            animation-range-end: entry 220%;
         }
 
         #budgetImg #imagePopUp {
@@ -525,8 +525,8 @@
         }
 
         #categoriesImg #imagePopUp {
-            animation-range-start: entry 190%;
-            animation-range-end: entry 240%;
+            animation-range-start: entry 210%;
+            animation-range-end: entry 260%;
         }
 
         #summaryImg #imagePopUp {

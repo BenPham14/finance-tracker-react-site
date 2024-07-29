@@ -5,7 +5,7 @@ import Summary from './summary/Summary.js';
 import Transactions from './transactions/Transactions.js';
 import Categories from './categories/Categories.js';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { auth, db } from '../../config/firebase';
+import { auth, db } from '../../config/firebase.js';
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { convertTimestampToDate } from '../../context/helper.js';
