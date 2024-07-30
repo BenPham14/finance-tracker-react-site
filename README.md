@@ -7,9 +7,9 @@ https://finance-tracker-site-bb8b3.web.app/
 [Notion Finance Tracker](https://www.notion.so/templates/notion-finance-tracker-2)
 
 ## Docs
-[Firestore](https://firebase.google.com/docs/firestore)
-[react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2)
-[react-toastify](https://www.npmjs.com/package/react-toastify)
+* [Firestore](https://firebase.google.com/docs/firestore)
+* [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2)
+* [react-toastify](https://www.npmjs.com/package/react-toastify)
 
 ## Screenshots
 ### Web:
