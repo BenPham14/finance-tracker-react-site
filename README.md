@@ -1,4 +1,4 @@
-![Screenshot_29-7-2024_21832_finance-tracker-site-bb8b3 web app](https://github.com/user-attachments/assets/3317dac2-ddbe-413f-990a-ee12e478d4ae)# Finance Tracker Webapp
+# Finance Tracker Webapp
 This is a financial tracker webapp. The purpose of this project was learn more about React.js, Firebase, and user logins/authentication.
 
 https://finance-tracker-site-bb8b3.web.app/
