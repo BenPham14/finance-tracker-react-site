@@ -21,6 +21,7 @@
     border-radius: 5px;
     border: 0.5px solid gray;
     margin-top: 5px;
+    z-index: 1;
     /* box-shadow: rgba(0, 0, 0, 0.25) 0px 0px 3px 0px; */
     /* max-width: 240px; */
 }
